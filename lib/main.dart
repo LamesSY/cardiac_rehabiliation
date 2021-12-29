@@ -1,4 +1,5 @@
 import 'package:cardiac_rehabilitation/constants.dart';
+import 'package:cardiac_rehabilitation/controllers/dashboard_controller.dart';
 import 'package:cardiac_rehabilitation/controllers/menu_controller.dart';
 import 'package:cardiac_rehabilitation/pages/main/page_main.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light().copyWith(
-        scaffoldBackgroundColor: bgColor2,
         textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
             .apply(bodyColor: Colors.black),
       ),
@@ -24,6 +24,9 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(
             create: (context) => MenuController(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => DashboardController(),
           ),
         ],
         child: MainPage(),

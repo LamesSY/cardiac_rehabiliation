@@ -1,3 +1,4 @@
+import 'package:cardiac_rehabilitation/constants.dart';
 import 'package:cardiac_rehabilitation/model/manager_search_result.dart';
 import 'package:flutter/material.dart';
 
@@ -6,38 +7,81 @@ class ResultTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(
-            Radius.circular(10),
-          ),
-          color: Colors.white),
-      child: DataTable(
-        columns: List.generate(
-          tableHead.length,
-          (index) => DataColumn(
-            label: Container(
-              child: Text(tableHead[index]),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        SizedBox(
+          width: double.infinity,
+          child: DataTable(
+            decoration: cirBoxDecoration(),
+            columns: List.generate(
+              tableHead.length,
+              (index) => DataColumn(
+                label: Container(
+                  child: Text(tableHead[index]),
+                ),
+              ),
+            ),
+            rows: List.generate(
+              managerList.length,
+              (index) => DataRow(
+                cells: [
+                  DataCell(Text("${managerList[index].userId}")),
+                  DataCell(Text(managerList[index].name)),
+                  DataCell(Text(managerList[index].phoneNum)),
+                  DataCell(Text(managerList[index].dep)),
+                  DataCell(Text(managerList[index].role)),
+                  DataCell(Text(managerList[index].date)),
+                  DataCell(Text(managerList[index].status)),
+                  DataCell(Row(
+                    children: [
+                      ElevatedButton(onPressed: () {}, child: Text("编辑")),
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.more_vert),
+                        splashRadius: 12,
+                      )
+                    ],
+                  )),
+                ],
+              ),
             ),
           ),
         ),
-        rows: List.generate(
-          managerList.length,
-          (index) => DataRow(
-            cells: [
-              DataCell(Text("${managerList[index].userId}")),
-              DataCell(Text(managerList[index].name)),
-              DataCell(Text(managerList[index].phoneNum)),
-              DataCell(Text(managerList[index].dep)),
-              DataCell(Text(managerList[index].role)),
-              DataCell(Text(managerList[index].date)),
-              DataCell(Text(managerList[index].status)),
-              DataCell(Text("随便啦")),
+        const SizedBox(height: defaultPadding * 2),
+        Container(
+          decoration: cirBoxDecoration(),
+          child: Row(
+            children: [
+              IconButton(
+                icon: Icon(Icons.keyboard_arrow_left),
+                onPressed: () {},
+                splashRadius: 1,
+              ),
+              RawMaterialButton(
+                onPressed: () {},
+                child: Text("1"),
+                constraints: const BoxConstraints(minWidth: defaultPadding),
+              ),
+              RawMaterialButton(
+                onPressed: () {},
+                child: Text("2"),
+                constraints: const BoxConstraints(minWidth: defaultPadding),
+              ),
+              RawMaterialButton(
+                onPressed: () {},
+                child: Text("3"),
+                constraints: const BoxConstraints(minWidth: defaultPadding),
+              ),
+              IconButton(
+                icon: Icon(Icons.keyboard_arrow_right),
+                onPressed: () {},
+                splashRadius: 1,
+              ),
             ],
           ),
-        ),
-      ),
+        )
+      ],
     );
   }
 }

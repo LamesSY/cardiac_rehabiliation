@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:cardiac_rehabilitation/constants.dart';
 import 'package:cardiac_rehabilitation/controllers/menu_controller.dart';
 import 'package:cardiac_rehabilitation/responsive.dart';
@@ -29,10 +27,7 @@ class CusAppBar extends StatelessWidget implements PreferredSizeWidget {
         top: true,
         child: Stack(
           children: [
-            BarHead(
-              title: title,
-              //onPress: context.read<MenuController>().controlMenu,
-            ),
+            BarHead(title),
             BarTrail(userName: userName, avatarUri: avatarUri)
           ],
         ),
@@ -45,11 +40,9 @@ class CusAppBar extends StatelessWidget implements PreferredSizeWidget {
 }
 
 class BarHead extends StatelessWidget {
-  const BarHead({Key key, @required this.title, this.onPress})
-      : super(key: key);
+  const BarHead(this.title, {Key key}) : super(key: key);
 
   final String title;
-  final VoidCallback onPress;
 
   @override
   Widget build(BuildContext context) {

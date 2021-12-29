@@ -1,7 +1,10 @@
+import 'package:cardiac_rehabilitation/constants.dart';
+import 'package:cardiac_rehabilitation/controllers/dashboard_controller.dart';
 import 'package:cardiac_rehabilitation/controllers/menu_controller.dart';
 import 'package:cardiac_rehabilitation/pages/components/app_bar.dart';
-import 'package:cardiac_rehabilitation/pages/components/manage_manager_card.dart';
+import 'package:cardiac_rehabilitation/pages/system_manage/department_manager.dart';
 import 'package:cardiac_rehabilitation/pages/components/side_menu.dart';
+import 'package:cardiac_rehabilitation/pages/system_manage/manage_manager_card.dart';
 import 'package:cardiac_rehabilitation/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +32,21 @@ class MainPage extends StatelessWidget {
                 const Expanded(flex: 5, child: SideMenu()),
               Expanded(
                 flex: 23,
-                child: ManageManagerCard(),
+                //child: ManageManagerCard(),
+                child: ChangeNotifierProvider<DashboardController>(
+                  create: (context) => DashboardController(),
+                  child: Padding(
+                    padding: const EdgeInsets.all(defaultPadding),
+                    child: Consumer<DashboardController>(
+                        builder: (context, notifer, child) {
+                      if (notifer.flag == PageFlag.manageManager) {
+                        return ManageManagerCard();
+                      } else {
+                        return DepManageDashboard();
+                      }
+                    }),
+                  ),
+                ),
               ),
             ],
           ),

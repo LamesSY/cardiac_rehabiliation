@@ -11,3 +11,17 @@ const appBarHeight = 55.0;
 const primaryTextFontSize = 16.0;
 
 const bgColor2 = Color(0xFFF6F6F6);
+
+BoxDecoration cirBoxDecoration(
+    {double radius = 10, Color color = Colors.white}) {
+  return BoxDecoration(
+    borderRadius: BorderRadius.all(Radius.circular(radius)),
+    color: color,
+  );
+}
+
+enum PageFlag {
+  none,
+  manageManager,
+  manageDep,
+}

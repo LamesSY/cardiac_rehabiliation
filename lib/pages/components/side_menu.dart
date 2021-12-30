@@ -1,7 +1,9 @@
 import 'package:cardiac_rehabilitation/constants.dart';
+import 'package:cardiac_rehabilitation/controllers/dashboard_controller.dart';
 import 'package:cardiac_rehabilitation/model/menu_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({Key key}) : super(key: key);
@@ -9,19 +11,34 @@ class SideMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      elevation: 1,
       backgroundColor: Colors.white,
       child: SingleChildScrollView(
-        child: Column(
+        child: Container(
+          decoration: const BoxDecoration(
+            border: Border(
+              top: BorderSide(color: dashBoardBgColor, width: 1),
+            ),
+          ),
+          child: Column(
             children: List.generate(
-          menus.length,
-          (index) {
-            if (menus[index].subMenuList != null) {
-              return ExpansionDrawerList(menuInfo: menus[index]);
-            } else {
-              return DrawerListTtile(title: menus[index].title, press: () {});
-            }
-          },
-        )),
+              menus.length,
+              (index) {
+                if (menus[index].subMenuList != null) {
+                  return ExpansionDrawerList(menuInfo: menus[index]);
+                }
+                return DrawerListTtile(
+                  title: menus[index].title,
+                  press: () {
+                    context
+                        .read<DashboardController>()
+                        .changePage(PageFlag.managePatient);
+                  },
+                );
+              },
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -40,7 +57,6 @@ class ExpansionDrawerList extends StatelessWidget {
     return ExpansionTile(
       leading: SvgPicture.asset(menuInfo.leading),
       trailing: trailing,
-      //childrenPadding: const EdgeInsets.only(left: defaultPadding * 4),
       title: Text(
         menuInfo.title,
         textAlign: TextAlign.start,
@@ -48,7 +64,6 @@ class ExpansionDrawerList extends StatelessWidget {
         overflow: TextOverflow.ellipsis,
         style: const TextStyle(fontSize: 14),
       ),
-
       children: List.generate(
         menuInfo.subMenuList == null ? 0 : menuInfo.subMenuList.length,
         (index) => ListTile(
@@ -58,7 +73,11 @@ class ExpansionDrawerList extends StatelessWidget {
             textAlign: TextAlign.center,
             style: const TextStyle(fontSize: 14),
           ),
-          onTap: () {},
+          onTap: () {
+            context
+                .read<DashboardController>()
+                .changePage(menuInfo.subMenuList[index].flag);
+          },
         ),
       ),
     );
@@ -81,7 +100,7 @@ class DrawerListTtile extends StatelessWidget {
       onTap: press,
       horizontalTitleGap: 0.0,
       leading: SvgPicture.asset("icons/ic_Dashboard.svg"),
-      //contentPadding: EdgeInsets.symmetric(horizontal: defaultPadding),
+      selectedColor: Colors.blueAccent,
       title: Container(
         margin: const EdgeInsets.only(left: defaultPadding),
         child: Text(

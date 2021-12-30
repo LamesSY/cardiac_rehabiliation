@@ -1,7 +1,7 @@
 import 'package:cardiac_rehabilitation/constants.dart';
 import 'package:cardiac_rehabilitation/controllers/dashboard_controller.dart';
 import 'package:cardiac_rehabilitation/controllers/menu_controller.dart';
-import 'package:cardiac_rehabilitation/pages/main/page_main.dart';
+import 'package:cardiac_rehabilitation/pages/page_main.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -22,12 +22,8 @@ class MyApp extends StatelessWidget {
       title: 'Material App',
       home: MultiProvider(
         providers: [
-          ChangeNotifierProvider(
-            create: (context) => MenuController(),
-          ),
-          ChangeNotifierProvider(
-            create: (context) => DashboardController(),
-          ),
+          ChangeNotifierProvider(create: (context) => MenuController()),
+          ChangeNotifierProvider(create: (context) => DashboardController()),
         ],
         child: MainPage(),
       ),

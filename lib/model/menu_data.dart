@@ -1,3 +1,5 @@
+import 'package:cardiac_rehabilitation/constants.dart';
+
 class MenuInfo {
   final String leading, title;
   final List<SubMenuInfo> subMenuList;
@@ -11,7 +13,8 @@ class MenuInfo {
 
 class SubMenuInfo {
   final String subTitle;
-  SubMenuInfo({this.subTitle});
+  final PageFlag flag;
+  SubMenuInfo(this.subTitle, this.flag);
 }
 
 List<MenuInfo> menus = [
@@ -23,22 +26,22 @@ List<MenuInfo> menus = [
 ];
 
 List<SubMenuInfo> manageSubMenus = [
-  SubMenuInfo(subTitle: "管理员管理"),
-  SubMenuInfo(subTitle: "科室管理"),
+  SubMenuInfo("管理员管理", PageFlag.manageManager),
+  SubMenuInfo("科室管理", PageFlag.manageDep),
 ];
 
 List<SubMenuInfo> workSubMenus = [
-  SubMenuInfo(subTitle: "运动评估"),
-  SubMenuInfo(subTitle: "运动处方"),
-  SubMenuInfo(subTitle: "康复运动"),
+  SubMenuInfo("运动评估", PageFlag.sportAssess),
+  SubMenuInfo("运动处方", PageFlag.sportMethod),
+  SubMenuInfo("康复运动", PageFlag.reSport),
 ];
 
 List<SubMenuInfo> appointmentSubMenus = [
-  SubMenuInfo(subTitle: "运动预约评估"),
-  SubMenuInfo(subTitle: "康复运动预约"),
+  SubMenuInfo("运动预约评估", PageFlag.appointSportAssess),
+  SubMenuInfo("康复运动预约", PageFlag.appointReSport),
 ];
 
 List<SubMenuInfo> schedulingSubMenus = [
-  SubMenuInfo(subTitle: "运动评估排班"),
-  SubMenuInfo(subTitle: "康复运动排班"),
+  SubMenuInfo("运动评估排班", PageFlag.sportAssessPlan),
+  SubMenuInfo("康复运动排班", PageFlag.reSportPlan),
 ];

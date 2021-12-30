@@ -8,5 +8,6 @@ class DashboardController extends ChangeNotifier {
 
   void changePage(PageFlag flag) {
     _flag = flag;
+    notifyListeners();
   }
 }

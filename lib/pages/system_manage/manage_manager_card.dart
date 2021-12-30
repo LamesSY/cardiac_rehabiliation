@@ -13,7 +13,7 @@ class ManageManagerCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: SingleChildScrollView(
-        padding: const EdgeInsets.all(defaultPadding),
+        //padding: const EdgeInsets.all(defaultPadding),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

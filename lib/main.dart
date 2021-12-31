@@ -1,4 +1,3 @@
-import 'package:cardiac_rehabilitation/constants.dart';
 import 'package:cardiac_rehabilitation/controllers/dashboard_controller.dart';
 import 'package:cardiac_rehabilitation/controllers/menu_controller.dart';
 import 'package:cardiac_rehabilitation/pages/page_main.dart';

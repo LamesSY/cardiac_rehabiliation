@@ -12,24 +12,27 @@ class ManageManagerCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      top: true,
       child: SingleChildScrollView(
-        //padding: const EdgeInsets.all(defaultPadding),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text("管理员管理"),
-            const SizedBox(height: defaultPadding),
-            ElevatedButton.icon(
-              onPressed: () {},
-              icon: const Icon(Icons.add),
-              label: Text("新增用户"),
-            ),
-            const SizedBox(height: defaultPadding),
-            UserSearchCard(),
-            const SizedBox(height: defaultPadding),
-            ResultTable()
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("管理员管理"),
+              const SizedBox(height: defaultPadding),
+              ElevatedButton.icon(
+                onPressed: () {},
+                icon: const Icon(Icons.add),
+                label: Text("新增用户"),
+              ),
+              const SizedBox(height: defaultPadding),
+              UserSearchCard(),
+              const SizedBox(height: defaultPadding),
+              ResultTable()
+            ],
+          ),
         ),
       ),
     );

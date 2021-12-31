@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="44px" height="44px" viewBox="0 0 44 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>yiwancheng</title>
+    <g id="工作台" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="工作台_运动评估_统计" transform="translate(-1060.000000, -183.000000)">
+            <g id="编组-2备份-4" transform="translate(1040.000000, 145.000000)">
+                <g id="yiwancheng" transform="translate(20.000000, 38.000000)">
+                    <rect id="矩形" fill="#E4FFE1" x="0" y="0" width="44" height="44" rx="22"></rect>
+                    <path d="M22,30 C17.5815,30 14,26.4185 14,22 C14,17.5815 17.5815,14 22,14 C26.4185,14 30,17.5815 30,22 C30,26.4185 26.4185,30 22,30 Z M21.2255,24.107 L18.9365,21.791 L17.4285,23.2325 C18.5255,23.8225 20.0635,24.9015 21.38,26.5715 C22.31,24.8225 25.177,21.245 26.5715,20.9265 C26.3465,20.0245 26.219,18.3325 26.5715,17.4285 C23.7115,19.3145 21.2255,24.107 21.2255,24.107 Z" id="形状" fill="#64CD5F" fill-rule="nonzero"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -5,7 +5,7 @@ class MenuInfo {
   final List<SubMenuInfo> subMenuList;
 
   MenuInfo({
-    this.leading = "icons/ic_Dashboard.svg",
+    this.leading = "assets/icons/ic_Dashboard.svg",
     this.title,
     this.subMenuList,
   });

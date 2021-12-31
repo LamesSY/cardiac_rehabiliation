@@ -1,6 +1,7 @@
 import 'package:cardiac_rehabilitation/constants.dart';
 import 'package:cardiac_rehabilitation/controllers/dashboard_controller.dart';
 import 'package:cardiac_rehabilitation/model/menu_data.dart';
+import 'package:cardiac_rehabilitation/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +16,9 @@ class SideMenu extends StatelessWidget {
       backgroundColor: Colors.white,
       child: SingleChildScrollView(
         child: Container(
+          margin: Responsive.isMobile(context) == true
+              ? const EdgeInsets.only(top: 20)
+              : EdgeInsets.zero,
           decoration: const BoxDecoration(
             border: Border(
               top: BorderSide(color: dashBoardBgColor, width: 1),
@@ -68,10 +72,13 @@ class ExpansionDrawerList extends StatelessWidget {
         menuInfo.subMenuList == null ? 0 : menuInfo.subMenuList.length,
         (index) => ListTile(
           horizontalTitleGap: 0.0,
-          title: Text(
-            menuInfo.subMenuList[index].subTitle,
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 14),
+          title: Padding(
+            padding: const EdgeInsets.only(left: 70),
+            child: Text(
+              menuInfo.subMenuList[index].subTitle,
+              textAlign: TextAlign.start,
+              style: const TextStyle(fontSize: 14),
+            ),
           ),
           onTap: () {
             context
@@ -99,7 +106,7 @@ class DrawerListTtile extends StatelessWidget {
     return ListTile(
       onTap: press,
       horizontalTitleGap: 0.0,
-      leading: SvgPicture.asset("icons/ic_Dashboard.svg"),
+      leading: SvgPicture.asset("assets/icons/ic_Dashboard.svg"),
       selectedColor: Colors.blueAccent,
       title: Container(
         margin: const EdgeInsets.only(left: defaultPadding),

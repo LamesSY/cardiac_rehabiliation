@@ -32,10 +32,7 @@ class MainPage extends StatelessWidget {
                 const Expanded(flex: 5, child: SideMenu()),
               const Expanded(
                 flex: 23,
-                child: Padding(
-                  padding: EdgeInsets.all(defaultPadding * 1.5),
-                  child: DashBoard(),
-                ),
+                child: DashBoard(),
               ),
             ],
           ),

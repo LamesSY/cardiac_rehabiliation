@@ -22,7 +22,6 @@ class CusAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Container(
       color: bgColor,
-      height: 55,
       child: SafeArea(
         top: true,
         child: Stack(
@@ -53,7 +52,8 @@ class BarHead extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            margin: const EdgeInsets.only(left: defaultPadding),
+            margin: const EdgeInsets.only(
+                left: defaultPadding, top: 10, bottom: 10),
             width: 21,
             height: 21,
             decoration: const BoxDecoration(
@@ -65,12 +65,13 @@ class BarHead extends StatelessWidget {
               title,
               style: Theme.of(context).textTheme.subtitle1,
             ),
-            margin: const EdgeInsets.only(left: 5, right: 20),
+            margin:
+                const EdgeInsets.only(left: 5, right: 20, top: 10, bottom: 10),
           ),
           if (!Responsive.isDesktop(context))
             InkWell(
               child: SvgPicture.asset(
-                "icons/navigation_show.svg",
+                "assetes/icons/navigation_show.svg",
                 width: 24,
                 height: 24,
               ),

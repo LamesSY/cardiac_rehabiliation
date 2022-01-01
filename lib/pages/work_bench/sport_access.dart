@@ -24,7 +24,7 @@ class SportAccess extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     "部门名称",
                     style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
                   ),
@@ -34,7 +34,7 @@ class SportAccess extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(5),
                       child: Row(
-                        children: [
+                        children: const [
                           Text(
                             "日期: 2021年11月30日",
                             style: TextStyle(color: Colors.grey, fontSize: 14),
@@ -58,14 +58,14 @@ class SportAccess extends StatelessWidget {
               const SizedBox(height: defaultPadding),
               if (Responsive.isMobile(context))
                 Container(
-                  margin: const EdgeInsets.only(bottom: 10),
-                  decoration: cirBoxDecoration(radius: 16, color: Colors.grey),
-                  height: 200,
-                ),
+                    margin: EdgeInsets.only(bottom: 10),
+                    height: 200,
+                    child: ReceptionLineChart()),
               if (Responsive.isMobile(context)) DataStatistics(),
               if (Responsive.isMobile(context)) GenderDistribution(),
               if (!Responsive.isMobile(context))
-                SizedBox(
+                Container(
+                  margin: const EdgeInsets.only(top: 40),
                   height: 500,
                   child: Row(
                     children: [
@@ -76,15 +76,11 @@ class SportAccess extends StatelessWidget {
                       const SizedBox(width: defaultPadding),
                       Expanded(
                         flex: 10,
-                        child: Container(
-                          decoration: cirBoxDecoration(
-                              radius: 16, color: dashBoardBgColor),
-                          child: Column(
-                            children: const [
-                              DataStatistics(),
-                              Expanded(child: GenderDistribution())
-                            ],
-                          ),
+                        child: Column(
+                          children: const [
+                            Expanded(flex: 1, child: DataStatistics()),
+                            Expanded(flex: 1, child: GenderDistribution())
+                          ],
                         ),
                       )
                     ],

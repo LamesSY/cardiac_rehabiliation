@@ -10,9 +10,11 @@ class DataStatistics extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 250,
       margin: const EdgeInsets.only(bottom: 10),
       decoration: cirBoxDecoration(radius: 16),
       child: Column(
+        //mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Padding(
@@ -38,34 +40,36 @@ class DataStatistics extends StatelessWidget {
               style: TextStyle(fontSize: 12, color: Colors.grey),
             ),
           ),
-          GridView.count(
-            physics: NeverScrollableScrollPhysics(),
-            crossAxisSpacing: 2,
-            shrinkWrap: true,
-            childAspectRatio: 2,
-            crossAxisCount: 2,
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [Text("2"), Text("今日")],
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [Text("14"), Text("昨日")],
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [Text("76"), Text("近7日")],
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [Text("5521"), Text("累计")],
-              ),
-            ],
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Spacer(),
+                    Text("0", style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text("今日"),
+                    Spacer(),
+                    Text("86", style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text("近7日"),
+                    Spacer(),
+                  ],
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Spacer(),
+                    Text("17", style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text("昨日"),
+                    Spacer(),
+                    Text("785", style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text("累计"),
+                    Spacer(),
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
       ),

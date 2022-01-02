@@ -1,5 +1,6 @@
 import 'package:cardiac_rehabilitation/constants.dart';
 import 'package:cardiac_rehabilitation/model/sport_access.dart';
+import 'package:cardiac_rehabilitation/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -13,7 +14,7 @@ class AccessCard extends StatelessWidget {
       child: Row(
         children: [
           SvgPicture.asset("assets/icons/ic_add_circle_tran.svg"),
-          Text("快速建档")
+          const Text("快速建档", style: TextStyle(fontSize: 20))
         ],
       ),
     );
@@ -26,6 +27,7 @@ class SportAccessCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Size _size = MediaQuery.of(context).size;
     return TextButton(
       style: TextButton.styleFrom(
         backgroundColor: sportAccess.bgColor,
@@ -49,6 +51,7 @@ class SportAccessCard extends StatelessWidget {
                     "44",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
+                        fontSize: _size.width > 1400 ? 30 : 15,
                         color: sportAccess.bgColor == Colors.white
                             ? Colors.black
                             : Colors.white),
@@ -56,10 +59,11 @@ class SportAccessCard extends StatelessWidget {
                 Text(
                   sportAccess.subTitle,
                   style: TextStyle(
+                      fontSize: _size.width > 1400 ? 18 : 14,
                       color: sportAccess.bgColor == Colors.white
                           ? Colors.black
                           : Colors.white),
-                )
+                ),
               ],
             ),
           ),

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
@@ -25,7 +27,7 @@ class DataStatistics extends StatelessWidget {
             ),
             child: Text(
               "数据统计",
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
           ),
           Divider(color: Colors.grey.shade300, height: 1),
@@ -33,11 +35,11 @@ class DataStatistics extends StatelessWidget {
             padding: EdgeInsets.only(
               left: 20,
               top: 10,
-              bottom: 15,
+              bottom: 10,
             ),
             child: Text(
               "运动评估并开处方患者统计",
-              style: TextStyle(fontSize: 12, color: Colors.grey),
+              style: TextStyle(fontSize: 16, color: Colors.grey),
             ),
           ),
           Expanded(
@@ -48,11 +50,17 @@ class DataStatistics extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
                     Spacer(),
-                    Text("0", style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text("今日"),
+                    Text("0",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20)),
+                    Text("今日",
+                        style: TextStyle(color: Colors.grey, fontSize: 18)),
                     Spacer(),
-                    Text("86", style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text("近7日"),
+                    Text("86",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20)),
+                    Text("近7日",
+                        style: TextStyle(color: Colors.grey, fontSize: 18)),
                     Spacer(),
                   ],
                 ),
@@ -60,11 +68,17 @@ class DataStatistics extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
                     Spacer(),
-                    Text("17", style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text("昨日"),
+                    Text("17",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20)),
+                    Text("昨日",
+                        style: TextStyle(color: Colors.grey, fontSize: 18)),
                     Spacer(),
-                    Text("785", style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text("累计"),
+                    Text("785",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20)),
+                    Text("累计",
+                        style: TextStyle(color: Colors.grey, fontSize: 18)),
                     Spacer(),
                   ],
                 ),

@@ -20,6 +20,16 @@ BoxDecoration cirBoxDecoration(
   );
 }
 
+InputDecoration inputWithBorder = InputDecoration(
+  isCollapsed: true,
+  contentPadding: const EdgeInsets.all(15),
+  border: OutlineInputBorder(
+    gapPadding: 1,
+    borderRadius: BorderRadius.circular(10),
+    borderSide: BorderSide(width: 0.1, color: Colors.grey.shade100),
+  ),
+);
+
 enum PageFlag {
   none,
   manageManager,

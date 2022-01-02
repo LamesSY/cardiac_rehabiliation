@@ -20,6 +20,7 @@ class SportAccess extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -50,7 +51,7 @@ class SportAccess extends StatelessWidget {
               Responsive(
                 mobile: SportAccessGridView(
                   crossAxisCount: _size.width < 600 ? 2 : 4,
-                  childAspectRatio: _size.width < 600 ? 1.5 : 2,
+                  childAspectRatio: _size.width < 600 ? 2.5 : 2,
                 ),
                 tablet: SportAccessGridView(crossAxisCount: 5),
                 desktop: SportAccessGridView(crossAxisCount: 5),
@@ -59,7 +60,7 @@ class SportAccess extends StatelessWidget {
               if (Responsive.isMobile(context))
                 Container(
                     margin: EdgeInsets.only(bottom: 10),
-                    height: 200,
+                    height: 240,
                     child: ReceptionLineChart()),
               if (Responsive.isMobile(context)) DataStatistics(),
               if (Responsive.isMobile(context)) GenderDistribution(),

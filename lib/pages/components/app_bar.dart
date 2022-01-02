@@ -71,7 +71,7 @@ class BarHead extends StatelessWidget {
           if (!Responsive.isDesktop(context))
             InkWell(
               child: SvgPicture.asset(
-                "assetes/icons/navigation_show.svg",
+                "assets/icons/navigation_show.svg",
                 width: 24,
                 height: 24,
               ),

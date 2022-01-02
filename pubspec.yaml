@@ -39,6 +39,7 @@ dependencies:
   flutter_svg: ^0.22.0
   fl_chart: ^0.40.6
   provider: ^5.0.0
+  get: ^4.6.1
 
 dev_dependencies:
   flutter_test:

@@ -32,15 +32,15 @@ List<ManagerInfo> managerList = [
       dep: "心血管科",
       role: "医生",
       date: "2021-12-12",
-      status: "禁用"),
+      status: "已禁用"),
   ManagerInfo(
       userId: 1,
-      name: "里精明",
+      name: "张医生",
       phoneNum: "1384212344",
       dep: "脑科",
       role: "医生",
       date: "2021-12-12",
-      status: "启用"),
+      status: "已启用"),
   ManagerInfo(
       userId: 2,
       name: "王磊",
@@ -48,7 +48,7 @@ List<ManagerInfo> managerList = [
       dep: "儿科",
       role: "医生",
       date: "2021-12-12",
-      status: "禁用"),
+      status: "已禁用"),
   ManagerInfo(
       userId: 3,
       name: "刘主任",
@@ -56,5 +56,5 @@ List<ManagerInfo> managerList = [
       dep: "五官科",
       role: "医生",
       date: "2021-12-12",
-      status: "启用"),
+      status: "已启用"),
 ];

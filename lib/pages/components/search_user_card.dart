@@ -12,30 +12,27 @@ class UserSearchCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(top: defaultPadding),
-      //height: 100,
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(
-          Radius.circular(10),
-        ),
-      ),
+      decoration: cirBoxDecoration(radius: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(
-            child: UserSearchGridView(),
+          const Expanded(
+            child: UserSearchWrap(),
             flex: 9,
           ),
           Expanded(
             flex: 0,
             child: Container(
-              margin: EdgeInsets.symmetric(horizontal: defaultPadding),
+              margin: const EdgeInsets.symmetric(horizontal: defaultPadding),
               child: ElevatedButton(
                 onPressed: () {},
-                child: Text(
-                  "搜索",
-                  maxLines: 1,
-                  textAlign: TextAlign.center,
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+                  child: Text(
+                    "搜索",
+                    maxLines: 1,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ),
             ),
@@ -46,15 +43,15 @@ class UserSearchCard extends StatelessWidget {
   }
 }
 
-class UserSearchGridView extends StatelessWidget {
-  const UserSearchGridView({
+class UserSearchWrap extends StatelessWidget {
+  const UserSearchWrap({
     Key key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(defaultPadding),
+      padding: const EdgeInsets.all(defaultPadding),
       child: Wrap(
         spacing: defaultPadding,
         runSpacing: defaultPadding,
@@ -84,14 +81,15 @@ class SearchInputField extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(title),
+        Text(title, style: const TextStyle(fontSize: 16)),
         Container(
           margin: const EdgeInsets.only(left: defaultPadding),
           width: 200,
-          height: 35,
           child: TextField(
-            style: const TextStyle(fontSize: 14),
+            style: const TextStyle(fontSize: 16),
             decoration: InputDecoration(
+              isCollapsed: true,
+              contentPadding: const EdgeInsets.all(15),
               border: const OutlineInputBorder(
                 gapPadding: 1,
                 borderSide: BorderSide(width: 0.1),

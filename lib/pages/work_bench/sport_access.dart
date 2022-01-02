@@ -5,7 +5,6 @@ import 'package:cardiac_rehabilitation/pages/components/gender_distribution_pie_
 import 'package:cardiac_rehabilitation/pages/components/reception_line_chart.dart';
 import 'package:cardiac_rehabilitation/pages/components/sport_access_data_statis.dart';
 import 'package:cardiac_rehabilitation/responsive.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class SportAccess extends StatelessWidget {
@@ -51,7 +50,7 @@ class SportAccess extends StatelessWidget {
               Responsive(
                 mobile: SportAccessGridView(
                   crossAxisCount: _size.width < 600 ? 2 : 4,
-                  childAspectRatio: _size.width < 600 ? 2.5 : 2,
+                  childAspectRatio: _size.width < 600 ? 1.8 : 2,
                 ),
                 tablet: SportAccessGridView(crossAxisCount: 5),
                 desktop: SportAccessGridView(crossAxisCount: 5),

@@ -1,7 +1,9 @@
 import 'package:cardiac_rehabilitation/controllers/dashboard_controller.dart';
+import 'package:cardiac_rehabilitation/pages/appoint_rehabilitation/sport_access_appointment.dart';
 import 'package:cardiac_rehabilitation/pages/system_manage/department_manager.dart';
 import 'package:cardiac_rehabilitation/pages/system_manage/manage_manager_card.dart';
 import 'package:cardiac_rehabilitation/pages/work_bench/sport_access.dart';
+import 'package:cardiac_rehabilitation/pages/work_bench/sport_recipe.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,14 +19,19 @@ class DashBoard extends StatelessWidget {
     return Consumer<DashboardController>(builder: (context, notifer, child) {
       switch (notifer.flag) {
         case PageFlag.manageManager:
-          return const ManageManagerCard();
+          return ManageManagerCard();
           break;
         case PageFlag.manageDep:
-          return const DepManageDashboard();
+          return DepManageDashboard();
           break;
         case PageFlag.sportAssess:
-          return const SportAccess();
+          return SportAccess();
           break;
+        case PageFlag.sportRecipe:
+          return SportRecipe();
+          break;
+        case PageFlag.appointSportAssess:
+          return SportAccessAppointment();
         default:
           return const ManageManagerCard();
       }

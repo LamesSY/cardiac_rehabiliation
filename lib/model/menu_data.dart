@@ -32,7 +32,7 @@ List<SubMenuInfo> manageSubMenus = [
 
 List<SubMenuInfo> workSubMenus = [
   SubMenuInfo("运动评估", PageFlag.sportAssess),
-  SubMenuInfo("运动处方", PageFlag.sportMethod),
+  SubMenuInfo("运动处方", PageFlag.sportRecipe),
   SubMenuInfo("康复运动", PageFlag.reSport),
 ];
 

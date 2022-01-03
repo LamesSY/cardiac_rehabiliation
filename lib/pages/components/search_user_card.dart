@@ -75,6 +75,36 @@ class SearchInputField extends StatelessWidget {
   final String title;
   final IconData iconData;
 
+  static const statusItems = [
+    DropdownMenuItem(child: Text("已启用"), value: 0),
+    DropdownMenuItem(child: Text("已禁用"), value: 1),
+  ];
+
+  static const roleItems = [
+    DropdownMenuItem(child: Text("护士"), value: 0),
+    DropdownMenuItem(child: Text("医生"), value: 1),
+    DropdownMenuItem(child: Text("康复师"), value: 2),
+  ];
+
+  static const depItems = [
+    DropdownMenuItem(child: Text("心内科"), value: 0),
+    DropdownMenuItem(child: Text("脑科"), value: 1),
+    DropdownMenuItem(child: Text("急诊科"), value: 2),
+  ];
+
+  List<DropdownMenuItem> getItemsByTitle(String title) {
+    switch (title) {
+      case "状态":
+        return statusItems;
+        break;
+      case "角色":
+        return roleItems;
+        break;
+      default:
+        return depItems;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -85,18 +115,31 @@ class SearchInputField extends StatelessWidget {
         Container(
           margin: const EdgeInsets.only(left: defaultPadding),
           width: 200,
-          child: TextField(
-            style: const TextStyle(fontSize: 16),
-            decoration: InputDecoration(
-              isCollapsed: true,
-              contentPadding: const EdgeInsets.all(15),
-              border: const OutlineInputBorder(
-                gapPadding: 1,
-                borderSide: BorderSide(width: 0.1),
-              ),
-              suffixIcon: Icon(iconData),
-            ),
-          ),
+          child: iconData == null
+              ? TextField(
+                  style: const TextStyle(fontSize: 16),
+                  decoration: InputDecoration(
+                    isCollapsed: true,
+                    contentPadding: const EdgeInsets.all(15),
+                    border: const OutlineInputBorder(
+                      gapPadding: 1,
+                      borderSide: BorderSide(width: 0.1),
+                    ),
+                    suffixIcon: Icon(iconData),
+                  ),
+                )
+              : DropdownButtonFormField(
+                  decoration: const InputDecoration(
+                    isCollapsed: true,
+                    contentPadding: EdgeInsets.all(15),
+                    border: OutlineInputBorder(
+                      gapPadding: 1,
+                      borderSide: BorderSide(width: 0.1),
+                    ),
+                  ),
+                  items: getItemsByTitle(title),
+                  onChanged: (value) {},
+                ),
         ),
       ],
     );

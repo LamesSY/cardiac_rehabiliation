@@ -1,14 +1,15 @@
-import 'package:cardiac_rehabilitation/constants.dart';
 import 'package:cardiac_rehabilitation/model/sport_access.dart';
 import 'package:cardiac_rehabilitation/pages/components/gender_distribution_pie_chart.dart';
 import 'package:cardiac_rehabilitation/pages/components/reception_line_chart.dart';
 import 'package:cardiac_rehabilitation/pages/components/sport_access_data_statis.dart';
 import 'package:cardiac_rehabilitation/pages/components/work_bench_pre_card.dart';
-import 'package:cardiac_rehabilitation/responsive.dart';
 import 'package:flutter/material.dart';
 
-class SportAccess extends StatelessWidget {
-  const SportAccess({Key key}) : super(key: key);
+import '../../responsive.dart';
+
+class SportRecipe extends StatelessWidget {
+  const SportRecipe({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final Size _size = MediaQuery.of(context).size;
@@ -46,22 +47,22 @@ class SportAccess extends StatelessWidget {
                   )
                 ],
               ),
-              const SizedBox(height: defaultPadding),
+              const SizedBox(height: 15),
               Responsive(
                 mobile: WorkBenchPreGridView(
-                  sportAccessList,
-                  crossAxisCount: _size.width < 600 ? 2 : 4,
+                  sportRecpieList,
+                  crossAxisCount: _size.width < 600 ? 3 : 5,
                   childAspectRatio: _size.width < 600 ? 1.8 : 2,
                 ),
                 tablet:
-                    WorkBenchPreGridView(sportAccessList, crossAxisCount: 5),
+                    WorkBenchPreGridView(sportRecpieList, crossAxisCount: 5),
                 desktop:
-                    WorkBenchPreGridView(sportAccessList, crossAxisCount: 5),
+                    WorkBenchPreGridView(sportRecpieList, crossAxisCount: 5),
               ),
-              const SizedBox(height: defaultPadding),
+              const SizedBox(height: 15),
               if (Responsive.isMobile(context))
                 Container(
-                    margin: EdgeInsets.only(bottom: 10),
+                    margin: const EdgeInsets.only(bottom: 10),
                     height: 240,
                     child: ReceptionLineChart()),
               if (Responsive.isMobile(context)) DataStatistics(),
@@ -76,7 +77,7 @@ class SportAccess extends StatelessWidget {
                         flex: 23,
                         child: ReceptionLineChart(),
                       ),
-                      const SizedBox(width: defaultPadding),
+                      const SizedBox(width: 15),
                       Expanded(
                         flex: 10,
                         child: Column(

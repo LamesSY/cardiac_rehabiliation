@@ -19,7 +19,7 @@ class ReceptionLineChart extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.only(left: 20, top: 20, bottom: 15),
             child: Text(
-              "康复运动接诊人数",
+              "运动评估接诊人数",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
           ),

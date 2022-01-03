@@ -69,7 +69,6 @@ class HeadAndData extends StatelessWidget {
         (index) {
           if (index == 0) return const ResultTableHead();
           index -= 1;
-
           return UserDataRow(index);
         },
       ),
@@ -150,12 +149,16 @@ Widget rowData(int dataIndex, int index) {
             ),
           ),
           const SizedBox(width: defaultPadding),
-          InkWell(
-            onTap: () {},
-            child: const Icon(
-              Icons.more_horiz,
-              color: Colors.black,
-            ),
+          PopupMenuButton(
+            tooltip: "",
+            itemBuilder: (context) {
+              return [
+                PopupMenuItem(child: Text("重置密码"), value: 0),
+                PopupMenuItem(child: Text("禁用"), value: 1),
+                PopupMenuItem(child: Text("删除"), value: 2),
+              ];
+            },
+            icon: const Icon(Icons.more_horiz),
           ),
         ],
       );

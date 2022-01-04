@@ -1,7 +1,6 @@
+import 'package:cardiac_rehabilitation/common/cr_styles.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-
-import '../../constants.dart';
 
 class GenderDistribution extends StatelessWidget {
   const GenderDistribution({

@@ -1,11 +1,10 @@
+import 'package:cardiac_rehabilitation/common/cr_colors.dart';
 import 'package:cardiac_rehabilitation/constants.dart';
 import 'package:cardiac_rehabilitation/controllers/dashboard_controller.dart';
 import 'package:cardiac_rehabilitation/model/menu_data.dart';
-import 'package:cardiac_rehabilitation/pages/work_bench/sport_access.dart';
 import 'package:cardiac_rehabilitation/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 class SideMenu extends StatelessWidget {
@@ -111,7 +110,7 @@ class DrawerListTtile extends StatelessWidget {
       leading: SvgPicture.asset("assets/icons/ic_Dashboard.svg"),
       selectedColor: Colors.blueAccent,
       title: Container(
-        margin: const EdgeInsets.only(left: defaultPadding),
+        margin: const EdgeInsets.only(left: 15),
         child: Text(
           title,
           textAlign: TextAlign.start,

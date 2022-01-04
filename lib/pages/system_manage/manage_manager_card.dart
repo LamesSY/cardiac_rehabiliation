@@ -1,10 +1,9 @@
+import 'package:cardiac_rehabilitation/common/cr_styles.dart';
 import 'package:cardiac_rehabilitation/dialog/dialog_add_user.dart';
 import 'package:cardiac_rehabilitation/pages/components/search_result_table.dart';
 import 'package:cardiac_rehabilitation/pages/components/search_user_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../constants.dart';
 
 class ManageManagerCard extends StatelessWidget {
   const ManageManagerCard({

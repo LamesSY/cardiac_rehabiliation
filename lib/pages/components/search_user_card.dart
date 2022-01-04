@@ -1,3 +1,4 @@
+import 'package:cardiac_rehabilitation/common/cr_styles.dart';
 import 'package:cardiac_rehabilitation/model/user_search_input.dart';
 import 'package:flutter/material.dart';
 

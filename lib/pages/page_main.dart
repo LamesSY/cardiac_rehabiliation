@@ -1,4 +1,4 @@
-import 'package:cardiac_rehabilitation/constants.dart';
+import 'package:cardiac_rehabilitation/common/cr_colors.dart';
 import 'package:cardiac_rehabilitation/controllers/menu_controller.dart';
 import 'package:cardiac_rehabilitation/pages/components/app_bar.dart';
 import 'package:cardiac_rehabilitation/pages/components/side_menu.dart';

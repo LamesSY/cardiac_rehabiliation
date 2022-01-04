@@ -1,8 +1,7 @@
+import 'package:cardiac_rehabilitation/common/cr_styles.dart';
 import 'package:cardiac_rehabilitation/responsive.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-
-import '../../constants.dart';
 
 class ReceptionLineChart extends StatelessWidget {
   const ReceptionLineChart({

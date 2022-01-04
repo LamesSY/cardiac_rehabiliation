@@ -1,4 +1,4 @@
-import 'package:cardiac_rehabilitation/constants.dart';
+import 'package:cardiac_rehabilitation/common/cr_styles.dart';
 import 'package:cardiac_rehabilitation/model/sport_access.dart';
 import 'package:cardiac_rehabilitation/pages/components/gender_distribution_pie_chart.dart';
 import 'package:cardiac_rehabilitation/pages/components/reception_line_chart.dart';

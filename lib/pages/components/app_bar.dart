@@ -1,3 +1,4 @@
+import 'package:cardiac_rehabilitation/common/cr_styles.dart';
 import 'package:cardiac_rehabilitation/constants.dart';
 import 'package:cardiac_rehabilitation/controllers/menu_controller.dart';
 import 'package:cardiac_rehabilitation/responsive.dart';
@@ -21,7 +22,7 @@ class CusAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: bgColor,
+      color: Colors.white,
       child: SafeArea(
         top: true,
         child: Stack(

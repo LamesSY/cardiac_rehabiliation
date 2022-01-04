@@ -1,4 +1,4 @@
-import 'package:cardiac_rehabilitation/constants.dart';
+import 'package:cardiac_rehabilitation/common/cr_colors.dart';
 import 'package:flutter/material.dart';
 
 class SportAccessAppointment extends StatelessWidget {
@@ -20,28 +20,47 @@ class SportAccessAppointment extends StatelessWidget {
                 const Text("康复预约"),
                 const SizedBox(height: 15),
                 Row(
-                  mainAxisSize: MainAxisSize.min,
+                  //mainAxisSize: MainAxisSize.min,
                   children: [
-                    Container(
-                      decoration: cirBoxDecoration(radius: 20),
-                      width: 411,
-                      height: 900,
-                      child: ListView.separated(
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: 4,
-                        separatorBuilder: (context, index) => divider,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            title: Text("心内${index}科"),
-                            subtitle: Text("总:33  余:12"),
-                            trailing: Icon(Icons.keyboard_arrow_right),
-                            onTap: () {},
-                          );
-                        },
+                    Expanded(
+                      flex: 10,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            bottomLeft: Radius.circular(20),
+                          ),
+                        ),
+                        height: 900,
+                        child: ListView.separated(
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: 4,
+                          separatorBuilder: (context, index) => divider,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              title: Text("心内${index}科"),
+                              subtitle: Text("总:33  余:12"),
+                              trailing: Icon(Icons.keyboard_arrow_right),
+                              onTap: () {},
+                            );
+                          },
+                        ),
                       ),
                     ),
-                    Container(
-                      color: Colors.grey,
+                    const VerticalDivider(color: dividerColor, width: 1),
+                    Expanded(
+                      flex: 32,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                          ),
+                        ),
+                        height: 900,
+                      ),
                     )
                   ],
                 )

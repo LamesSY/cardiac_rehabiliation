@@ -6,7 +6,7 @@ part 'responsive.g.dart';
 class ResponseX {
   int code;
   String msg;
-  dynamic data;
+  List<Map<String, dynamic>> data;
 
   ResponseX(this.code, this.msg, this.data);
 

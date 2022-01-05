@@ -5,6 +5,7 @@ import 'package:cardiac_rehabilitation/common/cr_styles.dart';
 import 'package:cardiac_rehabilitation/controllers/test_controller.dart';
 import 'package:cardiac_rehabilitation/model/disease.dart';
 import 'package:cardiac_rehabilitation/model/responsive.dart';
+import 'package:cardiac_rehabilitation/models/diseases.dart';
 import 'package:cardiac_rehabilitation/network/api.dart';
 import 'package:cardiac_rehabilitation/network/dio_manager.dart';
 import 'package:dio/dio.dart';
@@ -211,18 +212,18 @@ class AddPatient extends StatelessWidget {
                     OutlinedButton(
                       style: radiusStyle(10),
                       onPressed: () async {
-                        // var dio = Dio();
-                        // var r = await dio.get(
-                        //     "http://120.79.97.39:8899/disease/chooseDisease",
-                        //     options: Options(headers: {
-                        //       'Authorization':
-                        //           'eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6IjcxNTU2ZjM0LTAzMWUtNDQ0ZC04M2I4LWE3NjI2ZTA1MGZiNyJ9.j_PtrrrpHUxFhr_nvZGtZnIXYMCr03onO5Xoyxxb36_vgnuYe_mFIVV872kxcajEX4V6I4p3DqfULofQF8yv3Q'
-                        //     }));
-                        // //List items = json.decode(r.data);
-                        // var re = ResponseX.fromJson(r.data);
-
-                        //var result = await getDiseaseListX();
+                        var response =
+                            await DioUtils.dio.get('/disease/chooseDisease');
+                        var result = ResponseX.fromJson(response.data);
+                        print("lsy1");
                         //print(result.data);
+                        List<Diseases> ldd = [];
+                        for (var e in result.data) {
+                          //print(e);
+                          ldd.add(Diseases.fromJson(e));
+                        }
+                        print(ldd[0].diseaseName);
+                        //终于成了
                       },
                       child: const Padding(
                         padding:

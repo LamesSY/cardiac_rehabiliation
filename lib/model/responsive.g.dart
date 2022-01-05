@@ -9,7 +9,9 @@ part of 'responsive.dart';
 ResponseX _$ResponseXFromJson(Map<String, dynamic> json) => ResponseX(
       json['code'] as int,
       json['msg'] as String,
-      json['data'],
+      (json['data'] as List<dynamic>)
+          .map((e) => e as Map<String, dynamic>)
+          .toList(),
     );
 
 Map<String, dynamic> _$ResponseXToJson(ResponseX instance) => <String, dynamic>{

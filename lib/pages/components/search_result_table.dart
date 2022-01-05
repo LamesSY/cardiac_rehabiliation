@@ -4,7 +4,7 @@ import 'package:cardiac_rehabilitation/model/manager_search_result.dart';
 import 'package:flutter/material.dart';
 
 class ResultTable extends StatelessWidget {
-  const ResultTable({Key key}) : super(key: key);
+  const ResultTable({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class ResultTable extends StatelessWidget {
 
 class TableBottom extends StatelessWidget {
   const TableBottom({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -59,7 +59,7 @@ class TableBottom extends StatelessWidget {
 
 class HeadAndData extends StatelessWidget {
   const HeadAndData({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -80,7 +80,7 @@ class HeadAndData extends StatelessWidget {
 class UserDataRow extends StatelessWidget {
   const UserDataRow(
     this.dataIndex, {
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   final int dataIndex;
@@ -171,7 +171,7 @@ Widget rowData(int dataIndex, int index) {
 
 class ResultTableHead extends StatelessWidget {
   const ResultTableHead({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

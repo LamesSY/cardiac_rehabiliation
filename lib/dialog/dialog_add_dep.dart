@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DiaLogAddDep extends StatelessWidget {
-  const DiaLogAddDep({Key key}) : super(key: key);
+  const DiaLogAddDep({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

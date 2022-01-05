@@ -8,7 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 class SideMenu extends StatelessWidget {
-  const SideMenu({Key key}) : super(key: key);
+  const SideMenu({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,12 +51,12 @@ class SideMenu extends StatelessWidget {
 
 class ExpansionDrawerList extends StatelessWidget {
   const ExpansionDrawerList({
-    Key key,
-    @required this.menuInfo,
+    Key? key,
+    required this.menuInfo,
     this.trailing,
   }) : super(key: key);
   final MenuInfo menuInfo;
-  final Widget trailing;
+  final Widget? trailing;
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
@@ -70,13 +70,13 @@ class ExpansionDrawerList extends StatelessWidget {
         style: const TextStyle(fontSize: 14),
       ),
       children: List.generate(
-        menuInfo.subMenuList == null ? 0 : menuInfo.subMenuList.length,
+        menuInfo.subMenuList == null ? 0 : menuInfo.subMenuList!.length,
         (index) => ListTile(
           horizontalTitleGap: 0.0,
           title: Padding(
             padding: const EdgeInsets.only(left: 70),
             child: Text(
-              menuInfo.subMenuList[index].subTitle,
+              menuInfo.subMenuList![index].subTitle,
               textAlign: TextAlign.start,
               style: const TextStyle(fontSize: 14),
             ),
@@ -84,7 +84,7 @@ class ExpansionDrawerList extends StatelessWidget {
           onTap: () {
             context
                 .read<DashboardController>()
-                .changePage(menuInfo.subMenuList[index].flag);
+                .changePage(menuInfo.subMenuList![index].flag);
           },
         ),
       ),
@@ -94,9 +94,9 @@ class ExpansionDrawerList extends StatelessWidget {
 
 class DrawerListTtile extends StatelessWidget {
   const DrawerListTtile({
-    Key key,
-    @required this.title,
-    @required this.press,
+    Key? key,
+    required this.title,
+    required this.press,
   }) : super(key: key);
 
   final String title;

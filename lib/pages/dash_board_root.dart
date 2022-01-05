@@ -13,7 +13,7 @@ import '../constants.dart';
 
 class DashBoard extends StatelessWidget {
   const DashBoard({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

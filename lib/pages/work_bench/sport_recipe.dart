@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import '../../responsive.dart';
 
 class SportRecipe extends StatelessWidget {
-  const SportRecipe({Key key}) : super(key: key);
+  const SportRecipe({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

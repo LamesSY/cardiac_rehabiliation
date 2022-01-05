@@ -3,13 +3,13 @@ class ManagerInfo {
   final String name, phoneNum, dep, role, date, status;
 
   ManagerInfo({
-    this.userId,
-    this.name,
-    this.phoneNum,
-    this.dep,
-    this.role,
-    this.date,
-    this.status,
+    required this.userId,
+    required this.name,
+    required this.phoneNum,
+    required this.dep,
+    required this.role,
+    required this.date,
+    required this.status,
   });
 }
 

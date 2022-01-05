@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class DataStatistics extends StatelessWidget {
   const DataStatistics({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

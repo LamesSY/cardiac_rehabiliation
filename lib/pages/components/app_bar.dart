@@ -8,16 +8,17 @@ import 'package:provider/provider.dart';
 
 class CusAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CusAppBar(
-      {Key key,
+      {Key? key,
       this.title = appTitle,
-      @required this.userName,
-      @required this.avatarUri,
+      required this.userName,
+      required this.avatarUri,
       this.logoUri,
       this.sideButtonPress})
       : super(key: key);
 
-  final String title, userName, avatarUri, logoUri;
-  final VoidCallback sideButtonPress;
+  final String title, userName, avatarUri;
+  final String? logoUri;
+  final VoidCallback? sideButtonPress;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +41,7 @@ class CusAppBar extends StatelessWidget implements PreferredSizeWidget {
 }
 
 class BarHead extends StatelessWidget {
-  const BarHead(this.title, {Key key}) : super(key: key);
+  const BarHead(this.title, {Key? key}) : super(key: key);
 
   final String title;
 
@@ -86,9 +87,9 @@ class BarHead extends StatelessWidget {
 
 class BarTrail extends StatelessWidget {
   const BarTrail({
-    Key key,
-    @required this.userName,
-    @required this.avatarUri,
+    Key? key,
+    required this.userName,
+    required this.avatarUri,
   }) : super(key: key);
 
   final String userName, avatarUri;

@@ -18,8 +18,8 @@ BoxDecoration cirBoxDecoration(
 }
 
 InputDecoration inputBoxDecoration({
-  Widget title,
-  String hintText,
+  required Widget title,
+  required String hintText,
   double radius = 10,
   Color color = inputBorderColor,
 }) {

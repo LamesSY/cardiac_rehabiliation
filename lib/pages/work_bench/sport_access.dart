@@ -8,7 +8,7 @@ import 'package:cardiac_rehabilitation/responsive.dart';
 import 'package:flutter/material.dart';
 
 class SportAccess extends StatelessWidget {
-  const SportAccess({Key key}) : super(key: key);
+  const SportAccess({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final Size _size = MediaQuery.of(context).size;

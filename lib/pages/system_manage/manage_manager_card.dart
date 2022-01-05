@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 
 class ManageManagerCard extends StatelessWidget {
   const ManageManagerCard({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

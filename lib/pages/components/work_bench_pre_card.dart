@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 class WorkBenchPreGridView extends StatelessWidget {
   const WorkBenchPreGridView(
     this.preCardDatas, {
-    Key key,
+    Key? key,
     this.crossAxisCount = 5,
     this.childAspectRatio = 2,
   }) : super(key: key);
@@ -34,10 +34,10 @@ class WorkBenchPreGridView extends StatelessWidget {
 }
 
 class WorkBenchPreCard extends StatelessWidget {
-  const WorkBenchPreCard(this.preCard, {Key key, this.onClick})
+  const WorkBenchPreCard(this.preCard, {Key? key, this.onClick})
       : super(key: key);
   final WorkBenchPreCardEntity preCard;
-  final VoidCallback onClick;
+  final VoidCallback? onClick;
 
   @override
   Widget build(BuildContext context) {

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class ReceptionLineChart extends StatelessWidget {
   const ReceptionLineChart({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

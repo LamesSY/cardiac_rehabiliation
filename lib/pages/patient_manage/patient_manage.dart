@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
 class PatientManage extends StatelessWidget {
-  const PatientManage({Key key}) : super(key: key);
+  const PatientManage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class PatientManage extends StatelessWidget {
 
 class TableBottom extends StatelessWidget {
   const TableBottom({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -85,7 +85,7 @@ class TableBottom extends StatelessWidget {
 
 class TableData extends StatelessWidget {
   const TableData({
-    Key key,
+    Key? key,
   }) : super(key: key);
   static const moreFunList = [
     PopupMenuItem(child: Text("编辑"), value: 0),
@@ -164,7 +164,7 @@ class TableData extends StatelessWidget {
 
 class TableHead extends StatelessWidget {
   const TableHead({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -197,10 +197,10 @@ class TableHead extends StatelessWidget {
 
 class PatientSearchInputCard extends StatelessWidget {
   const PatientSearchInputCard({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
-  static const List<DropdownMenuItem> patientStatus = [
+  static const List<DropdownMenuItem<int>> patientStatus = [
     DropdownMenuItem(child: Text("全部"), value: 0),
     DropdownMenuItem(child: Text("待评估"), value: 1),
     DropdownMenuItem(child: Text("已评估"), value: 2),
@@ -249,12 +249,13 @@ class PatientSearchInputCard extends StatelessWidget {
 }
 
 class DropdownInputField extends StatelessWidget {
-  const DropdownInputField(this.title, this.value, this.dropdowItems, {Key key})
+  const DropdownInputField(this.title, this.value, this.dropdowItems,
+      {Key? key})
       : super(key: key);
 
   final String title;
   final int value;
-  final List<DropdownMenuItem> dropdowItems;
+  final List<DropdownMenuItem<int>> dropdowItems;
 
   @override
   Widget build(BuildContext context) {
@@ -285,11 +286,11 @@ class DropdownInputField extends StatelessWidget {
 
 class OutlineInputField extends StatelessWidget {
   const OutlineInputField({
-    Key key,
+    Key? key,
     this.leftTip,
   }) : super(key: key);
 
-  final String leftTip;
+  final String? leftTip;
 
   @override
   Widget build(BuildContext context) {
@@ -299,7 +300,7 @@ class OutlineInputField extends StatelessWidget {
         width: 240,
         child: TextField(
           decoration: InputDecoration(
-            icon: leftTip == null ? null : Text(leftTip),
+            icon: leftTip == null ? null : Text(leftTip!),
             isCollapsed: true,
             contentPadding: const EdgeInsets.all(15),
             border: OutlineInputBorder(

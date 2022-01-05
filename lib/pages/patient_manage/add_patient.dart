@@ -1,26 +1,23 @@
+import 'dart:convert';
+
 import 'package:cardiac_rehabilitation/common/cr_colors.dart';
 import 'package:cardiac_rehabilitation/common/cr_styles.dart';
+import 'package:cardiac_rehabilitation/controllers/test_controller.dart';
+import 'package:cardiac_rehabilitation/model/disease.dart';
+import 'package:cardiac_rehabilitation/model/responsive.dart';
+import 'package:cardiac_rehabilitation/network/api.dart';
+import 'package:cardiac_rehabilitation/network/dio_manager.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 class AddPatient extends StatelessWidget {
-  const AddPatient({Key key}) : super(key: key);
-
-  void getHttpTest() async {
-    var token =
-        "eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6ImQ0YjE5YzczLTU1ZWMtNDAzNC04MTYwLTVlOWQ5MjczZDliZCJ9.a9xLga-UMCbwp8IgpXq3bY7vonCYSRkTYGOodHsXlo3H3ptbMp0gez1awUhvulexlW8lEUZVL6xAQfpRxO3l4w";
-    try {
-      var response = await Dio().post('http://120.79.97.39:8899/login',
-          data: {"username": "admin", "password": "admin123"});
-      print(response.data);
-    } catch (e) {
-      print(e);
-    }
-  }
+  const AddPatient({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final BoolController c = Get.put(BoolController());
     return SafeArea(
       child: SingleChildScrollView(
         controller: ScrollController(),
@@ -68,10 +65,24 @@ class AddPatient extends StatelessWidget {
                 ])),
                 const SizedBox(height: 4),
                 Row(
-                  children: const [
-                    GenderSelectButton("男", "assets/images/male.svg"),
-                    SizedBox(width: 10),
-                    GenderSelectButton("女", "assets/images/female.svg"),
+                  children: [
+                    Obx(
+                      () => GenderSelectButton(
+                        c.genderFlag.value,
+                        "男",
+                        "images/male.png",
+                        onCLick: () => c.changeFocus("男"),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Obx(
+                      () => GenderSelectButton(
+                        c.genderFlag.value,
+                        "女",
+                        "images/female.png",
+                        onCLick: () => c.changeFocus("女"),
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 20),
@@ -158,9 +169,37 @@ class AddPatient extends StatelessWidget {
                   children: [
                     ElevatedButton(
                       style: radiusStyle(10),
-                      onPressed: () {
-                        getHttpTest();
-                        //httpTest();
+                      onPressed: () async {
+                        var dio = Dio();
+                        var r = await dio.post('/hospital/add',
+                            data: {
+                              "address": "深圳",
+                              "bedNo": 1,
+                              "birthday": "2009-09-09",
+                              "bmi": "58",
+                              "clinicalDiagnosis": "",
+                              "day": 2,
+                              "deptId": 12,
+                              "drugDuids": [],
+                              "endTime": "",
+                              "evaluateNumber": 0,
+                              "evaluateTime": "",
+                              "height": 0,
+                              "hospitalDiseaseVos": [
+                                {"diseaseDuid": "", "operationTime": ""}
+                              ],
+                              "hospitalNumber": "",
+                              "medication": "",
+                              "nyha": 1,
+                              "phone": "",
+                              "sex": 0,
+                              "startTime": "",
+                              "state": 0,
+                              "uid": "",
+                              "userName": "",
+                              "weight": 0
+                            },
+                            options: Options(headers: {}));
                       },
                       child: const Padding(
                         padding:
@@ -171,7 +210,20 @@ class AddPatient extends StatelessWidget {
                     const SizedBox(width: 10),
                     OutlinedButton(
                       style: radiusStyle(10),
-                      onPressed: () {},
+                      onPressed: () async {
+                        // var dio = Dio();
+                        // var r = await dio.get(
+                        //     "http://120.79.97.39:8899/disease/chooseDisease",
+                        //     options: Options(headers: {
+                        //       'Authorization':
+                        //           'eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6IjcxNTU2ZjM0LTAzMWUtNDQ0ZC04M2I4LWE3NjI2ZTA1MGZiNyJ9.j_PtrrrpHUxFhr_nvZGtZnIXYMCr03onO5Xoyxxb36_vgnuYe_mFIVV872kxcajEX4V6I4p3DqfULofQF8yv3Q'
+                        //     }));
+                        // //List items = json.decode(r.data);
+                        // var re = ResponseX.fromJson(r.data);
+
+                        //var result = await getDiseaseListX();
+                        //print(result.data);
+                      },
                       child: const Padding(
                         padding:
                             EdgeInsets.symmetric(vertical: 10, horizontal: 28),
@@ -192,7 +244,7 @@ class AddPatient extends StatelessWidget {
 class ChipsBox extends StatelessWidget {
   const ChipsBox(
     this.buttonText, {
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   final String buttonText;
@@ -222,12 +274,13 @@ class ChipsBox extends StatelessWidget {
         ),
         const SizedBox(width: 8),
         ElevatedButton(
-            style: radiusStyle(10),
-            onPressed: () {},
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 28),
-              child: Text(buttonText),
-            ))
+          style: radiusStyle(10),
+          onPressed: () {},
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 28),
+            child: Text(buttonText),
+          ),
+        )
       ],
     );
   }
@@ -236,7 +289,7 @@ class ChipsBox extends StatelessWidget {
 class LevelSelectChip extends StatelessWidget {
   const LevelSelectChip(
     this.level, {
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   final String level;
@@ -255,26 +308,34 @@ class LevelSelectChip extends StatelessWidget {
 }
 
 class GenderSelectButton extends StatelessWidget {
-  const GenderSelectButton(
-    this.text,
-    this.svgUri, {
-    Key key,
-  }) : super(key: key);
+  const GenderSelectButton(this.genderFlag, this.text, this.svgUri,
+      {Key? key, this.onCLick})
+      : super(key: key);
 
   final String svgUri;
   final String text;
+  final String genderFlag;
+
+  final VoidCallback? onCLick;
 
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
-      onPressed: () {},
-      style: radiusStyle(10),
+      onPressed: onCLick,
+      style: ButtonStyle(
+          shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          backgroundColor: MaterialStateColor.resolveWith((states) =>
+              genderFlag == text ? Colors.blue.shade100 : Colors.white)),
       child: Column(
         children: [
           Padding(
             padding:
                 const EdgeInsets.only(top: 16, left: 25, right: 25, bottom: 10),
-            child: SvgPicture.asset(svgUri),
+            child: Image(image: AssetImage(svgUri)),
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: 10),
@@ -290,7 +351,7 @@ class GenderSelectButton extends StatelessWidget {
 }
 
 class InputContainer extends StatelessWidget {
-  const InputContainer(this.title, {Key key, this.isRequired = false})
+  const InputContainer(this.title, {Key? key, this.isRequired = false})
       : super(key: key);
 
   final String title;
@@ -310,7 +371,7 @@ class InputContainer extends StatelessWidget {
           width: 240,
           child: TextField(
             scrollPadding: EdgeInsets.zero,
-            decoration: inputBoxDecoration(hintText: "请输入..."),
+            decoration: inputBoxDecoration(hintText: "请输入...", title: Text("")),
             style: const TextStyle(fontSize: 14),
           ),
         )

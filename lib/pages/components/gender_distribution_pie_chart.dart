@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class GenderDistribution extends StatelessWidget {
   const GenderDistribution({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

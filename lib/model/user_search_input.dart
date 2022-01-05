@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class SearchInputField {
   final String title;
-  final IconData iconData;
+  final IconData? iconData;
   SearchInputField({
-    @required this.title,
+    required this.title,
     this.iconData,
   });
 }

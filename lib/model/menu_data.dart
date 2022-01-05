@@ -2,11 +2,11 @@ import 'package:cardiac_rehabilitation/constants.dart';
 
 class MenuInfo {
   final String leading, title;
-  final List<SubMenuInfo> subMenuList;
+  final List<SubMenuInfo>? subMenuList;
 
   MenuInfo({
     this.leading = "assets/icons/ic_Dashboard.svg",
-    this.title,
+    this.title = "",
     this.subMenuList,
   });
 }

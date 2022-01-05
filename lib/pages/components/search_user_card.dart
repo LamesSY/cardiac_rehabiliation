@@ -6,7 +6,7 @@ import '../../constants.dart';
 
 class UserSearchCard extends StatelessWidget {
   const UserSearchCard({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -46,7 +46,7 @@ class UserSearchCard extends StatelessWidget {
 
 class UserSearchWrap extends StatelessWidget {
   const UserSearchWrap({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -70,30 +70,30 @@ class UserSearchWrap extends StatelessWidget {
 }
 
 class SearchInputField extends StatelessWidget {
-  const SearchInputField({Key key, this.title, this.iconData})
+  const SearchInputField({Key? key, required this.title, this.iconData})
       : super(key: key);
 
   final String title;
-  final IconData iconData;
+  final IconData? iconData;
 
   static const statusItems = [
-    DropdownMenuItem(child: Text("已启用"), value: 0),
-    DropdownMenuItem(child: Text("已禁用"), value: 1),
+    DropdownMenuItem<int>(child: Text("已启用"), value: 0),
+    DropdownMenuItem<int>(child: Text("已禁用"), value: 1),
   ];
 
   static const roleItems = [
-    DropdownMenuItem(child: Text("护士"), value: 0),
-    DropdownMenuItem(child: Text("医生"), value: 1),
-    DropdownMenuItem(child: Text("康复师"), value: 2),
+    DropdownMenuItem<int>(child: Text("护士"), value: 0),
+    DropdownMenuItem<int>(child: Text("医生"), value: 1),
+    DropdownMenuItem<int>(child: Text("康复师"), value: 2),
   ];
 
   static const depItems = [
-    DropdownMenuItem(child: Text("心内科"), value: 0),
-    DropdownMenuItem(child: Text("脑科"), value: 1),
-    DropdownMenuItem(child: Text("急诊科"), value: 2),
+    DropdownMenuItem<int>(child: Text("心内科"), value: 0),
+    DropdownMenuItem<int>(child: Text("脑科"), value: 1),
+    DropdownMenuItem<int>(child: Text("急诊科"), value: 2),
   ];
 
-  List<DropdownMenuItem> getItemsByTitle(String title) {
+  List<DropdownMenuItem<int>> getItemsByTitle(String title) {
     switch (title) {
       case "状态":
         return statusItems;

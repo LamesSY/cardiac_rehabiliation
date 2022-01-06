@@ -1,6 +1,5 @@
 import 'package:cardiac_rehabilitation/common/cr_styles.dart';
-import 'package:cardiac_rehabilitation/constants.dart';
-import 'package:cardiac_rehabilitation/model/manager_search_result.dart';
+import 'package:cardiac_rehabilitation/data/manager_search_result.dart';
 import 'package:flutter/material.dart';
 
 class ResultTable extends StatelessWidget {

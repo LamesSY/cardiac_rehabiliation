@@ -1,4 +1,7 @@
 {
+    "@meta":{
+        "ignore": true
+    },
     "level": 1,
     "type": 0,
     "diseaseName": " 冠心病",

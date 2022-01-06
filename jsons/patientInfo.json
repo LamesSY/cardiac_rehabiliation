@@ -1,0 +1,22 @@
+{
+    "@meta": {
+        "ignore": true
+      },
+    "haDuid": null,
+    "duid": "4ec359283fba4cd4b36aa050f1059977",
+    "userName": "测试",
+    "uid": "123456",
+    "sex": 1,
+    "age": 22,
+    "phone": "13800138000",
+    "disease": [
+      " 慢性冠脉综合征",
+      " 冠脉搭桥手术"
+    ],
+    "startTime": "2022-01-05 00:00:00",
+    "evaluateNumber": 1,
+    "state": 2,
+    "clinicalDiagnosis": null,
+    "medication": null,
+    "nyha": 1
+  }

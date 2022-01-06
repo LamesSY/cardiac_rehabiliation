@@ -1,7 +1,7 @@
 import 'package:cardiac_rehabilitation/common/cr_colors.dart';
 import 'package:cardiac_rehabilitation/controllers/menu_controller.dart';
-import 'package:cardiac_rehabilitation/pages/components/app_bar.dart';
-import 'package:cardiac_rehabilitation/pages/components/side_menu.dart';
+import 'package:cardiac_rehabilitation/components/app_bar.dart';
+import 'package:cardiac_rehabilitation/components/side_menu.dart';
 import 'package:cardiac_rehabilitation/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

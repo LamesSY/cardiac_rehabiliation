@@ -1,8 +1,6 @@
 import 'package:cardiac_rehabilitation/common/cr_styles.dart';
-import 'package:cardiac_rehabilitation/model/user_search_input.dart';
+import 'package:cardiac_rehabilitation/data/user_search_input.dart';
 import 'package:flutter/material.dart';
-
-import '../../constants.dart';
 
 class UserSearchCard extends StatelessWidget {
   const UserSearchCard({

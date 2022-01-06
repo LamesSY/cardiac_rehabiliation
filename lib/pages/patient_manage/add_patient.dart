@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cardiac_rehabilitation/common/cr_colors.dart';
 import 'package:cardiac_rehabilitation/common/cr_styles.dart';
+import 'package:cardiac_rehabilitation/constants.dart';
 import 'package:cardiac_rehabilitation/controllers/test_controller.dart';
 import 'package:cardiac_rehabilitation/models/index.dart';
 import 'package:cardiac_rehabilitation/network/api.dart';
@@ -210,15 +211,20 @@ class AddPatient extends StatelessWidget {
                     OutlinedButton(
                       style: radiusStyle(10),
                       onPressed: () async {
-                        var diseaseList = await getChooseDiseaseList();
-                        print(diseaseList);
+                        // var diseaseList = await getChooseDiseaseList();
+                        // print(diseaseList);
+                        // var image = await getCaptchaImage();
+                        // logger.d(image.img);
+                        var token = await login("15", "admin", "admin123",
+                            "f91ec3e417f4439495bf686581b4b597");
+                        print(token);
                       },
                       child: const Padding(
                         padding:
                             EdgeInsets.symmetric(vertical: 10, horizontal: 28),
                         child: Text("取消"),
                       ),
-                    )
+                    ),
                   ],
                 )
               ],

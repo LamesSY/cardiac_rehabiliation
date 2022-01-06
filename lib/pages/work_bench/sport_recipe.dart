@@ -1,8 +1,8 @@
-import 'package:cardiac_rehabilitation/model/sport_access.dart';
-import 'package:cardiac_rehabilitation/pages/components/gender_distribution_pie_chart.dart';
-import 'package:cardiac_rehabilitation/pages/components/reception_line_chart.dart';
-import 'package:cardiac_rehabilitation/pages/components/sport_access_data_statis.dart';
-import 'package:cardiac_rehabilitation/pages/components/work_bench_pre_card.dart';
+import 'package:cardiac_rehabilitation/data/sport_access.dart';
+import 'package:cardiac_rehabilitation/components/gender_distribution_pie_chart.dart';
+import 'package:cardiac_rehabilitation/components/reception_line_chart.dart';
+import 'package:cardiac_rehabilitation/components/sport_access_data_statis.dart';
+import 'package:cardiac_rehabilitation/components/work_bench_pre_card.dart';
 import 'package:flutter/material.dart';
 
 import '../../responsive.dart';

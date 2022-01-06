@@ -1,0 +1,8 @@
+{
+    "@meta":{
+        "ignore": true
+    },
+    "drugName": "血管紧张素转换抑制剂（ACEI）",
+    "drugDuid": "e037babb6f5f40c498da31ef7f51ba0a",
+    "drugs": "$[]chooseDrug"
+}

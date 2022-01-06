@@ -1,1 +1,1 @@
-export 'diseases.dart' ; 
+export 'chooseDisease.dart' ; 

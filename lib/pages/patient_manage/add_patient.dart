@@ -3,9 +3,7 @@ import 'dart:convert';
 import 'package:cardiac_rehabilitation/common/cr_colors.dart';
 import 'package:cardiac_rehabilitation/common/cr_styles.dart';
 import 'package:cardiac_rehabilitation/controllers/test_controller.dart';
-import 'package:cardiac_rehabilitation/model/disease.dart';
-import 'package:cardiac_rehabilitation/model/responsive.dart';
-import 'package:cardiac_rehabilitation/models/diseases.dart';
+import 'package:cardiac_rehabilitation/models/index.dart';
 import 'package:cardiac_rehabilitation/network/api.dart';
 import 'package:cardiac_rehabilitation/network/dio_manager.dart';
 import 'package:dio/dio.dart';
@@ -212,18 +210,8 @@ class AddPatient extends StatelessWidget {
                     OutlinedButton(
                       style: radiusStyle(10),
                       onPressed: () async {
-                        var response =
-                            await DioUtils.dio.get('/disease/chooseDisease');
-                        var result = ResponseX.fromJson(response.data);
-                        print("lsy1");
-                        //print(result.data);
-                        List<Diseases> ldd = [];
-                        for (var e in result.data) {
-                          //print(e);
-                          ldd.add(Diseases.fromJson(e));
-                        }
-                        print(ldd[0].diseaseName);
-                        //终于成了
+                        var diseaseList = await getChooseDiseaseList();
+                        print(diseaseList);
                       },
                       child: const Padding(
                         padding:

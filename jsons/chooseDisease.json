@@ -3,5 +3,5 @@
     "type": 0,
     "diseaseName": " 冠心病",
     "diseaseDuid": "16e8e2369fd348ab813c8b607020e31e:1",
-    "diseaseVos": "$[]diseases"
+    "diseaseVos": "$[]chooseDisease"
 }

@@ -1,4 +1,8 @@
+import 'package:logger/logger.dart';
+
 const appTitle = "mAFAIII";
+
+final logger = Logger();
 
 enum PageFlag {
   none,

@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'captchaImage.g.dart';
+part 'captcha_image.g.dart';
 
 @JsonSerializable()
 class CaptchaImage {

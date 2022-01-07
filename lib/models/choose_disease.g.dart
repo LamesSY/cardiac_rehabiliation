@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'chooseDisease.dart';
+part of 'choose_disease.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

@@ -95,10 +95,10 @@ class SearchInputField extends StatelessWidget {
     switch (title) {
       case "状态":
         return statusItems;
-        break;
+
       case "角色":
         return roleItems;
-        break;
+
       default:
         return depItems;
     }

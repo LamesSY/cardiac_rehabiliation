@@ -2,6 +2,11 @@ import 'package:cardiac_rehabilitation/common/cr_colors.dart';
 import 'package:cardiac_rehabilitation/common/cr_styles.dart';
 import 'package:cardiac_rehabilitation/constants.dart';
 import 'package:cardiac_rehabilitation/controllers/dashboard_controller.dart';
+import 'package:cardiac_rehabilitation/controllers/patient_list_controller.dart';
+import 'package:cardiac_rehabilitation/models/index.dart';
+import 'package:cardiac_rehabilitation/network/dio_manager.dart';
+import 'package:get/instance_manager.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +15,7 @@ class PatientManage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final logic = Get.put(PatientListController());
     return SafeArea(
       child: SingleChildScrollView(
         child: Padding(
@@ -32,9 +38,13 @@ class PatientManage extends StatelessWidget {
                   child: Text("添加患者"),
                 ),
               ),
-              const PatientSearchInputCard(),
+              PatientSearchInputCard(() async {
+                var summary = await getPatientList(1, 10);
+                logic.refreshPatientList(summary!);
+              }),
               const TableHead(),
-              const TableData(),
+              //TableData(),
+              Obx(() => TableData(logic.summary.value)),
               const TableBottom()
             ],
           ),
@@ -84,7 +94,8 @@ class TableBottom extends StatelessWidget {
 }
 
 class TableData extends StatelessWidget {
-  const TableData({
+  const TableData(
+    this.summary, {
     Key? key,
   }) : super(key: key);
   static const moreFunList = [
@@ -100,10 +111,12 @@ class TableData extends StatelessWidget {
         value: 5),
   ];
 
+  final PatientInfoSummary summary;
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: 5,
+      itemCount: summary.records?.length ?? 0,
       shrinkWrap: true,
       itemBuilder: (context, index) {
         return Container(
@@ -114,23 +127,36 @@ class TableData extends StatelessWidget {
             style: const TextStyle(fontSize: 16),
             child: Row(
               children: [
-                Expanded(flex: 10, child: Text("王佳佳")),
-                Expanded(flex: 10, child: Text("3324523")),
-                Expanded(flex: 6, child: Text("女")),
-                Expanded(flex: 6, child: Text("23")),
-                Expanded(flex: 12, child: Text("13194455647")),
+                Expanded(
+                    flex: 10,
+                    child: Text(summary.records?[index].userName ?? "FF")),
+                Expanded(
+                    flex: 10,
+                    child: Text(summary.records?[index].uid ?? "1111")),
+                Expanded(
+                    flex: 6, child: Text("${summary.records?[index].sex}")),
+                Expanded(
+                    flex: 6, child: Text("${summary.records?[index].age}")),
+                Expanded(
+                    flex: 12,
+                    child: Text(summary.records?[index].phone ?? "2222")),
                 Expanded(
                   flex: 10,
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Chip(
-                      label: Text("冠心病"),
+                      label: Text(summary.records![index].disease!.isEmpty
+                          ? ""
+                          : "${summary.records?[index].disease?[0]}"),
                       backgroundColor: Colors.blue.shade100,
                     ),
                   ),
                 ),
-                Expanded(flex: 10, child: Text("-")),
-                Expanded(flex: 12, child: Text("2021-12-23 12:43")),
+                Expanded(
+                    flex: 10, child: Text("${summary.records?[index].nyha}")),
+                Expanded(
+                    flex: 12,
+                    child: Text(summary.records?[index].startTime ?? "2012")),
                 Expanded(flex: 10, child: Text("2")),
                 Expanded(
                     flex: 10,
@@ -196,7 +222,8 @@ class TableHead extends StatelessWidget {
 }
 
 class PatientSearchInputCard extends StatelessWidget {
-  const PatientSearchInputCard({
+  const PatientSearchInputCard(
+    this.onClick, {
     Key? key,
   }) : super(key: key);
 
@@ -205,6 +232,8 @@ class PatientSearchInputCard extends StatelessWidget {
     DropdownMenuItem(child: Text("待评估"), value: 1),
     DropdownMenuItem(child: Text("已评估"), value: 2),
   ];
+
+  final VoidCallback onClick;
 
   @override
   Widget build(BuildContext context) {
@@ -234,7 +263,7 @@ class PatientSearchInputCard extends StatelessWidget {
             const SizedBox(width: 40),
             Expanded(
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: onClick,
                 child: const Padding(
                   padding: EdgeInsets.symmetric(vertical: 10),
                   child: Text("搜索"),

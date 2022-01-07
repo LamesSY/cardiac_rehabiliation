@@ -1,8 +1,11 @@
 {
     "@meta": {
-        "ignore": true
+        "ignore": true,
+        "nullable": true,
+        "className": "PatientInfoSummary",
+        "import": ["patient_info.dart"]
       },
-    "records": "$[]patientInfo",
+    "records": "$[]PatientInfo",
     "total": 2,
     "size": 10,
     "current": 1,

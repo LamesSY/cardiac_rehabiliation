@@ -112,22 +112,22 @@ Widget rowData(int dataIndex, int index) {
   switch (index) {
     case 0:
       return Text("${managerList[dataIndex].userId}");
-      break;
+
     case 1:
       return Text(managerList[dataIndex].name);
-      break;
+
     case 2:
       return Text(managerList[dataIndex].phoneNum);
-      break;
+
     case 3:
       return Text(managerList[dataIndex].dep);
-      break;
+
     case 4:
       return Text(managerList[dataIndex].role);
-      break;
+
     case 5:
       return Text(managerList[dataIndex].date);
-      break;
+
     case 6:
       return Text(
         managerList[dataIndex].status,
@@ -137,7 +137,7 @@ Widget rowData(int dataIndex, int index) {
                 ? Colors.green
                 : Colors.red),
       );
-      break;
+
     case 7:
       return Row(
         children: [
@@ -162,7 +162,7 @@ Widget rowData(int dataIndex, int index) {
           ),
         ],
       );
-      break;
+
     default:
       return const Text("empty");
   }

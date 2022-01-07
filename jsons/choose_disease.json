@@ -1,6 +1,7 @@
 {
     "@meta":{
-        "ignore": true
+        "ignore": true,
+        "className": "ChooseDisease"
     },
     "level": 1,
     "type": 0,

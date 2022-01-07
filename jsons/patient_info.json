@@ -1,6 +1,8 @@
 {
     "@meta": {
-        "ignore": true
+        "ignore": true,
+        "nullable": true,
+        "className": "PatientInfo"
       },
     "haDuid": null,
     "duid": "4ec359283fba4cd4b36aa050f1059977",

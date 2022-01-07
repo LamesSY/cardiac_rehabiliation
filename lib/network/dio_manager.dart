@@ -47,14 +47,16 @@ Future<List<ChooseDrug>> getChooseDrug() async {
 }
 
 //分页查询患者信息列表
-// Future<PatientList> postForPatientList(int pageNum, int pageSize) async {
-//   var result = await DioUtils().postForData('/hospital/selectPage',{
-//     'pageNum' : pageNum,
-//     'pageSize' : pageSize,
-//   });
-//   PatientList list =
-
-// }
+Future<PatientInfoSummary?> getPatientList(int pageNum, int pageSize) async {
+  var result = await DioUtils().getData('/hospital/selectPage', {
+    'pageNum': pageNum,
+    'pageSize': pageSize,
+  });
+  PatientInfoSummary? summary = (result == null || result.isEmpty)
+      ? null
+      : PatientInfoSummary.fromJson(result);
+  return summary;
+}
 
 Future<dynamic> addNewPatient({
   String? address,
@@ -98,7 +100,7 @@ class DioUtils {
         'deviceFlag': 'g',
         'lang': 'ZH',
         'Authorization':
-            'eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6IjIwY2VkMTU3LTkzNzAtNDczYS04M2Q2LWZmNjlhMWY0MjQ2YyJ9.xr4HVdtgB1GEofQuPofWha1lbbUdt9uO4Eghd2cpyM375Rrz4HKuIOW1eS2d3ickCbb8CtTZjjjJ8GXP9a1qwg'
+            'eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6IjhjZDFmMjVjLTJiYjktNDU3Zi1iMTA2LWQ5ZjVkNmQ4MTQ4MyJ9.Dx8NWSnrqq2diplKKiJDBHM7ZRU9F-FbwnbV6wz2-jBF-nYe2gvJWijDalOeQwdELo6NVjcZzvIY8l5zgpJNgw'
       },
     ),
   );
@@ -115,18 +117,18 @@ class DioUtils {
     return r.data["data"];
   }
 
-  Future<dynamic> getData(String path) async {
-    var r = await dio.get(path);
+  Future<dynamic> getData(String path, Map<String, dynamic>? queryParam) async {
+    var r = await dio.get(path, queryParameters: queryParam);
     printNetWorkInfo(r);
     return r.data["data"];
   }
 
   void printNetWorkInfo(Response<dynamic> r) {
     if (r.data["code"] == 200) {
-      logger.i("${r.data["code"]} : ${r.data["msg"]}");
+      logger.i("code: ${r.data["code"]} \n msg: ${r.data["msg"]}");
     } else {
-      logger.w("${r.data["code"]} : ${r.data["msg"]}");
+      logger.w("code: ${r.data["code"]} \n msg: ${r.data["msg"]}");
     }
-    logger.d("${r.data["data"]}");
+    logger.d("data: ${r.data["data"]}");
   }
 }

@@ -1,15 +1,8 @@
-import 'dart:convert';
-
 import 'package:cardiac_rehabilitation/common/cr_colors.dart';
 import 'package:cardiac_rehabilitation/common/cr_styles.dart';
-import 'package:cardiac_rehabilitation/constants.dart';
 import 'package:cardiac_rehabilitation/controllers/test_controller.dart';
-import 'package:cardiac_rehabilitation/models/index.dart';
-import 'package:cardiac_rehabilitation/network/api.dart';
-import 'package:cardiac_rehabilitation/network/dio_manager.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class AddPatient extends StatelessWidget {
@@ -215,9 +208,10 @@ class AddPatient extends StatelessWidget {
                         // print(diseaseList);
                         // var image = await getCaptchaImage();
                         // logger.d(image.img);
-                        var token = await login("15", "admin", "admin123",
-                            "f91ec3e417f4439495bf686581b4b597");
-                        print(token);
+                        // var token = await login("15", "admin", "admin123",
+                        //     "f91ec3e417f4439495bf686581b4b597");
+                        // print(token);
+                        //var list = await getPatientList(1, 10);
                       },
                       child: const Padding(
                         padding:
@@ -366,7 +360,7 @@ class InputContainer extends StatelessWidget {
           width: 240,
           child: TextField(
             scrollPadding: EdgeInsets.zero,
-            decoration: inputBoxDecoration(hintText: "请输入...", title: Text("")),
+            decoration: inputBoxDecoration(hintText: "请输入..."),
             style: const TextStyle(fontSize: 14),
           ),
         )

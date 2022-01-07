@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-
-part 'chooseDisease.g.dart';
+part 'choose_disease.g.dart';
 
 @JsonSerializable()
 class ChooseDisease {
@@ -11,7 +10,8 @@ class ChooseDisease {
   late String diseaseName;
   late String diseaseDuid;
   late List<ChooseDisease> diseaseVos;
-  
-  factory ChooseDisease.fromJson(Map<String,dynamic> json) => _$ChooseDiseaseFromJson(json);
+
+  factory ChooseDisease.fromJson(Map<String, dynamic> json) =>
+      _$ChooseDiseaseFromJson(json);
   Map<String, dynamic> toJson() => _$ChooseDiseaseToJson(this);
 }

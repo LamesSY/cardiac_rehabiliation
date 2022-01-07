@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'captchaImage.dart';
+part of 'captcha_image.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

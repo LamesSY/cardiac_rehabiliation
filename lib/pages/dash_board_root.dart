@@ -22,27 +22,27 @@ class DashBoard extends StatelessWidget {
       switch (notifer.flag) {
         case PageFlag.manageManager:
           return ManageManagerCard();
-          break;
+
         case PageFlag.manageDep:
           return DepManageDashboard();
-          break;
+
         case PageFlag.sportAssess:
           return SportAccess();
-          break;
+
         case PageFlag.sportRecipe:
           return SportRecipe();
-          break;
+
         case PageFlag.managePatient:
           return PatientManage();
-          break;
+
         case PageFlag.appointSportAssess:
           return SportAccessAppointment();
-          break;
+
         case PageFlag.addPatient:
           return const AddPatient();
-          break;
+
         default:
-          return const AddPatient();
+          return const PatientManage();
       }
     });
   }

@@ -20,7 +20,8 @@ class PatientInfo {
   String? clinicalDiagnosis;
   String? medication;
   num? nyha;
-  
-  factory PatientInfo.fromJson(Map<String,dynamic> json) => _$PatientInfoFromJson(json);
+
+  factory PatientInfo.fromJson(Map<String, dynamic> json) =>
+      _$PatientInfoFromJson(json);
   Map<String, dynamic> toJson() => _$PatientInfoToJson(this);
 }

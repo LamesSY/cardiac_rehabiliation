@@ -47,13 +47,13 @@ Future<List<ChooseDrug>> getChooseDrug() async {
 }
 
 //分页查询患者信息列表
-Future<PatientInfoSummary?> getPatientList(int pageNum, int pageSize) async {
+Future<PatientInfoSummary> getPatientList(int pageNum, int pageSize) async {
   var result = await DioUtils().getData('/hospital/selectPage', {
     'pageNum': pageNum,
     'pageSize': pageSize,
   });
-  PatientInfoSummary? summary = (result == null || result.isEmpty)
-      ? null
+  PatientInfoSummary summary = (result == null || result.isEmpty)
+      ? PatientInfoSummary()
       : PatientInfoSummary.fromJson(result);
   return summary;
 }
@@ -100,7 +100,7 @@ class DioUtils {
         'deviceFlag': 'g',
         'lang': 'ZH',
         'Authorization':
-            'eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6IjhjZDFmMjVjLTJiYjktNDU3Zi1iMTA2LWQ5ZjVkNmQ4MTQ4MyJ9.Dx8NWSnrqq2diplKKiJDBHM7ZRU9F-FbwnbV6wz2-jBF-nYe2gvJWijDalOeQwdELo6NVjcZzvIY8l5zgpJNgw'
+            'eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6Ijc1NTc1Mzg4LTUyMzgtNGY1ZC1iNTYwLWU4NDZmOWQ5MzQzZCJ9.MM51P48fGDo4v-Uj6ZGtmzzuY0W21Eo1rHnQnB162xxnYbU8guVvuqidNSsuN2SCi06VCmG-phKxS6aMdro5ew'
       },
     ),
   );

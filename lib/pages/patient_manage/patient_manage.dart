@@ -1,11 +1,10 @@
 import 'package:cardiac_rehabilitation/common/cr_colors.dart';
 import 'package:cardiac_rehabilitation/common/cr_styles.dart';
 import 'package:cardiac_rehabilitation/constants.dart';
-import 'package:cardiac_rehabilitation/controllers/dashboard_controller.dart';
-import 'package:cardiac_rehabilitation/controllers/patient_list_controller.dart';
+import 'package:cardiac_rehabilitation/logic/dashboard_controller.dart';
+import 'package:cardiac_rehabilitation/logic/patient_list_controller.dart';
 import 'package:cardiac_rehabilitation/models/index.dart';
 import 'package:cardiac_rehabilitation/network/dio_manager.dart';
-import 'package:get/instance_manager.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -38,10 +37,7 @@ class PatientManage extends StatelessWidget {
                   child: Text("添加患者"),
                 ),
               ),
-              PatientSearchInputCard(() async {
-                var summary = await getPatientList(1, 10);
-                logic.refreshPatientList(summary!);
-              }),
+              PatientSearchInputCard(),
               const TableHead(),
               //TableData(),
               Obx(() => TableData(logic.summary.value)),
@@ -222,8 +218,7 @@ class TableHead extends StatelessWidget {
 }
 
 class PatientSearchInputCard extends StatelessWidget {
-  const PatientSearchInputCard(
-    this.onClick, {
+  const PatientSearchInputCard({
     Key? key,
   }) : super(key: key);
 
@@ -233,7 +228,7 @@ class PatientSearchInputCard extends StatelessWidget {
     DropdownMenuItem(child: Text("已评估"), value: 2),
   ];
 
-  final VoidCallback onClick;
+  //final VoidCallback onClick;
 
   @override
   Widget build(BuildContext context) {
@@ -263,7 +258,10 @@ class PatientSearchInputCard extends StatelessWidget {
             const SizedBox(width: 40),
             Expanded(
               child: ElevatedButton(
-                onPressed: onClick,
+                onPressed: () async {
+                  var summary = await getPatientList(1, 10);
+                  Get.find<PatientListController>().refreshPatientList(summary);
+                },
                 child: const Padding(
                   padding: EdgeInsets.symmetric(vertical: 10),
                   child: Text("搜索"),

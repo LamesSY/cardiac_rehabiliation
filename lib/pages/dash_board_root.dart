@@ -1,4 +1,4 @@
-import 'package:cardiac_rehabilitation/controllers/dashboard_controller.dart';
+import 'package:cardiac_rehabilitation/logic/dashboard_controller.dart';
 import 'package:cardiac_rehabilitation/pages/appoint_rehabilitation/sport_access_appointment.dart';
 import 'package:cardiac_rehabilitation/pages/patient_manage/add_patient.dart';
 import 'package:cardiac_rehabilitation/pages/patient_manage/patient_manage.dart';

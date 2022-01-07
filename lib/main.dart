@@ -1,5 +1,5 @@
-import 'package:cardiac_rehabilitation/controllers/dashboard_controller.dart';
-import 'package:cardiac_rehabilitation/controllers/menu_controller.dart';
+import 'package:cardiac_rehabilitation/logic/dashboard_controller.dart';
+import 'package:cardiac_rehabilitation/logic/menu_controller.dart';
 import 'package:cardiac_rehabilitation/pages/page_main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

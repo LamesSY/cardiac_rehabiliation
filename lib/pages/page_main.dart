@@ -1,5 +1,5 @@
 import 'package:cardiac_rehabilitation/common/cr_colors.dart';
-import 'package:cardiac_rehabilitation/controllers/menu_controller.dart';
+import 'package:cardiac_rehabilitation/logic/menu_controller.dart';
 import 'package:cardiac_rehabilitation/components/app_bar.dart';
 import 'package:cardiac_rehabilitation/components/side_menu.dart';
 import 'package:cardiac_rehabilitation/responsive.dart';

@@ -8,7 +8,7 @@ class PatientListController extends GetxController {
   @override
   void onInit() async {
     var sum = await getPatientList(1, 10);
-    summary.value = sum ?? PatientInfoSummary();
+    summary.value = sum;
     super.onInit();
   }
 

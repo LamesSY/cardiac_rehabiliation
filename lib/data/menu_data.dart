@@ -1,4 +1,5 @@
 import 'package:cardiac_rehabilitation/constants.dart';
+import 'package:cardiac_rehabilitation/routes/route_manage.dart';
 
 class MenuInfo {
   final String leading, title;
@@ -14,7 +15,8 @@ class MenuInfo {
 class SubMenuInfo {
   final String subTitle;
   final PageFlag flag;
-  SubMenuInfo(this.subTitle, this.flag);
+  final String routeName;
+  SubMenuInfo(this.subTitle, this.flag, this.routeName);
 }
 
 List<MenuInfo> menus = [
@@ -26,22 +28,22 @@ List<MenuInfo> menus = [
 ];
 
 List<SubMenuInfo> manageSubMenus = [
-  SubMenuInfo("管理员管理", PageFlag.manageManager),
-  SubMenuInfo("科室管理", PageFlag.manageDep),
+  SubMenuInfo("管理员管理", PageFlag.manageManager, Routes.managerManage),
+  SubMenuInfo("科室管理", PageFlag.manageDep, Routes.managerDep),
 ];
 
 List<SubMenuInfo> workSubMenus = [
-  SubMenuInfo("运动评估", PageFlag.sportAssess),
-  SubMenuInfo("运动处方", PageFlag.sportRecipe),
-  SubMenuInfo("康复运动", PageFlag.reSport),
+  SubMenuInfo("运动评估", PageFlag.sportAssess, Routes.managerDep),
+  SubMenuInfo("运动处方", PageFlag.sportRecipe, Routes.managerDep),
+  SubMenuInfo("康复运动", PageFlag.reSport, Routes.managerDep),
 ];
 
 List<SubMenuInfo> appointmentSubMenus = [
-  SubMenuInfo("运动预约评估", PageFlag.appointSportAssess),
-  SubMenuInfo("康复运动预约", PageFlag.appointReSport),
+  SubMenuInfo("运动预约评估", PageFlag.appointSportAssess, Routes.managerDep),
+  SubMenuInfo("康复运动预约", PageFlag.appointReSport, Routes.managerDep),
 ];
 
 List<SubMenuInfo> schedulingSubMenus = [
-  SubMenuInfo("运动评估排班", PageFlag.sportAssessPlan),
-  SubMenuInfo("康复运动排班", PageFlag.reSportPlan),
+  SubMenuInfo("运动评估排班", PageFlag.sportAssessPlan, Routes.managerDep),
+  SubMenuInfo("康复运动排班", PageFlag.reSportPlan, Routes.managerDep),
 ];

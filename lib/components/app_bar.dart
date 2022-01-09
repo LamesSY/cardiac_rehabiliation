@@ -77,7 +77,7 @@ class BarHead extends StatelessWidget {
                 width: 24,
                 height: 24,
               ),
-              onTap: context.read<MenuController>().controlMenu,
+              //onTap: context.read<MenuController>().controlMenu,
             ),
         ],
       ),

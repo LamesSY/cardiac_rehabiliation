@@ -1,6 +1,8 @@
+import 'package:cardiac_rehabilitation/constants.dart';
 import 'package:cardiac_rehabilitation/logic/dashboard_controller.dart';
 import 'package:cardiac_rehabilitation/logic/menu_controller.dart';
 import 'package:cardiac_rehabilitation/pages/page_main.dart';
+import 'package:cardiac_rehabilitation/routes/route_manage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,13 +28,18 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: const [Locale('zh', 'CH'), Locale('en', 'US')],
       title: 'Material App',
-      home: MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (context) => MenuController()),
-          ChangeNotifierProvider(create: (context) => DashboardController()),
-        ],
-        child: const MainPage(),
-      ),
+      initialRoute: Routes.managerManage,
+      getPages: Routes.pages,
+      builder: (context, child) {
+        return MainPage(child);
+      },
+      // home: MultiProvider(
+      //   providers: [
+      //     ChangeNotifierProvider(create: (context) => MenuController()),
+      //     ChangeNotifierProvider(create: (context) => DashboardController()),
+      //   ],
+      //   child: const MainPage(),
+      // ),
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:cardiac_rehabilitation/logic/dashboard_controller.dart';
 import 'package:cardiac_rehabilitation/logic/patient_list_controller.dart';
 import 'package:cardiac_rehabilitation/models/index.dart';
 import 'package:cardiac_rehabilitation/network/dio_manager.dart';
+import 'package:cardiac_rehabilitation/pages/patient_manage/add_patient.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -27,9 +28,10 @@ class PatientManage extends StatelessWidget {
               ElevatedButton.icon(
                 onPressed: () {
                   //Get.dialog(DiaLogAddDep());
-                  context
-                      .read<DashboardController>()
-                      .changePage(PageFlag.addPatient);
+                  // context
+                  //     .read<DashboardController>()
+                  //     .changePage(PageFlag.addPatient);
+                  Get.to(AddPatient());
                 },
                 icon: const Icon(Icons.add),
                 label: const Padding(

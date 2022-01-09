@@ -9,12 +9,14 @@ import 'package:provider/provider.dart';
 import 'dash_board_root.dart';
 
 class MainPage extends StatelessWidget {
-  const MainPage({Key? key}) : super(key: key);
+  const MainPage(this.child, {Key? key}) : super(key: key);
+
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: context.read<MenuController>().scaffoldKey,
+      //key: context.read<MenuController>().scaffoldKey,
       appBar: const CusAppBar(
         userName: "lames444",
         avatarUri:
@@ -30,9 +32,9 @@ class MainPage extends StatelessWidget {
             children: [
               if (Responsive.isDesktop(context))
                 const Expanded(flex: 5, child: SideMenu()),
-              const Expanded(
+              Expanded(
                 flex: 23,
-                child: DashBoard(),
+                child: child ?? Container(color: Colors.grey),
               ),
             ],
           ),

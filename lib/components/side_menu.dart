@@ -2,9 +2,12 @@ import 'package:cardiac_rehabilitation/common/cr_colors.dart';
 import 'package:cardiac_rehabilitation/constants.dart';
 import 'package:cardiac_rehabilitation/logic/dashboard_controller.dart';
 import 'package:cardiac_rehabilitation/data/menu_data.dart';
+import 'package:cardiac_rehabilitation/pages/patient_manage/patient_manage.dart';
+import 'package:cardiac_rehabilitation/pages/system_manage/department_manager.dart';
 import 'package:cardiac_rehabilitation/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 class SideMenu extends StatelessWidget {
@@ -35,9 +38,7 @@ class SideMenu extends StatelessWidget {
                 return DrawerListTtile(
                   title: menus[index].title,
                   press: () {
-                    context
-                        .read<DashboardController>()
-                        .changePage(PageFlag.managePatient);
+                    Get.to(PatientManage());
                   },
                 );
               },
@@ -82,9 +83,7 @@ class ExpansionDrawerList extends StatelessWidget {
             ),
           ),
           onTap: () {
-            context
-                .read<DashboardController>()
-                .changePage(menuInfo.subMenuList![index].flag);
+            Get.toNamed(menuInfo.subMenuList![index].routeName);
           },
         ),
       ),

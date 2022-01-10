@@ -38,7 +38,7 @@ class SideMenu extends StatelessWidget {
                 return DrawerListTtile(
                   title: menus[index].title,
                   press: () {
-                    Get.to(PatientManage());
+                    Get.off(PatientManage());
                   },
                 );
               },
@@ -83,7 +83,7 @@ class ExpansionDrawerList extends StatelessWidget {
             ),
           ),
           onTap: () {
-            Get.toNamed(menuInfo.subMenuList![index].routeName);
+            Get.offNamed(menuInfo.subMenuList![index].routeName);
           },
         ),
       ),

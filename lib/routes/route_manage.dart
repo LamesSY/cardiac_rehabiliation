@@ -1,3 +1,4 @@
+import 'package:cardiac_rehabilitation/pages/patient_manage/add_patient.dart';
 import 'package:cardiac_rehabilitation/pages/patient_manage/patient_manage.dart';
 import 'package:cardiac_rehabilitation/pages/system_manage/department_manager.dart';
 import 'package:cardiac_rehabilitation/pages/system_manage/manage_manager_card.dart';
@@ -8,16 +9,12 @@ class Routes {
   static const managerDep = '/department_manager';
 
   static const patientManage = '/patient_manage';
+  static const addPatient = '/patient_manage/add_patient';
 
   static final pages = [
     GetPage(name: managerManage, page: () => ManageManagerCard()),
     GetPage(name: managerDep, page: () => DepManageDashboard()),
     GetPage(name: patientManage, page: () => PatientManage()),
-  ];
-
-  static final routeNames = [
-    Routes.managerManage,
-    Routes.managerDep,
-    Routes.patientManage
+    GetPage(name: addPatient, page: () => AddPatient()),
   ];
 }

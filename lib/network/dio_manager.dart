@@ -58,37 +58,55 @@ Future<PatientInfoSummary> getPatientList(int pageNum, int pageSize) async {
   return summary;
 }
 
-Future<dynamic> addNewPatient({
+Future<bool> addNewPatient({
+  required String userName,
+  required String uid,
+  required int gender,
+  required String birthday,
+  int? height,
+  int? weight,
+  String? phone,
   String? address,
+  required int status,
+  String? clinicalDiagnosis,
+  String? medication,
+  String? startTime,
+  String? hospitalNumber,
+  int? bedNo,
+  String? endTime,
+  required int nyhaLevel,
+  List? hospitalDiseaseVos,
+  List<String>? drugDuids,
 }) async {
-  var rseult = await DioUtils().postForData('/hospital/add', {
+  var result = await DioUtils().postForData(
+    '/hospital/add',
     {
-      "address": "",
-      "bedNo": 0,
-      "birthday": "",
-      "bmi": "",
-      "clinicalDiagnosis": "",
+      "address": address,
+      "bedNo": bedNo,
+      "birthday": birthday,
+      "bmi": null,
+      "clinicalDiagnosis": clinicalDiagnosis,
       "day": 0,
-      "drugDuids": [],
-      "endTime": "",
+      "drugDuids": drugDuids,
+      "endTime": endTime,
       "evaluateNumber": 0,
-      "evaluateTime": "",
-      "height": 0,
-      "hospitalDiseaseVos": [
-        {"diseaseDuid": "", "operationTime": ""}
-      ],
-      "hospitalNumber": "",
-      "medication": "",
-      "nyha": 0,
-      "phone": "",
-      "sex": 0,
-      "startTime": "",
-      "state": 0,
-      "uid": "",
-      "userName": "",
-      "weight": 0
-    }
-  });
+      "evaluateTime": null,
+      "height": height,
+      "hospitalDiseaseVos": hospitalDiseaseVos,
+      // {"diseaseDuid": "", "operationTime": ""}
+      "hospitalNumber": hospitalNumber,
+      "medication": medication,
+      "nyha": nyhaLevel,
+      "phone": phone,
+      "sex": gender,
+      "startTime": startTime,
+      "state": status,
+      "uid": uid,
+      "userName": userName,
+      "weight": weight
+    },
+  );
+  return result["code"] == 200;
 }
 
 class DioUtils {
@@ -100,13 +118,14 @@ class DioUtils {
         'deviceFlag': 'g',
         'lang': 'ZH',
         'Authorization':
-            'eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6Ijc1NTc1Mzg4LTUyMzgtNGY1ZC1iNTYwLWU4NDZmOWQ5MzQzZCJ9.MM51P48fGDo4v-Uj6ZGtmzzuY0W21Eo1rHnQnB162xxnYbU8guVvuqidNSsuN2SCi06VCmG-phKxS6aMdro5ew'
+            'eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6IjJhYzYwYmJmLTFhYzItNDlmMi04YWU3LTIzOGVkNDcwMjA3MSJ9.OJ7mEwPfVcJqmyAmFjG8ZplVo6Ut6Y1bEL9iQQ-dOKYOYeTPCBEet3C_iQ2Hu9oZsnHBdj_U95HZPqAwtKk-Sg'
       },
     ),
   );
 
-  Future<dynamic> postForData(String path, dynamic data) async {
-    var r = await dio.post(path, data: data);
+  Future<dynamic> postForData(
+      String path, Map<String, dynamic> queryParam) async {
+    var r = await dio.post(path, data: queryParam);
     printNetWorkInfo(r);
     return r.data["data"];
   }

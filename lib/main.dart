@@ -17,29 +17,30 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.light().copyWith(
-        textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
-            .apply(bodyColor: Colors.black),
-      ),
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate
-      ],
-      supportedLocales: const [Locale('zh', 'CH'), Locale('en', 'US')],
-      title: 'Material App',
-      initialRoute: Routes.managerManage,
-      getPages: Routes.pages,
-      builder: (context, child) {
-        return MainPage(child);
-      },
-      // home: MultiProvider(
-      //   providers: [
-      //     ChangeNotifierProvider(create: (context) => MenuController()),
-      //     ChangeNotifierProvider(create: (context) => DashboardController()),
-      //   ],
-      //   child: const MainPage(),
-      // ),
-    );
+        debugShowCheckedModeBanner: false,
+        // theme: ThemeData.light().copyWith(
+        //   textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
+        //       .apply(bodyColor: Colors.black),
+        // ),
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate
+        ],
+        supportedLocales: const [Locale('zh', 'CH'), Locale('en', 'US')],
+        title: 'Material App',
+        initialRoute: Routes.addPatient,
+        defaultTransition: Transition.fadeIn,
+        getPages: Routes.pages,
+        builder: (_, child) {
+          return MainPage(child);
+        }
+        // home: MultiProvider(
+        //   providers: [
+        //     ChangeNotifierProvider(create: (context) => MenuController()),
+        //     ChangeNotifierProvider(create: (context) => DashboardController()),
+        //   ],
+        //   child: const MainPage(),
+        // ),
+        );
   }
 }

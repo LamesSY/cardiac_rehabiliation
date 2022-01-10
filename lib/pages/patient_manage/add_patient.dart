@@ -1,9 +1,8 @@
 import 'package:cardiac_rehabilitation/common/cr_colors.dart';
 import 'package:cardiac_rehabilitation/common/cr_styles.dart';
 import 'package:cardiac_rehabilitation/constants.dart';
-import 'package:cardiac_rehabilitation/logic/test_controller.dart';
+import 'package:cardiac_rehabilitation/logic/logic_add_patient.dart';
 import 'package:cardiac_rehabilitation/network/dio_manager.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,7 +11,7 @@ class AddPatient extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final BoolController logic = Get.put(BoolController());
+    final AddPatientLogic logic = Get.put(AddPatientLogic());
     return Form(
       child: SafeArea(
         child: SingleChildScrollView(
@@ -51,13 +50,21 @@ class AddPatient extends StatelessWidget {
                     children: [
                       InputContainer(
                         "患者姓名",
-                        (content) => logic.userName = content,
+                        onContentSave: (content) => logic.userName = content,
+                        checkContent: (content) =>
+                            content == null || content.isEmpty
+                                ? null
+                                : "患者姓名不能为空",
                         isRequired: true,
                       ),
                       const SizedBox(width: 70),
                       InputContainer(
                         "患者ID",
-                        (content) => logic.uid = content,
+                        onContentSave: (content) => logic.uid = content,
+                        checkContent: (content) =>
+                            content == null || content.isEmpty
+                                ? null
+                                : "患者ID不能为空",
                         isRequired: true,
                       )
                     ],
@@ -68,22 +75,22 @@ class AddPatient extends StatelessWidget {
                     TextSpan(text: "*", style: TextStyle(color: Colors.red))
                   ])),
                   const SizedBox(height: 4),
-                  GetBuilder<BoolController>(
+                  GetBuilder<AddPatientLogic>(
                     id: 'genderChoose',
                     builder: (_) => Row(
                       children: [
                         GenderSelectButton(
-                          logic.genderFlag.value,
-                          "男",
+                          1,
                           "images/male.png",
-                          onCLick: () => logic.changeFocus("男"),
+                          logic.genderFlag.value == 1,
+                          onCLick: () => logic.changeFocus(1),
                         ),
                         const SizedBox(width: 10),
                         GenderSelectButton(
-                          logic.genderFlag.value,
-                          "女",
+                          0,
                           "images/female.png",
-                          onCLick: () => logic.changeFocus("女"),
+                          logic.genderFlag.value == 0,
+                          onCLick: () => logic.changeFocus(0),
                         ),
                       ],
                     ),
@@ -93,27 +100,38 @@ class AddPatient extends StatelessWidget {
                     children: [
                       InputContainer(
                         "出生日期",
-                        (content) => logic.birthday = content,
+                        onContentSave: (content) => logic.birthday = content,
+                        checkContent: (content) =>
+                            content == null || content.isEmpty
+                                ? null
+                                : "出生日期不能为空",
                         isRequired: true,
                       ),
                       const SizedBox(width: 70),
                       InputContainer(
                         "身高",
-                        (content) {},
+                        onContentSave: (content) {},
+                        checkContent: (content) {},
                       ),
                       const SizedBox(width: 70),
                       InputContainer(
                         "体重",
-                        (content) {},
+                        onContentSave: (content) {},
+                        checkContent: (content) {},
                       ),
                     ],
                   ),
                   const SizedBox(height: 20),
                   Row(
                     children: [
-                      InputContainer("联系电话", (content) {}, isRequired: true),
+                      InputContainer("联系电话",
+                          onContentSave: (content) {},
+                          checkContent: (content) {},
+                          isRequired: true),
                       const SizedBox(width: 70),
-                      InputContainer("居住地", (content) {}),
+                      InputContainer("居住地",
+                          onContentSave: (content) {},
+                          checkContent: (content) {}),
                     ],
                   ),
                   const SizedBox(height: 30),
@@ -134,50 +152,63 @@ class AddPatient extends StatelessWidget {
                   const SizedBox(height: 20),
                   Row(
                     children: [
-                      InputContainer("状态", (content) {}, isRequired: true),
+                      InputContainer("状态",
+                          onContentSave: (content) {},
+                          checkContent: (content) {},
+                          isRequired: true),
                       const SizedBox(width: 70),
                       InputContainer(
                         "临床诊断",
-                        (content) {},
+                        onContentSave: (content) {},
+                        checkContent: (content) {},
                       ),
                       const SizedBox(width: 70),
                       InputContainer(
                         "服药情况",
-                        (content) {},
+                        onContentSave: (content) {},
+                        checkContent: (content) {},
                       ),
                     ],
                   ),
                   const SizedBox(height: 20),
                   Row(
                     children: [
-                      InputContainer("入院日期", (content) {}),
+                      InputContainer("入院日期",
+                          onContentSave: (content) {},
+                          checkContent: (content) {}),
                       const SizedBox(width: 70),
-                      InputContainer("住院号", (content) {}),
+                      InputContainer("住院号",
+                          onContentSave: (content) {},
+                          checkContent: (content) {}),
                       const SizedBox(width: 70),
-                      InputContainer("床号", (content) {}),
+                      InputContainer("床号",
+                          onContentSave: (content) {},
+                          checkContent: (content) {}),
                       const SizedBox(width: 70),
-                      InputContainer("出院日期", (content) {}),
+                      InputContainer("出院日期",
+                          onContentSave: (content) {},
+                          checkContent: (content) {}),
                     ],
                   ),
                   const SizedBox(height: 20),
                   const Text("NYHA分级"),
                   const SizedBox(height: 10),
-                  GetBuilder<BoolController>(
+                  GetBuilder<AddPatientLogic>(
                     id: 'nyha_level',
-                    init: BoolController(),
+                    init: AddPatientLogic(),
                     builder: (_) => Row(
                       children: [
-                        LevelSelectChip(
-                            1, Get.find<BoolController>().nyhaLevel.value == 1),
+                        LevelSelectChip(1,
+                            Get.find<AddPatientLogic>().nyhaLevel.value == 1),
                         const SizedBox(width: 40),
-                        LevelSelectChip(
-                            2, Get.find<BoolController>().nyhaLevel.value == 2),
+                        LevelSelectChip(2,
+                            Get.find<AddPatientLogic>().nyhaLevel.value == 2),
                         const SizedBox(width: 40),
-                        LevelSelectChip(
-                            3, Get.find<BoolController>().nyhaLevel.value == 3),
+                        LevelSelectChip(3,
+                            Get.find<AddPatientLogic>().nyhaLevel.value == 3),
                         const SizedBox(width: 40),
-                        LevelSelectChip(
-                            4, Get.find<BoolController>().nyhaLevel.value == 4),
+                        LevelSelectChip(4,
+                            Get.find<AddPatientLogic>().nyhaLevel.value == 4),
                       ],
                     ),
                   ),
@@ -198,11 +229,11 @@ class AddPatient extends StatelessWidget {
                         style: radiusStyle(10),
                         onPressed: () async {
                           var result = await addNewPatient(
-                            userName: logic.userName,
-                            uid: logic.uid,
-                            gender: logic.gender,
-                            birthday: logic.birthday,
-                            status: logic.status,
+                            userName: logic.userName!,
+                            uid: logic.uid!,
+                            gender: logic.genderFlag.value,
+                            birthday: logic.birthday!,
+                            status: logic.status!,
                             nyhaLevel: logic.nyhaLevel.value,
                           );
                           logger.d("$result");
@@ -297,22 +328,21 @@ class LevelSelectChip extends StatelessWidget {
       avatar: const CircleAvatar(backgroundColor: Colors.grey),
       selectedColor: Colors.transparent,
       backgroundColor: Colors.white,
-      onSelected: (value) =>
-          Get.find<BoolController>().changeNYHALevel(value == true ? level : 0),
+      onSelected: (value) => Get.find<AddPatientLogic>()
+          .changeNYHALevel(value == true ? level : 0),
       selected: isSelect,
     );
   }
 }
 
 class GenderSelectButton extends StatelessWidget {
-  const GenderSelectButton(this.genderFlag, this.text, this.svgUri,
+  const GenderSelectButton(this.genderFlag, this.svgUri, this.isSelect,
       {Key? key, this.onCLick})
       : super(key: key);
 
   final String svgUri;
-  final String text;
-  final String genderFlag;
-
+  final int genderFlag;
+  final bool isSelect;
   final VoidCallback? onCLick;
 
   @override
@@ -325,8 +355,8 @@ class GenderSelectButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
             ),
           ),
-          backgroundColor: MaterialStateColor.resolveWith((states) =>
-              genderFlag == text ? Colors.blue.shade100 : Colors.white)),
+          backgroundColor: MaterialStateColor.resolveWith(
+              (states) => isSelect ? Colors.blue.shade100 : Colors.white)),
       child: Column(
         children: [
           Padding(
@@ -337,7 +367,7 @@ class GenderSelectButton extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(bottom: 10),
             child: Text(
-              text,
+              genderFlag == 0 ? "女" : "男",
               style: const TextStyle(color: Colors.black),
             ),
           )
@@ -348,13 +378,19 @@ class GenderSelectButton extends StatelessWidget {
 }
 
 class InputContainer extends StatelessWidget {
-  const InputContainer(this.title, this.onContentSave,
-      {Key? key, this.isRequired = false})
-      : super(key: key);
+  const InputContainer(
+    this.title, {
+    Key? key,
+    this.isRequired = false,
+    required this.onContentSave,
+    required this.checkContent,
+  }) : super(key: key);
 
   final String title;
   final bool isRequired;
   final Function(String) onContentSave;
+  final String? Function(String?) checkContent;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -369,13 +405,12 @@ class InputContainer extends StatelessWidget {
         SizedBox(
           width: 240,
           child: TextFormField(
-            scrollPadding: EdgeInsets.zero,
-            decoration: inputBoxDecoration(hintText: "请输入..."),
-            style: const TextStyle(fontSize: 14),
-            onSaved: (newValue) {
-              if (newValue != null) onContentSave(newValue);
-            },
-          ),
+              scrollPadding: EdgeInsets.zero,
+              decoration: inputBoxDecoration(hintText: "请输入..."),
+              style: const TextStyle(fontSize: 14),
+              validator: (value) => checkContent(value),
+              onSaved: (newValue) =>
+                  newValue == null ? null : onContentSave(newValue)),
         )
       ],
     );

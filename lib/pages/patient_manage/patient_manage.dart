@@ -31,7 +31,7 @@ class PatientManage extends StatelessWidget {
                   // context
                   //     .read<DashboardController>()
                   //     .changePage(PageFlag.addPatient);
-                  Get.to(AddPatient(), transition: Transition.downToUp);
+                  Get.to(() => AddPatient(), transition: Transition.downToUp);
                 },
                 icon: const Icon(Icons.add),
                 label: const Padding(

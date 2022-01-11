@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         ],
         supportedLocales: const [Locale('zh', 'CH'), Locale('en', 'US')],
         title: 'Material App',
-        initialRoute: Routes.addPatient,
+        initialRoute: Routes.patientManage,
         defaultTransition: Transition.fadeIn,
         getPages: Routes.pages,
         builder: (_, child) {

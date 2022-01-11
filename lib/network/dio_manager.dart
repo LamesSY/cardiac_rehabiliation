@@ -58,6 +58,7 @@ Future<PatientInfoSummary> getPatientList(int pageNum, int pageSize) async {
   return summary;
 }
 
+//新增患者信息
 Future<bool> addNewPatient({
   required String userName,
   required String uid,
@@ -109,6 +110,13 @@ Future<bool> addNewPatient({
   return result["code"] == 200;
 }
 
+//删除患者信息
+Future<bool> deletePatient(String duid) async {
+  var result = await DioUtils()
+      .postForData('/hospital/del', FormData.fromMap({"ids": duid}));
+  return result['code'] == 200;
+}
+
 class DioUtils {
   static Dio dio = Dio(
     BaseOptions(
@@ -118,16 +126,15 @@ class DioUtils {
         'deviceFlag': 'g',
         'lang': 'ZH',
         'Authorization':
-            'eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6IjJhYzYwYmJmLTFhYzItNDlmMi04YWU3LTIzOGVkNDcwMjA3MSJ9.OJ7mEwPfVcJqmyAmFjG8ZplVo6Ut6Y1bEL9iQQ-dOKYOYeTPCBEet3C_iQ2Hu9oZsnHBdj_U95HZPqAwtKk-Sg'
+            'eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6IjEzNGMyNTUyLTlhYTMtNDcxYS1iNWM4LTdjZjYxMmEwMmJhNyJ9.Ymw2Co8IMCBZI4RQtMkDacuou_xmuPISKlgX9m4SuZDrceueR-LgL6TwpyVKT9ni4NSlh2pnoda78LYijiExYw'
       },
     ),
   );
 
-  Future<dynamic> postForData(
-      String path, Map<String, dynamic> queryParam) async {
-    var r = await dio.post(path, data: queryParam);
+  Future<dynamic> postForData(String path, dynamic data) async {
+    var r = await dio.post(path, data: data);
     printNetWorkInfo(r);
-    return r.data["data"];
+    return r.data;
   }
 
   Future<List<dynamic>?> getList(String path) async {

@@ -1,21 +1,20 @@
 import 'package:cardiac_rehabilitation/common/cr_colors.dart';
 import 'package:cardiac_rehabilitation/common/cr_styles.dart';
-import 'package:cardiac_rehabilitation/constants.dart';
-import 'package:cardiac_rehabilitation/logic/dashboard_controller.dart';
 import 'package:cardiac_rehabilitation/logic/patient_list_controller.dart';
 import 'package:cardiac_rehabilitation/models/index.dart';
 import 'package:cardiac_rehabilitation/network/dio_manager.dart';
 import 'package:cardiac_rehabilitation/pages/patient_manage/add_patient.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
+
+import '../../constants.dart';
 
 class PatientManage extends StatelessWidget {
   const PatientManage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final logic = Get.put(PatientListController());
+    final logic = Get.put(PatientListLogic());
     return SafeArea(
       child: SingleChildScrollView(
         child: Padding(
@@ -26,24 +25,18 @@ class PatientManage extends StatelessWidget {
               const Text("患者管理", style: TextStyle(fontSize: 18)),
               const SizedBox(height: 15),
               ElevatedButton.icon(
-                onPressed: () {
-                  //Get.dialog(DiaLogAddDep());
-                  // context
-                  //     .read<DashboardController>()
-                  //     .changePage(PageFlag.addPatient);
-                  Get.to(() => AddPatient(), transition: Transition.downToUp);
-                },
+                onPressed: () => Get.to(() => const AddPatient(),
+                    transition: Transition.downToUp),
                 icon: const Icon(Icons.add),
                 label: const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 5, vertical: 9),
                   child: Text("添加患者"),
                 ),
               ),
-              PatientSearchInputCard(),
+              const PatientSearchInputCard(),
               const TableHead(),
-              //TableData(),
-              Obx(() => TableData(logic.summary.value)),
-              const TableBottom()
+              Obx(() => TableData(logic.summary.value.records ?? [])),
+              Obx(() => TableBottom(logic.summary.value.pages?.toInt() ?? 1))
             ],
           ),
         ),
@@ -53,9 +46,17 @@ class PatientManage extends StatelessWidget {
 }
 
 class TableBottom extends StatelessWidget {
-  const TableBottom({
+  const TableBottom(
+    this.pageNum, {
     Key? key,
   }) : super(key: key);
+
+  final int pageNum;
+
+  List getPages(int pageNum) {
+    return List.generate(pageNum,
+        (index) => TextButton(onPressed: () {}, child: Text("${index + 1}")));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,28 +65,49 @@ class TableBottom extends StatelessWidget {
       padding: const EdgeInsets.only(left: 30, top: 15, bottom: 15),
       margin: const EdgeInsets.only(bottom: 10),
       child: Row(
-        children: [
-          IconButton(
-            icon: const Icon(Icons.keyboard_arrow_left, color: Colors.grey),
-            onPressed: () {},
-          ),
-          TextButton(
-            child: Text("1"),
-            onPressed: () {},
-          ),
-          TextButton(
-            child: Text("2"),
-            onPressed: () {},
-          ),
-          TextButton(
-            child: Text("3"),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: const Icon(Icons.keyboard_arrow_right, color: Colors.grey),
-            onPressed: () {},
-          ),
-        ],
+        children: List.generate(pageNum + 2, (index) {
+          if (index == 0) {
+            return IconButton(
+              icon: const Icon(Icons.keyboard_arrow_left, color: Colors.grey),
+              onPressed: () {
+                logger.i(
+                    "index=$index current = ${PatientListLogic.to.currentPage} pageNum = $pageNum");
+                if (PatientListLogic.to.currentPage > 1) {
+                  PatientListLogic.to
+                      .refreshList(PatientListLogic.to.currentPage - 1);
+                }
+              },
+            );
+          } else if (index == pageNum + 1) {
+            return IconButton(
+              icon: const Icon(Icons.keyboard_arrow_right, color: Colors.grey),
+              onPressed: () {
+                logger.i(
+                    "index=$index current = ${PatientListLogic.to.currentPage} pageNum = $pageNum");
+                if (PatientListLogic.to.currentPage < pageNum) {
+                  PatientListLogic.to
+                      .refreshList(PatientListLogic.to.currentPage + 1);
+                }
+              },
+            );
+          } else {
+            return TextButton(
+              onPressed: () {
+                logger.i(
+                    "index=$index current = ${PatientListLogic.to.currentPage} pageNum = $pageNum");
+                PatientListLogic.to.refreshList(index);
+              },
+              child: Text(
+                "$index",
+                style: TextStyle(
+                  color: index == PatientListLogic.to.currentPage
+                      ? Colors.blue
+                      : Colors.black,
+                ),
+              ),
+            );
+          }
+        }),
       ),
     );
   }
@@ -93,28 +115,60 @@ class TableBottom extends StatelessWidget {
 
 class TableData extends StatelessWidget {
   const TableData(
-    this.summary, {
+    this.list, {
     Key? key,
   }) : super(key: key);
-  static const moreFunList = [
-    PopupMenuItem(child: Text("编辑"), value: 0),
-    PopupMenuItem(child: Text("历史运动评估"), value: 1),
-    PopupMenuItem(child: Text("历史运动处方"), value: 3),
-    PopupMenuItem(child: Text("历史运动记录"), value: 4),
-    PopupMenuItem(
-        child: Text(
+
+  List<PopupMenuItem> getItems(String? duid) {
+    return [
+      PopupMenuItem(child: const Text("编辑"), value: 0, onTap: () {}),
+      PopupMenuItem(child: const Text("历史运动评估"), value: 1, onTap: () {}),
+      PopupMenuItem(child: const Text("历史运动处方"), value: 3, onTap: () {}),
+      PopupMenuItem(child: const Text("历史运动记录"), value: 4, onTap: () {}),
+      PopupMenuItem(
+        child: const Text(
           "删除",
           style: TextStyle(color: Colors.red),
         ),
-        value: 5),
-  ];
+        value: 5,
+        onTap: () async {
+          if (duid != null && duid.isNotEmpty) {
+            var result = await deletePatient(duid);
+            if (result) {
+              var sum = await getPatientList(1, 10);
+              Get.find<PatientListLogic>().refreshPatientList(sum);
+            }
+          }
+        },
+      ),
+    ];
+  }
 
-  final PatientInfoSummary summary;
+  String getState(int state) {
+    switch (state) {
+      case 0:
+        return "已结束";
+      case 1:
+        return "待评估预约";
+      case 2:
+        return "待评估";
+      case 3:
+        return "待开方";
+      case 4:
+        return "待康复预约";
+      case 5:
+        return "待康复记录";
+      default:
+        return "已结束";
+    }
+  }
+
+  final List<PatientInfo> list;
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: summary.records?.length ?? 0,
+      itemCount: list.length,
       shrinkWrap: true,
       itemBuilder: (context, index) {
         return Container(
@@ -125,40 +179,39 @@ class TableData extends StatelessWidget {
             style: const TextStyle(fontSize: 16),
             child: Row(
               children: [
+                Expanded(flex: 10, child: Text(list[index].userName ?? "")),
+                Expanded(flex: 10, child: Text(list[index].uid ?? "")),
                 Expanded(
-                    flex: 10,
-                    child: Text(summary.records?[index].userName ?? "FF")),
-                Expanded(
-                    flex: 10,
-                    child: Text(summary.records?[index].uid ?? "1111")),
-                Expanded(
-                    flex: 6, child: Text("${summary.records?[index].sex}")),
-                Expanded(
-                    flex: 6, child: Text("${summary.records?[index].age}")),
-                Expanded(
-                    flex: 12,
-                    child: Text(summary.records?[index].phone ?? "2222")),
+                    flex: 6, child: Text(list[index].sex == 0 ? "女" : "男")),
+                Expanded(flex: 6, child: Text("${list[index].age}")),
+                Expanded(flex: 12, child: Text(list[index].phone ?? "")),
                 Expanded(
                   flex: 10,
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Chip(
-                      label: Text(summary.records![index].disease!.isEmpty
-                          ? ""
-                          : "${summary.records?[index].disease?[0]}"),
-                      backgroundColor: Colors.blue.shade100,
+                      label: Text(
+                        list[index].disease!.isEmpty
+                            ? ""
+                            : "${list[index].disease?[0]}",
+                        style: const TextStyle(color: Colors.blue),
+                      ),
+                      backgroundColor: list[index].disease!.isEmpty
+                          ? Colors.transparent
+                          : Colors.blue.shade100,
                     ),
                   ),
                 ),
-                Expanded(
-                    flex: 10, child: Text("${summary.records?[index].nyha}")),
+                Expanded(flex: 10, child: Text("${list[index].nyha}")),
                 Expanded(
                     flex: 12,
-                    child: Text(summary.records?[index].startTime ?? "2012")),
-                Expanded(flex: 10, child: Text("2")),
+                    child: Text(list[index].startTime?.substring(0, 16) ?? "")),
+                Expanded(
+                    flex: 10, child: Text("${list[index].evaluateNumber}")),
                 Expanded(
                     flex: 10,
-                    child: Text("待评估", style: TextStyle(color: Colors.red))),
+                    child: Text(getState(list[index].state?.toInt() ?? 0),
+                        style: TextStyle(color: Colors.red))),
                 Expanded(
                   flex: 16,
                   child: Row(
@@ -171,7 +224,7 @@ class TableData extends StatelessWidget {
                         tooltip: "",
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10)),
-                        itemBuilder: (context) => moreFunList,
+                        itemBuilder: (context) => getItems(list[index].duid),
                         icon: const Icon(Icons.more_horiz),
                       ),
                     ],
@@ -262,7 +315,7 @@ class PatientSearchInputCard extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () async {
                   var summary = await getPatientList(1, 10);
-                  Get.find<PatientListController>().refreshPatientList(summary);
+                  Get.find<PatientListLogic>().refreshPatientList(summary);
                 },
                 child: const Padding(
                   padding: EdgeInsets.symmetric(vertical: 10),

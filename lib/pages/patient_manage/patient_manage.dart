@@ -4,6 +4,7 @@ import 'package:cardiac_rehabilitation/logic/patient_list_controller.dart';
 import 'package:cardiac_rehabilitation/models/index.dart';
 import 'package:cardiac_rehabilitation/network/dio_manager.dart';
 import 'package:cardiac_rehabilitation/pages/patient_manage/add_patient.dart';
+import 'package:cardiac_rehabilitation/routes/route_manage.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
@@ -119,13 +120,20 @@ class TableData extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  List<PopupMenuItem> getItems(String? duid) {
+  List<PopupMenuItem<int>> getItems(String? duid) {
     return [
-      PopupMenuItem(child: const Text("编辑"), value: 0, onTap: () {}),
-      PopupMenuItem(child: const Text("历史运动评估"), value: 1, onTap: () {}),
-      PopupMenuItem(child: const Text("历史运动处方"), value: 3, onTap: () {}),
-      PopupMenuItem(child: const Text("历史运动记录"), value: 4, onTap: () {}),
-      PopupMenuItem(
+      PopupMenuItem<int>(
+          child: const Text("编辑"),
+          value: 0,
+          onTap: () {
+            //if (duid == null) return;
+            //Get.toNamed(Routes.addPatient);
+            // Get.to(() => const AddPatient(), transition: Transition.downToUp);
+          }),
+      PopupMenuItem<int>(child: const Text("历史运动评估"), value: 1, onTap: () {}),
+      PopupMenuItem<int>(child: const Text("历史运动处方"), value: 3, onTap: () {}),
+      PopupMenuItem<int>(child: const Text("历史运动记录"), value: 4, onTap: () {}),
+      PopupMenuItem<int>(
         child: const Text(
           "删除",
           style: TextStyle(color: Colors.red),
@@ -144,22 +152,22 @@ class TableData extends StatelessWidget {
     ];
   }
 
-  String getState(int state) {
+  Text getText(int state) {
     switch (state) {
       case 0:
-        return "已结束";
+        return const Text("已结束", style: TextStyle(color: Colors.green));
       case 1:
-        return "待评估预约";
+        return const Text("待评估预约", style: TextStyle(color: Colors.red));
       case 2:
-        return "待评估";
+        return const Text("待评估", style: TextStyle(color: Colors.orange));
       case 3:
-        return "待开方";
+        return const Text("待开方", style: TextStyle(color: Colors.orange));
       case 4:
-        return "待康复预约";
+        return const Text("待康复预约", style: TextStyle(color: Colors.red));
       case 5:
-        return "待康复记录";
+        return const Text("待康复记录", style: TextStyle(color: Colors.orange));
       default:
-        return "已结束";
+        return const Text("已结束", style: TextStyle(color: Colors.green));
     }
   }
 
@@ -197,7 +205,7 @@ class TableData extends StatelessWidget {
                         style: const TextStyle(color: Colors.blue),
                       ),
                       backgroundColor: list[index].disease!.isEmpty
-                          ? Colors.transparent
+                          ? Colors.white
                           : Colors.blue.shade100,
                     ),
                   ),
@@ -209,9 +217,7 @@ class TableData extends StatelessWidget {
                 Expanded(
                     flex: 10, child: Text("${list[index].evaluateNumber}")),
                 Expanded(
-                    flex: 10,
-                    child: Text(getState(list[index].state?.toInt() ?? 0),
-                        style: TextStyle(color: Colors.red))),
+                    flex: 10, child: getText(list[index].state?.toInt() ?? 0)),
                 Expanded(
                   flex: 16,
                   child: Row(
@@ -226,6 +232,10 @@ class TableData extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10)),
                         itemBuilder: (context) => getItems(list[index].duid),
                         icon: const Icon(Icons.more_horiz),
+                        onSelected: (value) {
+                          if (value != 0) return;
+                          Get.toNamed(Routes.addPatient);
+                        },
                       ),
                     ],
                   ),

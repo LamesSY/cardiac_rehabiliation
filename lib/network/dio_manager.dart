@@ -126,7 +126,7 @@ class DioUtils {
         'deviceFlag': 'g',
         'lang': 'ZH',
         'Authorization':
-            'eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6IjEzNGMyNTUyLTlhYTMtNDcxYS1iNWM4LTdjZjYxMmEwMmJhNyJ9.Ymw2Co8IMCBZI4RQtMkDacuou_xmuPISKlgX9m4SuZDrceueR-LgL6TwpyVKT9ni4NSlh2pnoda78LYijiExYw'
+            'eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6IjA2MWU1ZDQ1LTE3OWQtNDBkNy1iZmY2LTgwZmIxZTFkYjA0NCJ9.TvsugnwnmT-mo0m3MoqMQlV3vJVEk9PuwM2RckYIqm7_V60P-YZbYBtHPuGLEeriEYXkY1cs6F9o3RrU8g9Pag'
       },
     ),
   );

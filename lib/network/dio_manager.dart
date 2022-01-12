@@ -37,7 +37,7 @@ class DioUtils {
         'deviceFlag': 'g',
         'lang': 'ZH',
         'Authorization':
-            'eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6Ijc1NjYxYjk5LTE5NTgtNGIxYi1hMzk0LTE3MzZlYjhmOGUxZCJ9.BPJ93RSNn-oi7zRp-SxlFSJl1tkzylBBGN1zdOJvclGmXx4Wa5V4yZhIrsZfFsife5A4wBFjGbJjgTQGypoCQg'
+            'eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6IjJmZTk3Mzc4LTBhODYtNDg0MS1iZGYxLTljNmUyNjViOGY3YyJ9.1OIH0LaP9j8WspGI8wWmd4gi3PsKFlW5a8X8STqYMPoO7KXxHw080kuhyF7KK29n3TdYHxWXmvl1IwTMVquE5A'
       },
     ),
   );

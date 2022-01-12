@@ -1,6 +1,5 @@
 import 'package:cardiac_rehabilitation/common/cr_colors.dart';
 import 'package:cardiac_rehabilitation/data/menu_data.dart';
-import 'package:cardiac_rehabilitation/pages/patient_manage/page_patient_manage.dart';
 import 'package:cardiac_rehabilitation/responsive.dart';
 import 'package:cardiac_rehabilitation/routes/route_manage.dart';
 import 'package:flutter/material.dart';

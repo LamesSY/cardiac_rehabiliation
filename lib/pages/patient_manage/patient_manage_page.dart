@@ -1,17 +1,17 @@
 import 'package:cardiac_rehabilitation/common/cr_colors.dart';
 import 'package:cardiac_rehabilitation/common/cr_styles.dart';
-import 'package:cardiac_rehabilitation/logic/patient_list_controller.dart';
+import 'package:cardiac_rehabilitation/logic/patient_list_logic.dart';
 import 'package:cardiac_rehabilitation/models/index.dart';
 import 'package:cardiac_rehabilitation/network/patient_manage_dio.dart';
-import 'package:cardiac_rehabilitation/pages/patient_manage/page_add_patient.dart';
+import 'package:cardiac_rehabilitation/pages/patient_manage/add_patient_page.dart';
 import 'package:cardiac_rehabilitation/routes/route_manage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../constants.dart';
 
-class PatientManage extends StatelessWidget {
-  const PatientManage({Key? key}) : super(key: key);
+class PatientManagePage extends StatelessWidget {
+  const PatientManagePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class PatientManage extends StatelessWidget {
               const Text("患者管理", style: TextStyle(fontSize: 18)),
               const SizedBox(height: 15),
               ElevatedButton.icon(
-                onPressed: () => Get.to(() => const AddPatient(),
+                onPressed: () => Get.to(() => const AddPatientPage(),
                     transition: Transition.downToUp),
                 icon: const Icon(Icons.add),
                 label: const Padding(

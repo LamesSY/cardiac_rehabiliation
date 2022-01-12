@@ -3,6 +3,7 @@ import 'package:cardiac_rehabilitation/routes/route_manage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() => runApp(const MyApp());
 
@@ -13,10 +14,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        // theme: ThemeData.light().copyWith(
-        //   textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
-        //       .apply(bodyColor: Colors.black),
-        // ),
+        theme: ThemeData.light().copyWith(
+          textTheme: GoogleFonts.mateTextTheme(Theme.of(context).textTheme)
+              .apply(bodyColor: Colors.black),
+        ),
         localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate
@@ -28,14 +29,6 @@ class MyApp extends StatelessWidget {
         getPages: Routes.pages,
         builder: (_, child) {
           return MainPage(child);
-        }
-        // home: MultiProvider(
-        //   providers: [
-        //     ChangeNotifierProvider(create: (context) => MenuController()),
-        //     ChangeNotifierProvider(create: (context) => DashboardController()),
-        //   ],
-        //   child: const MainPage(),
-        // ),
-        );
+        });
   }
 }

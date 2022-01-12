@@ -1,8 +1,8 @@
 import 'package:cardiac_rehabilitation/common/cr_colors.dart';
 import 'package:flutter/material.dart';
 
-class SportAccessAppointment extends StatelessWidget {
-  const SportAccessAppointment({Key? key}) : super(key: key);
+class SportAccessAppointPage extends StatelessWidget {
+  const SportAccessAppointPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,14 +1,13 @@
 import 'package:cardiac_rehabilitation/common/cr_colors.dart';
 import 'package:cardiac_rehabilitation/common/cr_styles.dart';
 import 'package:cardiac_rehabilitation/constants.dart';
-import 'package:cardiac_rehabilitation/logic/logic_edit_patient.dart';
-import 'package:cardiac_rehabilitation/models/index.dart';
+import 'package:cardiac_rehabilitation/logic/edit_patient_logic.dart';
 import 'package:cardiac_rehabilitation/network/patient_manage_dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class AddPatient extends StatelessWidget {
-  const AddPatient({Key? key}) : super(key: key);
+class AddPatientPage extends StatelessWidget {
+  const AddPatientPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -119,14 +118,22 @@ class AddPatient extends StatelessWidget {
                       const SizedBox(width: 70),
                       InputContainer(
                         "身高",
-                        onContentSave: (content) {},
-                        checkContent: (content) {},
+                        onContentSave: (content) =>
+                            logic.height = int.parse(content),
+                        checkContent: (content) =>
+                            content != null && content.isNum
+                                ? null
+                                : "请输入正确的身高格式",
                       ),
                       const SizedBox(width: 70),
                       InputContainer(
                         "体重",
-                        onContentSave: (content) {},
-                        checkContent: (content) {},
+                        onContentSave: (content) =>
+                            logic.weight = int.parse(content),
+                        checkContent: (content) =>
+                            content != null && content.isNum
+                                ? null
+                                : "请输入正确的体重格式",
                       ),
                     ],
                   ),
@@ -144,7 +151,7 @@ class AddPatient extends StatelessWidget {
                       const SizedBox(width: 70),
                       InputContainer(
                         "居住地",
-                        onContentSave: (content) {},
+                        onContentSave: (content) => logic.address = content,
                         checkContent: (content) {},
                       ),
                     ],
@@ -181,13 +188,14 @@ class AddPatient extends StatelessWidget {
                       const SizedBox(width: 70),
                       InputContainer(
                         "临床诊断",
-                        onContentSave: (content) {},
+                        onContentSave: (content) =>
+                            logic.clinicalDiagnosis = content,
                         checkContent: (content) {},
                       ),
                       const SizedBox(width: 70),
                       InputContainer(
                         "服药情况",
-                        onContentSave: (content) {},
+                        onContentSave: (content) => logic.medication = content,
                         checkContent: (content) {},
                       ),
                     ],
@@ -196,15 +204,17 @@ class AddPatient extends StatelessWidget {
                   Row(
                     children: [
                       DatePickInputContainer("入院日期", _startDateController,
-                          onContentSave: (content) {},
+                          onContentSave: (content) => logic.startTime = content,
                           checkContent: (content) {}),
                       const SizedBox(width: 70),
                       InputContainer("住院号",
-                          onContentSave: (content) {},
+                          onContentSave: (content) =>
+                              logic.hospitalNumber = content,
                           checkContent: (content) {}),
                       const SizedBox(width: 70),
                       InputContainer("床号",
-                          onContentSave: (content) {},
+                          onContentSave: (content) =>
+                              logic.bedNo = int.parse(content),
                           checkContent: (content) {}),
                       const SizedBox(width: 70),
                       DatePickInputContainer("出院日期", _endDateController,
@@ -282,18 +292,12 @@ class AddPatient extends StatelessWidget {
                       const SizedBox(width: 10),
                       OutlinedButton(
                         style: radiusStyle(10),
-                        onPressed: () {
-                          showDatePicker(
-                            context: context,
-                            initialDate: DateTime(2021),
-                            firstDate: DateTime(2021),
-                            lastDate: DateTime(2022),
-                          );
-                          //Get.back();
-                        },
+                        onPressed: () => Get.back(),
                         child: const Padding(
                           padding: EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 28),
+                            vertical: 10,
+                            horizontal: 28,
+                          ),
                           child: Text("取消"),
                         ),
                       ),
@@ -506,7 +510,6 @@ class DatePickInputContainer extends StatelessWidget {
           width: 240,
           child: TextFormField(
             scrollPadding: EdgeInsets.zero,
-            //initialValue: initialValue,
             controller: controller,
             readOnly: true,
             decoration: inputBoxDecoration(

@@ -1,12 +1,14 @@
 import 'package:cardiac_rehabilitation/common/cr_styles.dart';
-import 'package:cardiac_rehabilitation/components/search_result_table.dart';
-import 'package:cardiac_rehabilitation/components/search_user_card.dart';
+import 'package:cardiac_rehabilitation/pages/system_manage/search_result_table.dart';
+import 'package:cardiac_rehabilitation/pages/system_manage/search_user_card.dart';
 import 'package:cardiac_rehabilitation/dialog/dialog_add_user.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ManageManagerCard extends StatelessWidget {
-  const ManageManagerCard({
+import 'search_result_table.dart';
+
+class ManageManagerPage extends StatelessWidget {
+  const ManageManagerPage({
     Key? key,
   }) : super(key: key);
 
@@ -25,12 +27,11 @@ class ManageManagerCard extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.w400, fontSize: 18)),
               const SizedBox(height: defaultPadding),
               ElevatedButton.icon(
-                onPressed: () {
-                  Get.dialog(
-                    DialogAddUser(),
-                    barrierDismissible: false,
-                  );
-                },
+                onPressed: () => Get.dialog(
+                  const DialogAddUser(),
+                  barrierDismissible: false,
+                ),
+
                 //style: radiusStyle(10),
                 icon: const Icon(Icons.add),
                 label: const Padding(

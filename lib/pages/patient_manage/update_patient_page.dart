@@ -1,13 +1,12 @@
 import 'package:cardiac_rehabilitation/common/cr_colors.dart';
 import 'package:cardiac_rehabilitation/common/cr_styles.dart';
-import 'package:cardiac_rehabilitation/logic/logic_edit_patient.dart';
-import 'package:cardiac_rehabilitation/logic/update_patient_logic.dart';
+import 'package:cardiac_rehabilitation/logic/edit_patient_logic.dart';
 import 'package:cardiac_rehabilitation/models/index.dart';
 import 'package:cardiac_rehabilitation/network/patient_manage_dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'page_add_patient.dart';
+import 'add_patient_page.dart';
 
 class UpdatePatientPage extends StatelessWidget {
   const UpdatePatientPage({Key? key}) : super(key: key);

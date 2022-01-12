@@ -1,14 +1,16 @@
 import 'package:cardiac_rehabilitation/common/cr_styles.dart';
 import 'package:cardiac_rehabilitation/data/sport_access.dart';
-import 'package:cardiac_rehabilitation/components/gender_distribution_pie_chart.dart';
-import 'package:cardiac_rehabilitation/components/reception_line_chart.dart';
-import 'package:cardiac_rehabilitation/components/sport_access_data_statis.dart';
-import 'package:cardiac_rehabilitation/components/work_bench_pre_card.dart';
+import 'package:cardiac_rehabilitation/pages/work_bench/gender_distribution_pie_chart.dart';
+import 'package:cardiac_rehabilitation/pages/work_bench/reception_line_chart.dart';
+import 'package:cardiac_rehabilitation/pages/work_bench/sport_access_data_statis.dart';
+import 'package:cardiac_rehabilitation/pages/work_bench/work_bench_pre_card.dart';
 import 'package:cardiac_rehabilitation/responsive.dart';
 import 'package:flutter/material.dart';
 
-class SportAccess extends StatelessWidget {
-  const SportAccess({Key? key}) : super(key: key);
+import 'gender_distribution_pie_chart.dart';
+
+class SportAccessPage extends StatelessWidget {
+  const SportAccessPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final Size _size = MediaQuery.of(context).size;

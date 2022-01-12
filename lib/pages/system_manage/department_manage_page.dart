@@ -3,8 +3,8 @@ import 'package:cardiac_rehabilitation/dialog/dialog_add_dep.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class DepManageDashboard extends StatelessWidget {
-  const DepManageDashboard({Key? key}) : super(key: key);
+class DepManagePage extends StatelessWidget {
+  const DepManagePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +18,7 @@ class DepManageDashboard extends StatelessWidget {
               const Text("部门科室管理", style: TextStyle(fontSize: 18)),
               const SizedBox(height: defaultPadding),
               ElevatedButton.icon(
-                onPressed: () {
-                  Get.dialog(DiaLogAddDep());
-                },
+                onPressed: () => Get.dialog(const DiaLogAddDep()),
                 icon: const Icon(Icons.add),
                 label: const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 5, vertical: 9),

@@ -59,7 +59,7 @@ Future<PatientInfoSummary> getPatientList(int pageNum, int pageSize) async {
 }
 
 //新增患者信息
-Future<bool> addNewPatient({
+Future<bool> addOrUpdatePatient({
   required String userName,
   required String uid,
   required int gender,
@@ -78,9 +78,10 @@ Future<bool> addNewPatient({
   required int nyhaLevel,
   List? hospitalDiseaseVos,
   List<String>? drugDuids,
+  String? duid,
 }) async {
   var result = await DioUtils().postForData(
-    '/hospital/add',
+    duid == null ? '/hospital/add' : '/hospital/add/$duid',
     {
       "address": address,
       "bedNo": bedNo,
@@ -117,6 +118,13 @@ Future<bool> deletePatient(String duid) async {
   return result['code'] == 200;
 }
 
+//根据duid查询患者信息
+Future<PatientDetailInfo> getPatientDetailInfo(String duid) async {
+  var result = await DioUtils().getData('/hospital/getById', {'duid': duid});
+  //logger.i("$result");
+  return PatientDetailInfo.fromJson(result);
+}
+
 class DioUtils {
   static Dio dio = Dio(
     BaseOptions(
@@ -126,7 +134,7 @@ class DioUtils {
         'deviceFlag': 'g',
         'lang': 'ZH',
         'Authorization':
-            'eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6IjA2MWU1ZDQ1LTE3OWQtNDBkNy1iZmY2LTgwZmIxZTFkYjA0NCJ9.TvsugnwnmT-mo0m3MoqMQlV3vJVEk9PuwM2RckYIqm7_V60P-YZbYBtHPuGLEeriEYXkY1cs6F9o3RrU8g9Pag'
+            'eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6ImFhMDFiYTEwLWJjNTctNGM0YS04MWFmLTgyNDAzNmMyZDhmNyJ9.P9ZG_xW1EtoAQpro4SFgCYzQa32GOXePUd075UieQGaiSGtU5QTQ62QTX1Q-1EC80ut78iWjifVmgKSBrbyfOA'
       },
     ),
   );

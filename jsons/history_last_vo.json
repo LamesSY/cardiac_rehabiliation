@@ -1,0 +1,13 @@
+{
+    "@meta": {
+        "ignore": true,
+        "nullable": true,
+        "className": "HistoryLastMod"
+      },
+    "lastEndTime": "",
+    "lastEvaluateTime": "",
+    "lastPrescribingTime": "",
+    "lastRecordTime": "",
+    "lastRecoveryTime": "",
+    "lastSportTime": ""
+}

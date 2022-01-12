@@ -1,0 +1,9 @@
+{
+    "@meta": {
+        "ignore": true,
+        "nullable": true,
+        "className": "DrugMod"
+      },
+    "drugDuid": "",
+    "drugName": ""
+}

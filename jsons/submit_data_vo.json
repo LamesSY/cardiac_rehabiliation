@@ -1,0 +1,27 @@
+{
+    "@meta": {
+        "ignore": false,
+        "nullable": true,
+        "className": "SubmitDataMod"
+      },
+    "count1": 0,
+    "count2": 0,
+    "count3": 0,
+    "count4": 0,
+    "count5": 0,
+    "count6": 0,
+    "countTime": "",
+    "frequencyCount1": 0,
+    "frequencyCount2": 0,
+    "frequencyCount3": 0,
+    "frequencyCount4": 0,
+    "frequencyCount5": 0,
+    "frequencyDesc1": 0,
+    "frequencyDesc2": 0,
+    "frequencyDesc3": 0,
+    "frequencyDesc4": 0,
+    "frequencyDesc5": 0,
+    "frequencyTime": "",
+    "hospitalDuid": "",
+    "hospitalName": ""
+}

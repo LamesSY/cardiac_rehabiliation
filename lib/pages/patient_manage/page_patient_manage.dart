@@ -3,7 +3,7 @@ import 'package:cardiac_rehabilitation/common/cr_styles.dart';
 import 'package:cardiac_rehabilitation/logic/patient_list_controller.dart';
 import 'package:cardiac_rehabilitation/models/index.dart';
 import 'package:cardiac_rehabilitation/network/dio_manager.dart';
-import 'package:cardiac_rehabilitation/pages/patient_manage/add_patient.dart';
+import 'package:cardiac_rehabilitation/pages/patient_manage/page_add_patient.dart';
 import 'package:cardiac_rehabilitation/routes/route_manage.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -120,15 +120,17 @@ class TableData extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  List<PopupMenuItem<int>> getItems(String? duid) {
+  List<PopupMenuItem<int>> getItems(PatientInfo info) {
     return [
       PopupMenuItem<int>(
           child: const Text("编辑"),
           value: 0,
-          onTap: () {
-            //if (duid == null) return;
-            //Get.toNamed(Routes.addPatient);
-            // Get.to(() => const AddPatient(), transition: Transition.downToUp);
+          onTap: () async {
+            var duid = info.duid;
+            if (duid == null || duid.isEmpty) return;
+            var detailInfo = await getPatientDetailInfo(duid);
+            Get.toNamed(Routes.updatePatient,
+                arguments: {'duid': duid, 'detail': detailInfo});
           }),
       PopupMenuItem<int>(child: const Text("历史运动评估"), value: 1, onTap: () {}),
       PopupMenuItem<int>(child: const Text("历史运动处方"), value: 3, onTap: () {}),
@@ -140,13 +142,10 @@ class TableData extends StatelessWidget {
         ),
         value: 5,
         onTap: () async {
-          if (duid != null && duid.isNotEmpty) {
-            var result = await deletePatient(duid);
-            if (result) {
-              var sum = await getPatientList(1, 10);
-              Get.find<PatientListLogic>().refreshPatientList(sum);
-            }
-          }
+          var duid = info.duid;
+          if (duid == null || duid.isEmpty) return;
+          var result = await deletePatient(duid);
+          if (result) Get.find<PatientListLogic>().refreshList(1);
         },
       ),
     ];
@@ -230,7 +229,7 @@ class TableData extends StatelessWidget {
                         tooltip: "",
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10)),
-                        itemBuilder: (context) => getItems(list[index].duid),
+                        itemBuilder: (context) => getItems(list[index]),
                         icon: const Icon(Icons.more_horiz),
                         onSelected: (value) {
                           if (value != 0) return;

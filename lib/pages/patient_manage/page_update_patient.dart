@@ -1,17 +1,21 @@
 import 'package:cardiac_rehabilitation/common/cr_colors.dart';
 import 'package:cardiac_rehabilitation/common/cr_styles.dart';
-import 'package:cardiac_rehabilitation/constants.dart';
-import 'package:cardiac_rehabilitation/logic/logic_add_patient.dart';
+import 'package:cardiac_rehabilitation/logic/logic_edit_patient.dart';
+import 'package:cardiac_rehabilitation/models/index.dart';
 import 'package:cardiac_rehabilitation/network/dio_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class AddPatient extends StatelessWidget {
-  const AddPatient({Key? key}) : super(key: key);
+import 'page_add_patient.dart';
+
+class UpdatePatientPage extends StatelessWidget {
+  const UpdatePatientPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final AddPatientLogic logic = Get.put(AddPatientLogic());
+    final PatientInfoEditLogic logic = Get.put(PatientInfoEditLogic());
+    final patientInfo = Get.arguments['detail'] as PatientDetailInfo;
+    final duid = Get.arguments['diod'] as String;
     GlobalKey _formKey = GlobalKey<FormState>();
     return SafeArea(
       child: SingleChildScrollView(
@@ -52,6 +56,7 @@ class AddPatient extends StatelessWidget {
                     children: [
                       InputContainer(
                         "患者姓名",
+                        initialValue: patientInfo.userName,
                         onContentSave: (content) => logic.userName = content,
                         checkContent: (content) =>
                             content == null || content.isEmpty
@@ -62,6 +67,7 @@ class AddPatient extends StatelessWidget {
                       const SizedBox(width: 70),
                       InputContainer(
                         "患者ID",
+                        initialValue: patientInfo.uid,
                         onContentSave: (content) => logic.uid = content,
                         checkContent: (content) =>
                             content == null || content.isEmpty
@@ -77,7 +83,7 @@ class AddPatient extends StatelessWidget {
                     TextSpan(text: "*", style: TextStyle(color: Colors.red))
                   ])),
                   const SizedBox(height: 4),
-                  GetBuilder<AddPatientLogic>(
+                  GetBuilder<PatientInfoEditLogic>(
                     id: 'genderChoose',
                     builder: (_) => Row(
                       children: [
@@ -102,6 +108,7 @@ class AddPatient extends StatelessWidget {
                     children: [
                       InputContainer(
                         "出生日期",
+                        initialValue: patientInfo.birthday,
                         onContentSave: (content) => logic.birthday = content,
                         checkContent: (content) =>
                             content == null || content.isEmpty
@@ -112,12 +119,14 @@ class AddPatient extends StatelessWidget {
                       const SizedBox(width: 70),
                       InputContainer(
                         "身高",
+                        initialValue: patientInfo.height.toString(),
                         onContentSave: (content) {},
                         checkContent: (content) {},
                       ),
                       const SizedBox(width: 70),
                       InputContainer(
                         "体重",
+                        initialValue: patientInfo.weight.toString(),
                         onContentSave: (content) {},
                         checkContent: (content) {},
                       ),
@@ -128,6 +137,7 @@ class AddPatient extends StatelessWidget {
                     children: [
                       InputContainer(
                         "联系电话",
+                        initialValue: patientInfo.phone,
                         onContentSave: (content) {},
                         checkContent: (content) {
                           if (content == null || content.isEmpty) return null;
@@ -137,6 +147,7 @@ class AddPatient extends StatelessWidget {
                       const SizedBox(width: 70),
                       InputContainer(
                         "居住地",
+                        initialValue: patientInfo.address,
                         onContentSave: (content) {},
                         checkContent: (content) {},
                       ),
@@ -160,11 +171,6 @@ class AddPatient extends StatelessWidget {
                   const SizedBox(height: 20),
                   Row(
                     children: [
-                      // InputContainer("状态",
-                      //     onContentSave: (content) {},
-                      //     checkContent: (content) {},
-                      //     isRequired: true),
-                      //状态 0：已结束 1：待评估预约 2：待评估 3：待开方 4：待康复预约 5：待康复记录
                       const DropDownInputContainer(
                         "状态",
                         dropdowItems: [
@@ -194,18 +200,22 @@ class AddPatient extends StatelessWidget {
                   Row(
                     children: [
                       InputContainer("入院日期",
+                          initialValue: patientInfo.startTime,
                           onContentSave: (content) {},
                           checkContent: (content) {}),
                       const SizedBox(width: 70),
                       InputContainer("住院号",
+                          initialValue: patientInfo.hospitalNumber,
                           onContentSave: (content) {},
                           checkContent: (content) {}),
                       const SizedBox(width: 70),
                       InputContainer("床号",
+                          initialValue: patientInfo.bedNo.toString(),
                           onContentSave: (content) {},
                           checkContent: (content) {}),
                       const SizedBox(width: 70),
                       InputContainer("出院日期",
+                          initialValue: patientInfo.endTime,
                           onContentSave: (content) {},
                           checkContent: (content) {}),
                     ],
@@ -213,9 +223,9 @@ class AddPatient extends StatelessWidget {
                   const SizedBox(height: 20),
                   const Text("NYHA分级"),
                   const SizedBox(height: 10),
-                  GetBuilder<AddPatientLogic>(
+                  GetBuilder<PatientInfoEditLogic>(
                     id: 'nyha_level',
-                    init: AddPatientLogic(),
+                    init: PatientInfoEditLogic(),
                     builder: (_) => Row(
                       children: [
                         LevelSelectChip(1, logic.nyhaLevel.value == 1),
@@ -247,9 +257,8 @@ class AddPatient extends StatelessWidget {
                           var formState = _formKey.currentState as FormState;
                           if (formState.validate()) {
                             formState.save();
-                            logger.d(
-                                "${logic.userName}\n${logic.uid}\n${logic.nyhaLevel}\n${logic.status}");
-                            var result = await addNewPatient(
+                            var result = await addOrUpdatePatient(
+                              duid: duid,
                               userName: logic.userName!,
                               uid: logic.uid!,
                               gender: logic.genderFlag.value,
@@ -295,206 +304,6 @@ class AddPatient extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class ChipsBox extends StatelessWidget {
-  const ChipsBox(
-    this.buttonText, {
-    Key? key,
-  }) : super(key: key);
-
-  final String buttonText;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-          width: 380,
-          decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(10)),
-              //color: Colors.green,
-              border: Border.all(color: inputBorderColor, width: 2)),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Chip(
-                label: Text("冠心病", style: TextStyle(color: Colors.blue)),
-                deleteIcon: const Icon(Icons.close, color: Colors.blue),
-                onDeleted: () {},
-                backgroundColor: Colors.blue.withOpacity(0.1),
-              )
-            ],
-          ),
-        ),
-        const SizedBox(width: 8),
-        ElevatedButton(
-          style: radiusStyle(10),
-          onPressed: () {},
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 28),
-            child: Text(buttonText),
-          ),
-        )
-      ],
-    );
-  }
-}
-
-class LevelSelectChip extends StatelessWidget {
-  const LevelSelectChip(
-    this.level,
-    this.isSelect, {
-    Key? key,
-  }) : super(key: key);
-
-  final int level;
-  final bool isSelect;
-
-  @override
-  Widget build(BuildContext context) {
-    return FilterChip(
-      label: Text("$level级"),
-      avatar: const CircleAvatar(backgroundColor: Colors.grey),
-      selectedColor: Colors.transparent,
-      backgroundColor: Colors.white,
-      onSelected: (value) => Get.find<AddPatientLogic>().changeNYHALevel(level),
-      selected: isSelect,
-    );
-  }
-}
-
-class GenderSelectButton extends StatelessWidget {
-  const GenderSelectButton(this.genderFlag, this.svgUri, this.isSelect,
-      {Key? key, this.onCLick})
-      : super(key: key);
-
-  final String svgUri;
-  final int genderFlag;
-  final bool isSelect;
-  final VoidCallback? onCLick;
-
-  @override
-  Widget build(BuildContext context) {
-    return OutlinedButton(
-      onPressed: onCLick,
-      style: ButtonStyle(
-          shape: MaterialStateProperty.all(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
-          backgroundColor: MaterialStateColor.resolveWith(
-              (states) => isSelect ? Colors.blue.shade100 : Colors.white)),
-      child: Column(
-        children: [
-          Padding(
-            padding:
-                const EdgeInsets.only(top: 16, left: 25, right: 25, bottom: 10),
-            child: Image(image: AssetImage(svgUri)),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 10),
-            child: Text(
-              genderFlag == 0 ? "女" : "男",
-              style: const TextStyle(color: Colors.black),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class InputContainer extends StatelessWidget {
-  const InputContainer(
-    this.title, {
-    Key? key,
-    this.isRequired = false,
-    required this.onContentSave,
-    required this.checkContent,
-  }) : super(key: key);
-
-  final String title;
-  final bool isRequired;
-  final Function(String) onContentSave;
-  final String? Function(String?) checkContent;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text.rich(TextSpan(children: [
-          TextSpan(text: title),
-          if (isRequired)
-            const TextSpan(text: "*", style: TextStyle(color: Colors.red))
-        ])),
-        const SizedBox(height: 4),
-        SizedBox(
-          width: 240,
-          child: TextFormField(
-              scrollPadding: EdgeInsets.zero,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              decoration: inputBoxDecoration(hintText: "请输入..."),
-              style: const TextStyle(fontSize: 14),
-              validator: (value) => checkContent(value),
-              onSaved: (newValue) =>
-                  newValue == null ? null : onContentSave(newValue)),
-        )
-      ],
-    );
-  }
-}
-
-class DropDownInputContainer extends StatelessWidget {
-  const DropDownInputContainer(
-    this.title, {
-    Key? key,
-    this.isRequired = false,
-    this.value = 0,
-    required this.dropdowItems,
-  }) : super(key: key);
-
-  final String title;
-  final bool isRequired;
-  final int value;
-  final List<DropdownMenuItem<int>> dropdowItems;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text.rich(TextSpan(children: [
-          TextSpan(text: title),
-          if (isRequired)
-            const TextSpan(text: "*", style: TextStyle(color: Colors.red))
-        ])),
-        const SizedBox(height: 4),
-        SizedBox(
-          width: 240,
-          child: DropdownButtonFormField(
-            value: 0,
-            icon: const Icon(Icons.keyboard_arrow_down),
-            decoration: InputDecoration(
-              isCollapsed: true,
-              contentPadding: const EdgeInsets.all(15),
-              border: OutlineInputBorder(
-                gapPadding: 1,
-                borderRadius: BorderRadius.circular(10),
-                borderSide: const BorderSide(width: 0.1),
-              ),
-            ),
-            items: dropdowItems,
-            onChanged: (value) =>
-                Get.find<AddPatientLogic>().status = value as int,
-          ),
-        )
-      ],
     );
   }
 }

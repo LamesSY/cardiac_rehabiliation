@@ -1,0 +1,11 @@
+{
+    "@meta": {
+        "ignore": true,
+        "nullable": true,
+        "className": "HospitalDiseaseInfoMod"
+      },
+    "diseaseDuid": "",
+    "diseaseName": "",
+    "operationTime": "",
+    "type": 0
+}

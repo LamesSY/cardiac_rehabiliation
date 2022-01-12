@@ -1,0 +1,40 @@
+{
+    "@meta": {
+        "ignore": true,
+        "nullable": true,
+        "className": "PatientDetailInfo",
+        "import": [
+            "drug_vo.dart",
+            "history_last_vo.dart",
+            "hospital_disease_info_vo.dart",
+            "submit_data_vo.dart"
+        ]
+    },
+    "address": "",
+    "age": 0,
+    "bedNo": 0,
+    "birthday": "",
+    "bmi": "",
+    "clinicalDiagnosis": "",
+    "day": 0,
+    "deptId": 0,
+    "drugVos": "$[]drugMod",
+    "endTime": "",
+    "evaluateNumber": 0,
+    "evaluateTime": "",
+    "haDuid": "",
+    "height": 0,
+    "historyLastVo": "$HistoryLastMod",
+    "hospitalDiseaseInfoVos": "$[]HospitalDiseaseInfoMod",
+    "hospitalNumber": "",
+    "medication": "",
+    "nyha": 0,
+    "phone": "",
+    "sex": 0,
+    "startTime": "",
+    "state": 0,
+    "submitDataVo": "$SubmitDataMod",
+    "uid": "",
+    "userName": "",
+    "weight": 0
+}

@@ -1,7 +1,7 @@
 import 'package:cardiac_rehabilitation/logic/dashboard_controller.dart';
 import 'package:cardiac_rehabilitation/pages/appoint_rehabilitation/sport_access_appointment.dart';
-import 'package:cardiac_rehabilitation/pages/patient_manage/add_patient.dart';
-import 'package:cardiac_rehabilitation/pages/patient_manage/patient_manage.dart';
+import 'package:cardiac_rehabilitation/pages/patient_manage/page_add_patient.dart';
+import 'package:cardiac_rehabilitation/pages/patient_manage/page_patient_manage.dart';
 import 'package:cardiac_rehabilitation/pages/system_manage/department_manager.dart';
 import 'package:cardiac_rehabilitation/pages/system_manage/manage_manager_card.dart';
 import 'package:cardiac_rehabilitation/pages/work_bench/sport_access.dart';

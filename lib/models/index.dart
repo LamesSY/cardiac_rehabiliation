@@ -1,5 +1,10 @@
+export 'drug_vo.dart' ; 
+export 'hospital_disease_info_vo.dart' ; 
 export 'choose_disease.dart' ; 
+export 'patient_info_detail.dart' ; 
 export 'captcha_image.dart' ; 
+export 'history_last_vo.dart' ; 
 export 'patient_info_ummary.dart' ; 
+export 'submit_data_vo.dart' ; 
 export 'patient_info.dart' ; 
 export 'choose_drug.dart' ; 

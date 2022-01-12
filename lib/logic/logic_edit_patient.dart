@@ -1,11 +1,11 @@
 import 'package:cardiac_rehabilitation/data/add_patient_input.dart';
 import 'package:get/get.dart';
 
-class AddPatientLogic extends GetxController {
+class PatientInfoEditLogic extends GetxController {
   var genderFlag = 1.obs; //0女 1男
   var nyhaLevel = 1.obs;
 
-  static AddPatientLogic get to => Get.find();
+  static PatientInfoEditLogic get to => Get.find();
 
   void changeFocus(int gender) {
     genderFlag.value = gender;
@@ -36,43 +36,45 @@ class AddPatientLogic extends GetxController {
   List? hospitalDiseaseVos;
   List<String>? drugDuids;
 
-  var patientNameInput = AddPatientInputField(
+  String? duid;
+
+  var patientNameInput = PatientInputField(
     "患者姓名",
-    onContentSave: (content) => AddPatientLogic.to.userName = content,
+    onContentSave: (content) => PatientInfoEditLogic.to.userName = content,
     checkContent: (content) =>
         content != null && content.isNotEmpty ? null : "姓名不能为空",
     isRequired: true,
   );
 
-  var patientUidInput = AddPatientInputField(
+  var patientUidInput = PatientInputField(
     "患者Id",
-    onContentSave: (content) => AddPatientLogic.to.userName = content,
+    onContentSave: (content) => PatientInfoEditLogic.to.userName = content,
     checkContent: (content) =>
         content != null && content.isNotEmpty ? null : "ID不能为空",
     isRequired: true,
   );
 
-  var patientBirthdayInput = AddPatientInputField(
+  var patientBirthdayInput = PatientInputField(
     "出生日期",
-    onContentSave: (content) => AddPatientLogic.to.birthday = content,
+    onContentSave: (content) => PatientInfoEditLogic.to.birthday = content,
     checkContent: (content) =>
         content != null && content.isNotEmpty ? null : "出生日期不能为空",
     isRequired: true,
   );
 
-  var patientHeightInput = AddPatientInputField(
+  var patientHeightInput = PatientInputField(
     "身高",
     onContentSave: (content) {},
     checkContent: (content) {},
   );
 
-  var patientWeightInput = AddPatientInputField(
+  var patientWeightInput = PatientInputField(
     "体重",
     onContentSave: (content) {},
     checkContent: (content) {},
   );
 
-  var patientPhoneInput = AddPatientInputField(
+  var patientPhoneInput = PatientInputField(
     "联系电话",
     onContentSave: (content) {},
     checkContent: (content) {
@@ -81,7 +83,7 @@ class AddPatientLogic extends GetxController {
     },
   );
 
-  var patientAddressInput = AddPatientInputField(
+  var patientAddressInput = PatientInputField(
     "居住地",
     onContentSave: (content) {},
     checkContent: (content) {},

@@ -1,14 +1,11 @@
 import 'package:cardiac_rehabilitation/common/cr_colors.dart';
-import 'package:cardiac_rehabilitation/constants.dart';
-import 'package:cardiac_rehabilitation/logic/dashboard_controller.dart';
 import 'package:cardiac_rehabilitation/data/menu_data.dart';
 import 'package:cardiac_rehabilitation/pages/patient_manage/page_patient_manage.dart';
-import 'package:cardiac_rehabilitation/pages/system_manage/department_manager.dart';
 import 'package:cardiac_rehabilitation/responsive.dart';
+import 'package:cardiac_rehabilitation/routes/route_manage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({Key? key}) : super(key: key);
@@ -37,9 +34,7 @@ class SideMenu extends StatelessWidget {
                 }
                 return DrawerListTtile(
                   title: menus[index].title,
-                  press: () {
-                    Get.off(PatientManage());
-                  },
+                  press: () => Get.offNamed(Routes.patientManage),
                 );
               },
             ),
@@ -82,9 +77,7 @@ class ExpansionDrawerList extends StatelessWidget {
               style: const TextStyle(fontSize: 14),
             ),
           ),
-          onTap: () {
-            Get.offNamed(menuInfo.subMenuList![index].routeName);
-          },
+          onTap: () => Get.offNamed(menuInfo.subMenuList![index].routeName),
         ),
       ),
     );

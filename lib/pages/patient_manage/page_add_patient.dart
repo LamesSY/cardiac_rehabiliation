@@ -1,7 +1,9 @@
 import 'package:cardiac_rehabilitation/common/cr_colors.dart';
 import 'package:cardiac_rehabilitation/common/cr_styles.dart';
+import 'package:cardiac_rehabilitation/constants.dart';
 import 'package:cardiac_rehabilitation/logic/logic_edit_patient.dart';
-import 'package:cardiac_rehabilitation/network/dio_manager.dart';
+import 'package:cardiac_rehabilitation/models/index.dart';
+import 'package:cardiac_rehabilitation/network/patient_manage_dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,6 +13,10 @@ class AddPatient extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final PatientInfoEditLogic logic = Get.put(PatientInfoEditLogic());
+    final _bornDateController = TextEditingController();
+    final _startDateController = TextEditingController();
+    final _endDateController = TextEditingController();
+
     GlobalKey _formKey = GlobalKey<FormState>();
     return SafeArea(
       child: SingleChildScrollView(
@@ -99,14 +105,16 @@ class AddPatient extends StatelessWidget {
                   const SizedBox(height: 20),
                   Row(
                     children: [
-                      InputContainer(
+                      DatePickInputContainer(
                         "出生日期",
+                        _bornDateController,
                         onContentSave: (content) => logic.birthday = content,
                         checkContent: (content) =>
                             content == null || content.isEmpty
                                 ? "出生日期不能为空"
                                 : null,
                         isRequired: true,
+                        todayStart: false,
                       ),
                       const SizedBox(width: 70),
                       InputContainer(
@@ -159,11 +167,6 @@ class AddPatient extends StatelessWidget {
                   const SizedBox(height: 20),
                   Row(
                     children: [
-                      // InputContainer("状态",
-                      //     onContentSave: (content) {},
-                      //     checkContent: (content) {},
-                      //     isRequired: true),
-                      //状态 0：已结束 1：待评估预约 2：待评估 3：待开方 4：待康复预约 5：待康复记录
                       const DropDownInputContainer(
                         "状态",
                         dropdowItems: [
@@ -192,7 +195,7 @@ class AddPatient extends StatelessWidget {
                   const SizedBox(height: 20),
                   Row(
                     children: [
-                      InputContainer("入院日期",
+                      DatePickInputContainer("入院日期", _startDateController,
                           onContentSave: (content) {},
                           checkContent: (content) {}),
                       const SizedBox(width: 70),
@@ -204,7 +207,7 @@ class AddPatient extends StatelessWidget {
                           onContentSave: (content) {},
                           checkContent: (content) {}),
                       const SizedBox(width: 70),
-                      InputContainer("出院日期",
+                      DatePickInputContainer("出院日期", _endDateController,
                           onContentSave: (content) {},
                           checkContent: (content) {}),
                     ],
@@ -266,6 +269,8 @@ class AddPatient extends StatelessWidget {
                               hospitalDiseaseVos: logic.hospitalDiseaseVos,
                               drugDuids: logic.drugDuids,
                             );
+                            if (result == false) return;
+                            logger.i("add/update successful");
                           }
                         },
                         child: const Padding(
@@ -277,7 +282,15 @@ class AddPatient extends StatelessWidget {
                       const SizedBox(width: 10),
                       OutlinedButton(
                         style: radiusStyle(10),
-                        onPressed: () => Get.back(),
+                        onPressed: () {
+                          showDatePicker(
+                            context: context,
+                            initialDate: DateTime(2021),
+                            firstDate: DateTime(2021),
+                            lastDate: DateTime(2022),
+                          );
+                          //Get.back();
+                        },
                         child: const Padding(
                           padding: EdgeInsets.symmetric(
                               vertical: 10, horizontal: 28),
@@ -330,7 +343,14 @@ class ChipsBox extends StatelessWidget {
         const SizedBox(width: 8),
         ElevatedButton(
           style: radiusStyle(10),
-          onPressed: () {},
+          onPressed: () async {
+            var xx = await showDatePicker(
+              context: context,
+              initialDate: DateTime(2021),
+              firstDate: DateTime(2021),
+              lastDate: DateTime(2022),
+            );
+          },
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 28),
             child: Text(buttonText),
@@ -450,6 +470,70 @@ class InputContainer extends StatelessWidget {
   }
 }
 
+class DatePickInputContainer extends StatelessWidget {
+  const DatePickInputContainer(
+    this.title,
+    this.controller, {
+    Key? key,
+    this.isRequired = false,
+    required this.onContentSave,
+    required this.checkContent,
+    this.initialValue,
+    this.todayStart = true,
+  }) : super(key: key);
+
+  final String title;
+  final bool isRequired;
+  final Function(String) onContentSave;
+  final String? Function(String?) checkContent;
+  final String? initialValue;
+  final bool todayStart;
+
+  final TextEditingController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text.rich(TextSpan(children: [
+          TextSpan(text: title),
+          if (isRequired)
+            const TextSpan(text: "*", style: TextStyle(color: Colors.red))
+        ])),
+        const SizedBox(height: 4),
+        SizedBox(
+          width: 240,
+          child: TextFormField(
+            scrollPadding: EdgeInsets.zero,
+            //initialValue: initialValue,
+            controller: controller,
+            readOnly: true,
+            decoration: inputBoxDecoration(
+                hintText: "请选择日期",
+                prefixIcon: const Icon(
+                    Icons.calendar_today_outlined)), //readOnly: true,
+            style: const TextStyle(fontSize: 14),
+            validator: (value) => checkContent(value),
+            onSaved: (newValue) =>
+                newValue == null ? null : onContentSave(newValue),
+            onTap: () async {
+              var dateTime = await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: todayStart ? DateTime.now() : DateTime(1900),
+                  lastDate: DateTime(DateTime.now().year + 10));
+              if (dateTime == null) return;
+              controller.value = controller.value
+                  .copyWith(text: dateTime.toString().substring(0, 10));
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class DropDownInputContainer extends StatelessWidget {
   const DropDownInputContainer(
     this.title, {
@@ -478,7 +562,7 @@ class DropDownInputContainer extends StatelessWidget {
         SizedBox(
           width: 240,
           child: DropdownButtonFormField(
-            value: 0,
+            value: 1,
             icon: const Icon(Icons.keyboard_arrow_down),
             decoration: InputDecoration(
               isCollapsed: true,

@@ -19,12 +19,15 @@ BoxDecoration cirBoxDecoration(
 
 InputDecoration inputBoxDecoration({
   Widget? title,
+  Widget? prefixIcon,
   required String hintText,
   double radius = 10,
   Color color = inputBorderColor,
 }) {
   return InputDecoration(
     icon: title,
+    //label: Icon(Icons.calendar_today),
+    prefixIcon: prefixIcon,
     isCollapsed: true,
     contentPadding: const EdgeInsets.all(15),
     hintText: hintText,

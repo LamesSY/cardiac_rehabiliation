@@ -1,13 +1,8 @@
-import 'package:cardiac_rehabilitation/constants.dart';
-import 'package:cardiac_rehabilitation/logic/dashboard_controller.dart';
-import 'package:cardiac_rehabilitation/logic/menu_controller.dart';
 import 'package:cardiac_rehabilitation/pages/page_main.dart';
 import 'package:cardiac_rehabilitation/routes/route_manage.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get/get.dart';
 
 void main() => runApp(const MyApp());
 

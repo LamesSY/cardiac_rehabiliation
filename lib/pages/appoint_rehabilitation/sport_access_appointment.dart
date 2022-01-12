@@ -39,7 +39,7 @@ class SportAccessAppointment extends StatelessWidget {
                           separatorBuilder: (context, index) => divider,
                           itemBuilder: (context, index) {
                             return ListTile(
-                              title: Text("心内${index}科"),
+                              title: Text("心内$index科"),
                               subtitle: Text("总:33  余:12"),
                               trailing: Icon(Icons.keyboard_arrow_right),
                               onTap: () {},

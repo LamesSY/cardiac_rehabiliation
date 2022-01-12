@@ -1,8 +1,9 @@
 import 'package:cardiac_rehabilitation/common/cr_colors.dart';
 import 'package:cardiac_rehabilitation/common/cr_styles.dart';
 import 'package:cardiac_rehabilitation/logic/logic_edit_patient.dart';
+import 'package:cardiac_rehabilitation/logic/update_patient_logic.dart';
 import 'package:cardiac_rehabilitation/models/index.dart';
-import 'package:cardiac_rehabilitation/network/dio_manager.dart';
+import 'package:cardiac_rehabilitation/network/patient_manage_dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,7 +16,11 @@ class UpdatePatientPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final PatientInfoEditLogic logic = Get.put(PatientInfoEditLogic());
     final patientInfo = Get.arguments['detail'] as PatientDetailInfo;
-    final duid = Get.arguments['diod'] as String;
+    final duid = Get.arguments['duid'] as String;
+    logic.genderFlag.value = patientInfo.sex?.toInt() ?? 1;
+    logic.status = patientInfo.state?.toInt() ?? 0;
+    logic.nyhaLevel.value = patientInfo.nyha?.toInt() ?? 1;
+
     GlobalKey _formKey = GlobalKey<FormState>();
     return SafeArea(
       child: SingleChildScrollView(
@@ -119,14 +124,18 @@ class UpdatePatientPage extends StatelessWidget {
                       const SizedBox(width: 70),
                       InputContainer(
                         "身高",
-                        initialValue: patientInfo.height.toString(),
-                        onContentSave: (content) {},
-                        checkContent: (content) {},
+                        initialValue: patientInfo.height?.toString(),
+                        onContentSave: (content) =>
+                            logic.height = int.parse(content),
+                        checkContent: (content) =>
+                            content != null && content.isNum
+                                ? null
+                                : "请输入正确的身高格式",
                       ),
                       const SizedBox(width: 70),
                       InputContainer(
                         "体重",
-                        initialValue: patientInfo.weight.toString(),
+                        initialValue: patientInfo.weight?.toString(),
                         onContentSave: (content) {},
                         checkContent: (content) {},
                       ),
@@ -138,7 +147,7 @@ class UpdatePatientPage extends StatelessWidget {
                       InputContainer(
                         "联系电话",
                         initialValue: patientInfo.phone,
-                        onContentSave: (content) {},
+                        onContentSave: (content) => logic.phone = content,
                         checkContent: (content) {
                           if (content == null || content.isEmpty) return null;
                           return content.isPhoneNumber ? null : "请输入正确的号码格式";
@@ -185,12 +194,14 @@ class UpdatePatientPage extends StatelessWidget {
                       const SizedBox(width: 70),
                       InputContainer(
                         "临床诊断",
+                        initialValue: patientInfo.clinicalDiagnosis,
                         onContentSave: (content) {},
                         checkContent: (content) {},
                       ),
                       const SizedBox(width: 70),
                       InputContainer(
                         "服药情况",
+                        initialValue: patientInfo.medication,
                         onContentSave: (content) {},
                         checkContent: (content) {},
                       ),
@@ -210,7 +221,7 @@ class UpdatePatientPage extends StatelessWidget {
                           checkContent: (content) {}),
                       const SizedBox(width: 70),
                       InputContainer("床号",
-                          initialValue: patientInfo.bedNo.toString(),
+                          initialValue: patientInfo.bedNo?.toString(),
                           onContentSave: (content) {},
                           checkContent: (content) {}),
                       const SizedBox(width: 70),

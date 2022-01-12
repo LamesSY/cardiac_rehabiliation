@@ -1,6 +1,6 @@
 import 'package:cardiac_rehabilitation/constants.dart';
 import 'package:cardiac_rehabilitation/models/patient_info_ummary.dart';
-import 'package:cardiac_rehabilitation/network/dio_manager.dart';
+import 'package:cardiac_rehabilitation/network/patient_manage_dio.dart';
 import 'package:get/get.dart';
 
 class PatientListLogic extends GetxController {

@@ -26,8 +26,7 @@ class SubmitDataMod {
   String? frequencyTime;
   String? hospitalDuid;
   String? hospitalName;
-
-  factory SubmitDataMod.fromJson(Map<String, dynamic> json) =>
-      _$SubmitDataModFromJson(json);
+  
+  factory SubmitDataMod.fromJson(Map<String,dynamic> json) => _$SubmitDataModFromJson(json);
   Map<String, dynamic> toJson() => _$SubmitDataModToJson(this);
 }

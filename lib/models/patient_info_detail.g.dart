@@ -28,8 +28,11 @@ PatientDetailInfo _$PatientDetailInfoFromJson(Map<String, dynamic> json) =>
           ? null
           : HistoryLastMod.fromJson(
               json['historyLastVo'] as Map<String, dynamic>)
-      ..hospitalDiseaseInfoVos =
-          json['hospitalDiseaseInfoVos'] as List<HospitalDiseaseInfoMod>?
+      ..hospitalDiseaseInfoVos = (json['hospitalDiseaseInfoVos']
+              as List<dynamic>?)
+          ?.map(
+              (e) => HospitalDiseaseInfoMod.fromJson(e as Map<String, dynamic>))
+          .toList()
       ..hospitalNumber = json['hospitalNumber'] as String?
       ..medication = json['medication'] as String?
       ..nyha = json['nyha'] as num?

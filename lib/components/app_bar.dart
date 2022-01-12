@@ -1,10 +1,8 @@
 import 'package:cardiac_rehabilitation/common/cr_styles.dart';
 import 'package:cardiac_rehabilitation/constants.dart';
-import 'package:cardiac_rehabilitation/logic/menu_controller.dart';
 import 'package:cardiac_rehabilitation/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
 
 class CusAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CusAppBar(

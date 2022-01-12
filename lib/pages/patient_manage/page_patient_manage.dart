@@ -2,11 +2,11 @@ import 'package:cardiac_rehabilitation/common/cr_colors.dart';
 import 'package:cardiac_rehabilitation/common/cr_styles.dart';
 import 'package:cardiac_rehabilitation/logic/patient_list_controller.dart';
 import 'package:cardiac_rehabilitation/models/index.dart';
-import 'package:cardiac_rehabilitation/network/dio_manager.dart';
+import 'package:cardiac_rehabilitation/network/patient_manage_dio.dart';
 import 'package:cardiac_rehabilitation/pages/patient_manage/page_add_patient.dart';
 import 'package:cardiac_rehabilitation/routes/route_manage.dart';
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../constants.dart';
 
@@ -122,16 +122,7 @@ class TableData extends StatelessWidget {
 
   List<PopupMenuItem<int>> getItems(PatientInfo info) {
     return [
-      PopupMenuItem<int>(
-          child: const Text("编辑"),
-          value: 0,
-          onTap: () async {
-            var duid = info.duid;
-            if (duid == null || duid.isEmpty) return;
-            var detailInfo = await getPatientDetailInfo(duid);
-            Get.toNamed(Routes.updatePatient,
-                arguments: {'duid': duid, 'detail': detailInfo});
-          }),
+      PopupMenuItem<int>(child: const Text("编辑"), value: 0, onTap: () {}),
       PopupMenuItem<int>(child: const Text("历史运动评估"), value: 1, onTap: () {}),
       PopupMenuItem<int>(child: const Text("历史运动处方"), value: 3, onTap: () {}),
       PopupMenuItem<int>(child: const Text("历史运动记录"), value: 4, onTap: () {}),
@@ -209,7 +200,10 @@ class TableData extends StatelessWidget {
                     ),
                   ),
                 ),
-                Expanded(flex: 10, child: Text("${list[index].nyha}")),
+                Expanded(
+                    flex: 10,
+                    child: Text(
+                        list[index].nyha == null ? "" : "${list[index].nyha}")),
                 Expanded(
                     flex: 12,
                     child: Text(list[index].startTime?.substring(0, 16) ?? "")),
@@ -231,9 +225,13 @@ class TableData extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10)),
                         itemBuilder: (context) => getItems(list[index]),
                         icon: const Icon(Icons.more_horiz),
-                        onSelected: (value) {
+                        onSelected: (value) async {
                           if (value != 0) return;
-                          Get.toNamed(Routes.addPatient);
+                          var duid = list[index].duid;
+                          if (duid == null || duid.isEmpty) return;
+                          var detailInfo = await getPatientDetailInfo(duid);
+                          Get.toNamed(Routes.updatePatient,
+                              arguments: {'duid': duid, 'detail': detailInfo});
                         },
                       ),
                     ],

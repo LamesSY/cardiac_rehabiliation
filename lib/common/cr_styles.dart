@@ -10,7 +10,7 @@ ButtonStyle radiusStyle(double radius) {
 }
 
 BoxDecoration cirBoxDecoration(
-    {double radius = 10, Color color = Colors.white}) {
+    {double radius = 10, Color? color = Colors.white}) {
   return BoxDecoration(
     borderRadius: BorderRadius.all(Radius.circular(radius)),
     color: color,

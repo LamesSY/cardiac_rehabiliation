@@ -37,7 +37,7 @@ class DioUtils {
         'deviceFlag': 'g',
         'lang': 'ZH',
         'Authorization':
-            'eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6IjJmZTk3Mzc4LTBhODYtNDg0MS1iZGYxLTljNmUyNjViOGY3YyJ9.1OIH0LaP9j8WspGI8wWmd4gi3PsKFlW5a8X8STqYMPoO7KXxHw080kuhyF7KK29n3TdYHxWXmvl1IwTMVquE5A'
+            'eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6IjAxODM2MDNmLWU3YzMtNDVmMS1iNTE5LWRlYTNiNjg4ZjU0ZSJ9.UFVsqbPwOmwH7-GrGQP7pzSWwvfWfukGiWY6IiHtl58wiPkeRZFLm1voIn8LcZVD-pYs87Bl_Ug6hFmLi6CtUA'
       },
     ),
   );
@@ -48,8 +48,9 @@ class DioUtils {
     return r.data;
   }
 
-  Future<List<dynamic>?> getList(String path) async {
-    var r = await dio.get(path);
+  Future<List<dynamic>?> getList(String path,
+      {Map<String, dynamic>? queryParam}) async {
+    var r = await dio.get(path, queryParameters: queryParam);
     printNetWorkInfo("GET: $path", r);
     return r.data["data"];
   }

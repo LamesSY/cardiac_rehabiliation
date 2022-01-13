@@ -1,3 +1,5 @@
+import 'package:cardiac_rehabilitation/pages/appoint_rehabilitation/rehabilitation_appoint_page.dart';
+import 'package:cardiac_rehabilitation/pages/appoint_rehabilitation/sport_access_appoint_page.dart';
 import 'package:cardiac_rehabilitation/pages/patient_manage/add_patient_page.dart';
 import 'package:cardiac_rehabilitation/pages/patient_manage/patient_manage_page.dart';
 import 'package:cardiac_rehabilitation/pages/patient_manage/update_patient_page.dart';
@@ -18,6 +20,9 @@ class Routes {
   static const addPatient = '/patient_manage/add_patient';
   static const updatePatient = '/patient_manage/update_patient';
 
+  static const appointSport = '/appoint_sport';
+  static const appointRe = '/appoint_recipe';
+
   static final pages = [
     GetPage(name: managerManage, page: () => const ManageManagerPage()),
     GetPage(name: managerDep, page: () => const DepManagePage()),
@@ -26,5 +31,7 @@ class Routes {
     GetPage(name: updatePatient, page: () => const UpdatePatientPage()),
     GetPage(name: sportAccess, page: () => const SportAccessPage()),
     GetPage(name: sportRecipe, page: () => const SportRecipePage()),
+    GetPage(name: appointSport, page: () => const SportAccessAppointPage()),
+    GetPage(name: appointRe, page: () => const RehabiliationAppointPage()),
   ];
 }

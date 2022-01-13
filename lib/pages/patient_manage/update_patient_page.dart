@@ -110,8 +110,9 @@ class UpdatePatientPage extends StatelessWidget {
                   const SizedBox(height: 20),
                   Row(
                     children: [
-                      InputContainer(
+                      DatePickInputContainer(
                         "出生日期",
+                        TextEditingController(),
                         initialValue: patientInfo.birthday,
                         onContentSave: (content) => logic.birthday = content,
                         checkContent: (content) =>
@@ -135,8 +136,12 @@ class UpdatePatientPage extends StatelessWidget {
                       InputContainer(
                         "体重",
                         initialValue: patientInfo.weight?.toString(),
-                        onContentSave: (content) {},
-                        checkContent: (content) {},
+                        onContentSave: (content) =>
+                            logic.weight = int.parse(content),
+                        checkContent: (content) =>
+                            content != null && content.isNum
+                                ? null
+                                : "请输入正确的体重格式",
                       ),
                     ],
                   ),
@@ -156,7 +161,7 @@ class UpdatePatientPage extends StatelessWidget {
                       InputContainer(
                         "居住地",
                         initialValue: patientInfo.address,
-                        onContentSave: (content) {},
+                        onContentSave: (content) => logic.address = content,
                         checkContent: (content) {},
                       ),
                     ],
@@ -194,14 +199,15 @@ class UpdatePatientPage extends StatelessWidget {
                       InputContainer(
                         "临床诊断",
                         initialValue: patientInfo.clinicalDiagnosis,
-                        onContentSave: (content) {},
+                        onContentSave: (content) =>
+                            logic.clinicalDiagnosis = content,
                         checkContent: (content) {},
                       ),
                       const SizedBox(width: 70),
                       InputContainer(
                         "服药情况",
                         initialValue: patientInfo.medication,
-                        onContentSave: (content) {},
+                        onContentSave: (content) => logic.medication = content,
                         checkContent: (content) {},
                       ),
                     ],
@@ -209,25 +215,38 @@ class UpdatePatientPage extends StatelessWidget {
                   const SizedBox(height: 20),
                   Row(
                     children: [
-                      InputContainer("入院日期",
-                          initialValue: patientInfo.startTime,
-                          onContentSave: (content) {},
-                          checkContent: (content) {}),
+                      DatePickInputContainer(
+                        "入院日期",
+                        TextEditingController(),
+                        initialValue: patientInfo.startTime,
+                        onContentSave: (content) => logic.startTime = content,
+                        checkContent: (content) {},
+                      ),
                       const SizedBox(width: 70),
                       InputContainer("住院号",
                           initialValue: patientInfo.hospitalNumber,
-                          onContentSave: (content) {},
+                          onContentSave: (content) =>
+                              logic.hospitalNumber = content,
                           checkContent: (content) {}),
                       const SizedBox(width: 70),
-                      InputContainer("床号",
-                          initialValue: patientInfo.bedNo?.toString(),
-                          onContentSave: (content) {},
-                          checkContent: (content) {}),
+                      InputContainer(
+                        "床号",
+                        initialValue: patientInfo.bedNo?.toString(),
+                        onContentSave: (content) =>
+                            logic.bedNo = int.parse(content),
+                        checkContent: (content) =>
+                            content != null && content.isNum
+                                ? null
+                                : "请输入正确的床号格式",
+                      ),
                       const SizedBox(width: 70),
-                      InputContainer("出院日期",
-                          initialValue: patientInfo.endTime,
-                          onContentSave: (content) {},
-                          checkContent: (content) {}),
+                      DatePickInputContainer(
+                        "出院日期",
+                        TextEditingController(),
+                        initialValue: patientInfo.endTime,
+                        onContentSave: (content) => logic.endTime = content,
+                        checkContent: (content) {},
+                      ),
                     ],
                   ),
                   const SizedBox(height: 20),

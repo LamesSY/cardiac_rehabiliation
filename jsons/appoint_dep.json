@@ -1,0 +1,10 @@
+{
+    "@meta": {
+        "ignore": true,
+        "className": "AppointDep"
+      },   
+    "deptId": 100,
+    "deptName": "彩之物科技",
+    "countNumber": 24,
+    "remainNumber": 24
+}

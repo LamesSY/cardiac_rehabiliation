@@ -1,6 +1,7 @@
 import 'package:cardiac_rehabilitation/common/cr_colors.dart';
 import 'package:cardiac_rehabilitation/common/cr_styles.dart';
 import 'package:cardiac_rehabilitation/constants.dart';
+import 'package:cardiac_rehabilitation/dialog/dialog_choose_disease.dart';
 import 'package:cardiac_rehabilitation/logic/edit_patient_logic.dart';
 import 'package:cardiac_rehabilitation/network/patient_manage_dio.dart';
 import 'package:flutter/material.dart';
@@ -142,7 +143,7 @@ class AddPatientPage extends StatelessWidget {
                     children: [
                       InputContainer(
                         "联系电话",
-                        onContentSave: (content) {},
+                        onContentSave: (content) => logic.phone = content,
                         checkContent: (content) {
                           if (content == null || content.isEmpty) return null;
                           return content.isPhoneNumber ? null : "请输入正确的号码格式";
@@ -212,13 +213,18 @@ class AddPatientPage extends StatelessWidget {
                               logic.hospitalNumber = content,
                           checkContent: (content) {}),
                       const SizedBox(width: 70),
-                      InputContainer("床号",
-                          onContentSave: (content) =>
-                              logic.bedNo = int.parse(content),
-                          checkContent: (content) {}),
+                      InputContainer(
+                        "床号",
+                        onContentSave: (content) =>
+                            logic.bedNo = int.parse(content),
+                        checkContent: (content) =>
+                            content != null && content.isNum
+                                ? null
+                                : "请输入正确的床号格式",
+                      ),
                       const SizedBox(width: 70),
                       DatePickInputContainer("出院日期", _endDateController,
-                          onContentSave: (content) {},
+                          onContentSave: (content) => logic.endTime = content,
                           checkContent: (content) {}),
                     ],
                   ),
@@ -347,13 +353,8 @@ class ChipsBox extends StatelessWidget {
         const SizedBox(width: 8),
         ElevatedButton(
           style: radiusStyle(10),
-          onPressed: () async {
-            var xx = await showDatePicker(
-              context: context,
-              initialDate: DateTime(2021),
-              firstDate: DateTime(2021),
-              lastDate: DateTime(2022),
-            );
+          onPressed: () {
+            Get.dialog(DialogChooseDisease());
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 28),

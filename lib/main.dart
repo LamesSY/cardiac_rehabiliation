@@ -14,10 +14,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData.light().copyWith(
-          textTheme: GoogleFonts.mateTextTheme(Theme.of(context).textTheme)
-              .apply(bodyColor: Colors.black),
-        ),
+        // theme: ThemeData.light().copyWith(
+        //   textTheme: GoogleFonts.mateTextTheme(Theme.of(context).textTheme)
+        //       .apply(bodyColor: Colors.black)
+        // ),
         localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate

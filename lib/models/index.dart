@@ -1,5 +1,6 @@
 export 'drug_vo.dart' ; 
 export 'hospital_disease_info_vo.dart' ; 
+export 'appoint_dep.dart' ; 
 export 'choose_disease.dart' ; 
 export 'patient_info_detail.dart' ; 
 export 'captcha_image.dart' ; 

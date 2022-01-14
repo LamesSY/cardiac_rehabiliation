@@ -26,9 +26,15 @@ class Routes {
   static final pages = [
     GetPage(name: managerManage, page: () => const ManageManagerPage()),
     GetPage(name: managerDep, page: () => const DepManagePage()),
-    GetPage(name: patientManage, page: () => const PatientManagePage()),
-    GetPage(name: addPatient, page: () => const AddPatientPage()),
-    GetPage(name: updatePatient, page: () => const UpdatePatientPage()),
+    GetPage(name: patientManage, page: () => PatientManagePage()),
+    GetPage(
+        name: addPatient,
+        page: () => const AddPatientPage(),
+        transition: Transition.downToUp),
+    GetPage(
+        name: updatePatient,
+        page: () => const UpdatePatientPage(),
+        transition: Transition.downToUp),
     GetPage(name: sportAccess, page: () => const SportAccessPage()),
     GetPage(name: sportRecipe, page: () => const SportRecipePage()),
     GetPage(name: appointSport, page: () => const SportAccessAppointPage()),

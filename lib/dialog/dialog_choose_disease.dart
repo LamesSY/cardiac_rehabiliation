@@ -1,5 +1,6 @@
 import 'package:cardiac_rehabilitation/common/cr_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class DialogChooseDisease extends StatelessWidget {
   const DialogChooseDisease({Key? key}) : super(key: key);
@@ -23,9 +24,11 @@ class DialogChooseDisease extends StatelessWidget {
               const Divider(color: dividerColor),
               Row(
                 children: [
-                  ElevatedButton(onPressed: () {}, child: const Text("提交")),
+                  ElevatedButton(
+                      onPressed: () => Get.back(), child: const Text("提交")),
                   const SizedBox(width: 20),
-                  OutlinedButton(onPressed: () {}, child: const Text("取消"))
+                  OutlinedButton(
+                      onPressed: () => Get.back(), child: const Text("取消"))
                 ],
               )
             ],

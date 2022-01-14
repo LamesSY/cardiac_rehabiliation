@@ -3,42 +3,86 @@ import 'package:cardiac_rehabilitation/common/cr_styles.dart';
 import 'package:cardiac_rehabilitation/logic/patient_list_logic.dart';
 import 'package:cardiac_rehabilitation/models/index.dart';
 import 'package:cardiac_rehabilitation/network/patient_manage_dio.dart';
-import 'package:cardiac_rehabilitation/pages/patient_manage/add_patient_page.dart';
 import 'package:cardiac_rehabilitation/routes/route_manage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../constants.dart';
-
 class PatientManagePage extends StatelessWidget {
-  const PatientManagePage({Key? key}) : super(key: key);
+  PatientManagePage({Key? key}) : super(key: key);
+
+  final logic = Get.put(PatientListLogic());
+  final state = Get.find<PatientListLogic>().state;
 
   @override
   Widget build(BuildContext context) {
-    final logic = Get.put(PatientListLogic());
+    return PatientManageLayout(
+      children: [
+        const Text("患者管理", style: TextStyle(fontSize: 18)),
+        const SizedBox(height: 15),
+        //新增按钮
+        AddButton(onPress: () => Get.toNamed(Routes.addPatient)),
+        //搜索框布局
+        PatientSearchInputCard(
+          patientStatus: state.patientStatus,
+          onPress: () => logic.refreshList(1),
+        ),
+        //表头
+        const TableHead(),
+        //表数据
+        GetBuilder<PatientListLogic>(
+          builder: (_) => TableData(state.patientSummary.records ?? []),
+        ),
+        //底部页数跳转
+        GetBuilder<PatientListLogic>(
+          builder: (_) => TableBottom(
+            state.currentPage,
+            state.pages,
+            onlastPage: () => logic.refreshList(state.currentPage - 1),
+            onNextPage: () => logic.refreshList(state.currentPage + 1),
+            onAssignPage: (page) => logic.refreshList(page),
+          ),
+        )
+      ],
+    );
+  }
+}
+
+class AddButton extends StatelessWidget {
+  const AddButton({
+    Key? key,
+    required this.onPress,
+  }) : super(key: key);
+
+  final VoidCallback onPress;
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton.icon(
+      onPressed: onPress,
+      icon: const Icon(Icons.add),
+      label: const Padding(
+        padding: EdgeInsets.symmetric(horizontal: 5, vertical: 9),
+        child: Text("添加患者"),
+      ),
+    );
+  }
+}
+
+class PatientManageLayout extends StatelessWidget {
+  const PatientManageLayout({Key? key, required this.children})
+      : super(key: key);
+
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context) {
     return SafeArea(
       child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text("患者管理", style: TextStyle(fontSize: 18)),
-              const SizedBox(height: 15),
-              ElevatedButton.icon(
-                onPressed: () => Get.to(() => const AddPatientPage(),
-                    transition: Transition.downToUp),
-                icon: const Icon(Icons.add),
-                label: const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 5, vertical: 9),
-                  child: Text("添加患者"),
-                ),
-              ),
-              const PatientSearchInputCard(),
-              const TableHead(),
-              Obx(() => TableData(logic.summary.value.records ?? [])),
-              Obx(() => TableBottom(logic.summary.value.pages?.toInt() ?? 1))
-            ],
+            children: children,
           ),
         ),
       ),
@@ -46,13 +90,23 @@ class PatientManagePage extends StatelessWidget {
   }
 }
 
+//------------------------------------------------------------------------------
 class TableBottom extends StatelessWidget {
   const TableBottom(
+    this.currentPage,
     this.pageNum, {
     Key? key,
+    required this.onlastPage,
+    required this.onNextPage,
+    required this.onAssignPage,
   }) : super(key: key);
 
   final int pageNum;
+  final int currentPage;
+
+  final VoidCallback onlastPage;
+  final VoidCallback onNextPage;
+  final Function(int) onAssignPage;
 
   List getPages(int pageNum) {
     return List.generate(pageNum,
@@ -66,49 +120,33 @@ class TableBottom extends StatelessWidget {
       padding: const EdgeInsets.only(left: 30, top: 15, bottom: 15),
       margin: const EdgeInsets.only(bottom: 10),
       child: Row(
-        children: List.generate(pageNum + 2, (index) {
-          if (index == 0) {
-            return IconButton(
-              icon: const Icon(Icons.keyboard_arrow_left, color: Colors.grey),
-              onPressed: () {
-                logger.i(
-                    "index=$index current = ${PatientListLogic.to.currentPage} pageNum = $pageNum");
-                if (PatientListLogic.to.currentPage > 1) {
-                  PatientListLogic.to
-                      .refreshList(PatientListLogic.to.currentPage - 1);
-                }
-              },
-            );
-          } else if (index == pageNum + 1) {
-            return IconButton(
-              icon: const Icon(Icons.keyboard_arrow_right, color: Colors.grey),
-              onPressed: () {
-                logger.i(
-                    "index=$index current = ${PatientListLogic.to.currentPage} pageNum = $pageNum");
-                if (PatientListLogic.to.currentPage < pageNum) {
-                  PatientListLogic.to
-                      .refreshList(PatientListLogic.to.currentPage + 1);
-                }
-              },
-            );
-          } else {
-            return TextButton(
-              onPressed: () {
-                logger.i(
-                    "index=$index current = ${PatientListLogic.to.currentPage} pageNum = $pageNum");
-                PatientListLogic.to.refreshList(index);
-              },
-              child: Text(
-                "$index",
-                style: TextStyle(
-                  color: index == PatientListLogic.to.currentPage
-                      ? Colors.blue
-                      : Colors.black,
+        children: List.generate(
+          pageNum + 2,
+          (index) {
+            if (index == 0) {
+              return IconButton(
+                icon: const Icon(Icons.keyboard_arrow_left, color: Colors.grey),
+                onPressed: currentPage <= 1 ? null : onlastPage,
+              );
+            } else if (index == pageNum + 1) {
+              return IconButton(
+                icon:
+                    const Icon(Icons.keyboard_arrow_right, color: Colors.grey),
+                onPressed: currentPage >= pageNum ? null : onNextPage,
+              );
+            } else {
+              return TextButton(
+                onPressed: () => onAssignPage(index),
+                child: Text(
+                  "$index",
+                  style: TextStyle(
+                    color: index == currentPage ? Colors.blue : Colors.black,
+                  ),
                 ),
-              ),
-            );
-          }
-        }),
+              );
+            }
+          },
+        ),
       ),
     );
   }
@@ -282,55 +320,71 @@ class TableHead extends StatelessWidget {
 class PatientSearchInputCard extends StatelessWidget {
   const PatientSearchInputCard({
     Key? key,
+    required this.patientStatus,
+    required this.onPress,
   }) : super(key: key);
 
-  static const List<DropdownMenuItem<int>> patientStatus = [
-    DropdownMenuItem(child: Text("全部"), value: 0),
-    DropdownMenuItem(child: Text("待评估"), value: 1),
-    DropdownMenuItem(child: Text("已评估"), value: 2),
-  ];
+  final List<DropdownMenuItem<int>> patientStatus;
 
-  //final VoidCallback onClick;
+  final VoidCallback onPress;
 
   @override
   Widget build(BuildContext context) {
+    GlobalKey _formKey = GlobalKey<FormState>();
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 23),
       margin: const EdgeInsets.only(top: 15),
       decoration: cirBoxDecoration(radius: 10, color: Colors.white),
       child: DefaultTextStyle(
         style: const TextStyle(fontSize: 16),
-        child: Row(
-          children: [
-            Expanded(
-              flex: 6,
-              child: Wrap(
-                spacing: 15,
-                runSpacing: 10,
-                children: const [
-                  OutlineInputField(leftTip: "患者姓名"),
-                  OutlineInputField(leftTip: "患者ID"),
-                  OutlineInputField(leftTip: "手机号"),
-                  DropdownInputField("患者状态", 0, patientStatus),
-                  DropdownInputField("主要诊断", 0, patientStatus),
-                  DropdownInputField("入院时间", 0, patientStatus),
-                ],
-              ),
-            ),
-            const SizedBox(width: 40),
-            Expanded(
-              child: ElevatedButton(
-                onPressed: () async {
-                  var summary = await getPatientList(1, 10);
-                  Get.find<PatientListLogic>().refreshPatientList(summary);
-                },
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10),
-                  child: Text("搜索"),
+        child: Form(
+          key: _formKey,
+          child: Row(
+            children: [
+              Expanded(
+                flex: 6,
+                child: Wrap(
+                  spacing: 15,
+                  runSpacing: 10,
+                  children: [
+                    OutlineInputField(
+                      leftTip: "患者姓名",
+                      onSave: (content) =>
+                          PatientListLogic.to.state.userName = content,
+                    ),
+                    OutlineInputField(
+                      leftTip: "患者ID",
+                      onSave: (content) =>
+                          PatientListLogic.to.state.uid = content,
+                    ),
+                    OutlineInputField(
+                      leftTip: "手机号",
+                      onSave: (content) =>
+                          PatientListLogic.to.state.phone = content,
+                    ),
+                    DropdownInputField("患者状态", 0, patientStatus),
+                    DropdownInputField("主要诊断", 0, patientStatus),
+                    DropdownInputField("入院时间", 0, patientStatus),
+                  ],
                 ),
               ),
-            )
-          ],
+              const SizedBox(width: 40),
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () {
+                    var formState = _formKey.currentState as FormState;
+                    formState.save();
+                    PatientListLogic.to.refreshList(1);
+                    //  onPress;
+                  },
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    child: Text("搜索"),
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -377,9 +431,11 @@ class OutlineInputField extends StatelessWidget {
   const OutlineInputField({
     Key? key,
     this.leftTip,
+    required this.onSave,
   }) : super(key: key);
 
   final String? leftTip;
+  final Function(String?) onSave;
 
   @override
   Widget build(BuildContext context) {
@@ -387,7 +443,7 @@ class OutlineInputField extends StatelessWidget {
       padding: const EdgeInsets.only(right: 15),
       child: SizedBox(
         width: 240,
-        child: TextField(
+        child: TextFormField(
           decoration: InputDecoration(
             icon: leftTip == null ? null : Text(leftTip!),
             isCollapsed: true,
@@ -398,6 +454,7 @@ class OutlineInputField extends StatelessWidget {
               borderSide: BorderSide(width: 0.1, color: Colors.grey.shade100),
             ),
           ),
+          onSaved: onSave,
         ),
       ),
     );

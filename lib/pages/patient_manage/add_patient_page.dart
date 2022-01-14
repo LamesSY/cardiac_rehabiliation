@@ -1,8 +1,8 @@
 import 'package:cardiac_rehabilitation/common/cr_colors.dart';
 import 'package:cardiac_rehabilitation/common/cr_styles.dart';
-import 'package:cardiac_rehabilitation/constants.dart';
 import 'package:cardiac_rehabilitation/dialog/dialog_choose_disease.dart';
 import 'package:cardiac_rehabilitation/logic/edit_patient_logic.dart';
+import 'package:cardiac_rehabilitation/logic/patient_list_logic.dart';
 import 'package:cardiac_rehabilitation/network/patient_manage_dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -122,7 +122,7 @@ class AddPatientPage extends StatelessWidget {
                         onContentSave: (content) =>
                             logic.height = int.parse(content),
                         checkContent: (content) =>
-                            content != null && content.isNum
+                            content == null || content.isEmpty || content.isNum
                                 ? null
                                 : "请输入正确的身高格式",
                       ),
@@ -132,7 +132,7 @@ class AddPatientPage extends StatelessWidget {
                         onContentSave: (content) =>
                             logic.weight = int.parse(content),
                         checkContent: (content) =>
-                            content != null && content.isNum
+                            content == null || content.isEmpty || content.isNum
                                 ? null
                                 : "请输入正确的体重格式",
                       ),
@@ -216,9 +216,9 @@ class AddPatientPage extends StatelessWidget {
                       InputContainer(
                         "床号",
                         onContentSave: (content) =>
-                            logic.bedNo = int.parse(content),
+                            logic.bedNo = int.tryParse(content),
                         checkContent: (content) =>
-                            content != null && content.isNum
+                            content == null || content.isEmpty || content.isNum
                                 ? null
                                 : "请输入正确的床号格式",
                       ),
@@ -286,7 +286,8 @@ class AddPatientPage extends StatelessWidget {
                               drugDuids: logic.drugDuids,
                             );
                             if (result == false) return;
-                            logger.i("add/update successful");
+                            PatientListLogic.to.refreshList(1);
+                            Get.back();
                           }
                         },
                         child: const Padding(
@@ -334,6 +335,7 @@ class ChipsBox extends StatelessWidget {
         Container(
           padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
           width: 380,
+          height: 40,
           decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(10)),
               //color: Colors.green,
@@ -341,12 +343,12 @@ class ChipsBox extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Chip(
-                label: Text("冠心病", style: TextStyle(color: Colors.blue)),
-                deleteIcon: const Icon(Icons.close, color: Colors.blue),
-                onDeleted: () {},
-                backgroundColor: Colors.blue.withOpacity(0.1),
-              )
+              // Chip(
+              //   label: Text("冠心病", style: TextStyle(color: Colors.blue)),
+              //   deleteIcon: const Icon(Icons.close, color: Colors.blue),
+              //   onDeleted: () {},
+              //   backgroundColor: Colors.blue.withOpacity(0.1),
+              // )
             ],
           ),
         ),
@@ -467,8 +469,9 @@ class InputContainer extends StatelessWidget {
               decoration: inputBoxDecoration(hintText: "请输入..."),
               style: const TextStyle(fontSize: 14),
               validator: (value) => checkContent(value),
-              onSaved: (newValue) =>
-                  newValue == null ? null : onContentSave(newValue)),
+              onSaved: (newValue) => (newValue == null || newValue.isEmpty)
+                  ? null
+                  : onContentSave(newValue)),
         )
       ],
     );
@@ -519,8 +522,9 @@ class DatePickInputContainer extends StatelessWidget {
                     Icons.calendar_today_outlined)), //readOnly: true,
             style: const TextStyle(fontSize: 14),
             validator: (value) => checkContent(value),
-            onSaved: (newValue) =>
-                newValue == null ? null : onContentSave(newValue),
+            onSaved: (newValue) => (newValue == null || newValue.isEmpty)
+                ? null
+                : onContentSave(newValue),
             onTap: () async {
               var dateTime = await showDatePicker(
                   context: context,

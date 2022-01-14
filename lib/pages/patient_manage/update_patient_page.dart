@@ -128,7 +128,7 @@ class UpdatePatientPage extends StatelessWidget {
                         onContentSave: (content) =>
                             logic.height = int.parse(content),
                         checkContent: (content) =>
-                            content != null && content.isNum
+                            content == null || content.isEmpty || content.isNum
                                 ? null
                                 : "请输入正确的身高格式",
                       ),
@@ -139,7 +139,7 @@ class UpdatePatientPage extends StatelessWidget {
                         onContentSave: (content) =>
                             logic.weight = int.parse(content),
                         checkContent: (content) =>
-                            content != null && content.isNum
+                            content == null || content.isEmpty || content.isNum
                                 ? null
                                 : "请输入正确的体重格式",
                       ),
@@ -235,7 +235,7 @@ class UpdatePatientPage extends StatelessWidget {
                         onContentSave: (content) =>
                             logic.bedNo = int.parse(content),
                         checkContent: (content) =>
-                            content != null && content.isNum
+                            content == null || content.isEmpty || content.isNum
                                 ? null
                                 : "请输入正确的床号格式",
                       ),

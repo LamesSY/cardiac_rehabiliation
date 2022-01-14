@@ -22,10 +22,24 @@ Future<List<ChooseDrug>> getChooseDrug() async {
 }
 
 //分页查询患者信息列表
-Future<PatientInfoSummary> getPatientList(int pageNum, int pageSize) async {
+Future<PatientInfoSummary> getPatientList(int pageNum, int pageSize,
+    {String? disease,
+    int? fieldIndex,
+    String? phone,
+    String? startDate,
+    int? state,
+    String? uid,
+    String? userName}) async {
   var result = await DioUtils().getData('/hospital/selectPage', {
     'pageNum': pageNum,
     'pageSize': pageSize,
+    'disease': disease,
+    'fieldIndex': fieldIndex,
+    'phone': phone,
+    'startDate': startDate,
+    'state': state,
+    'uid': uid,
+    'userName': userName
   });
   PatientInfoSummary summary = (result == null || result.isEmpty)
       ? PatientInfoSummary()
